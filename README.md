@@ -1,6 +1,6 @@
 # Login System
 
-Projeto de sistema de autenticação desenvolvido com React, Vite e TailwindCSS.
+Projeto de sistema de autenticação sendo desenvolvido com React, Vite e TailwindCSS.
 
 ## 🚀 Tecnologias
 
