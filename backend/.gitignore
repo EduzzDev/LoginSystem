@@ -1,0 +1,30 @@
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
+
+# Node
+node_modules/
+pnpm-debug.log*
+
+# Banco de Dados
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependências de lock (opcional - remova se quiser versionar)
