@@ -10,7 +10,7 @@ function App() {
       <Routes>
         {/* Cada rota precisa de um 'path' único e o componente entre < /> */}
         <Route path="/" element={<Login />} />
-        <Route path="/Register" element={<Register />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard/>} />
       </Routes>
     </BrowserRouter>
