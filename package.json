@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "login_system",
   "private": true,
   "version": "0.0.0",
@@ -31,13 +30,12 @@
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.2",
     "vite": "^8.0.1"
-=======
+    
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "lucide": "^1.3.0",
     "lucide-react": "^1.7.0",
     "react-router": "^7.13.2",
     "tailwindcss": "^4.2.2"
->>>>>>> 22dbe44 (front end e back end iniciais)
   }
 }
