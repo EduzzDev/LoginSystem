@@ -16,13 +16,17 @@ function Login() {
 
   return (
     <>
-      <div className="w-full  h-screen flex flex-col justify-center items-center 
-      bg-linear-to-r from-[#aebcd4] to-blue-500  ">
-        <div className=" w-65 min-[500px]:w-80 h-85 md:h-90 bg-white 
+      <div
+        className="w-full  h-screen flex flex-col justify-center items-center 
+      bg-linear-to-r from-[#aebcd4] to-blue-500  "
+      >
+        <div
+          className=" w-65 min-[500px]:w-80 h-85 md:h-90 bg-white 
         rounded-2xl shadow-gray-500 shadow-2xl flex flex-col 
-        items-left">
+        items-left"
+        >
           <h1 className=" m-8 mb-2 text-4xl min-[500px]:text-4xl font-sans  text-[#1a1a1a] font-bold ">
-           Sign In
+            Sign In
           </h1>
           <form
             onSubmit={handleLogin}
@@ -62,14 +66,26 @@ function Login() {
                 {mostrarSenha ? <LockOpen /> : <LockKeyhole />}
               </button>
             </div>
-            <div className="w-50 h-15 min-[500px]:w-70 text-white text-2xl font-bold bg-linear-to-br from-purple-600 to-blue-600 rounded-2xl flex 
-            justify-center items-center mt-6 mb-2  relative">
+            <div
+              className="w-50 h-15 min-[500px]:w-70 text-white text-2xl font-bold bg-linear-to-br from-purple-600 to-blue-600 rounded-2xl flex 
+            justify-center items-center mt-6 mb-2  relative"
+            >
               <button type="submit" className="w-35">
                 Sign In
               </button>
             </div>
             <div>
-            <span>New here? <a href="/register"><button type="button" className="text-blue-800 cursor-pointer">Create an account</button></a></span>
+              <span>
+                New here?{" "}
+                <a href="/register">
+                  <button
+                    type="button"
+                    className="text-blue-800 cursor-pointer"
+                  >
+                    Create an account
+                  </button>
+                </a>
+              </span>
             </div>
           </form>
         </div>

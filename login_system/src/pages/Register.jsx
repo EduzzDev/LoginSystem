@@ -5,19 +5,19 @@ import { LockKeyhole } from "lucide-react";
 import { LockOpen } from "lucide-react";
 import { UserPlus } from "lucide-react";
 import { useState } from "react";
-import { registerUser } from '../services/api'
+import { registerUser } from "../services/api";
 
 function Register() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
- const handleRegister = async (e) => {
-  e.preventDefault()
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
-  const res = await registerUser({email, senha})
-  console.log(res)
- }
+    const res = await registerUser({ email, senha });
+    console.log(res);
+  };
 
   return (
     <>
@@ -35,16 +35,19 @@ function Register() {
               <CircleUserRound className=" w-10 relative " />
               <Input placeholder="Name" type="text" required />
             </div>
-            <div className="w-50 min-[500px]:w-70 p-1.5
+            <div
+              className="w-50 min-[500px]:w-70 p-1.5
              bg-[#ffffff] border border-[#E5E7EB] 
-             rounded-2xl flex items-center mt-5  relative">
+             rounded-2xl flex items-center mt-5  relative"
+            >
               <Mail className=" w-10 relative " />
-              <Input 
-              label="Email"
-              type="email"
-               placeholder="Email"
-               value={email}
-               onChange={(e) => setEmail(e.target.value)} />
+              <Input
+                label="Email"
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="w-50 min-[500px]:w-70 p-1.5 bg-[#ffffff] border border-[#E5E7EB] rounded-2xl flex items-center mt-5  relative">
               <LockKeyhole className=" w-10 relative " />
@@ -61,14 +64,23 @@ function Register() {
                 {mostrarSenha ? <LockOpen /> : <LockKeyhole />}
               </button>
             </div>
-            <div className="w-50 h-15 min-[500px]:w-70 text-white text-lg font-bold bg-linear-to-br from-purple-600 to-blue-600 rounded-2xl flex justify-center 
-            items-center mt-5 mb-2  relative">
+            <div
+              className="w-50 h-15 min-[500px]:w-70 text-white text-lg font-bold bg-linear-to-br from-purple-600 to-blue-600 rounded-2xl flex justify-center 
+            items-center mt-5 mb-2  relative"
+            >
               <UserPlus className="w-10" />
               <button type="submit" className="w-35">
                 Create Account
               </button>
             </div>
-            <span>Have an account? <a href="/"><button type="button" className="text-blue-800 cursor-pointer">Log in</button></a></span>
+            <span>
+              Have an account?{" "}
+              <a href="/">
+                <button type="button" className="text-blue-800 cursor-pointer">
+                  Log in
+                </button>
+              </a>
+            </span>
           </form>
         </div>
       </div>
