@@ -22,7 +22,7 @@ function Register() {
   return (
     <>
       <div className="w-full  h-screen flex flex-col justify-center items-center bg-linear-to-r from-[#aebcd4] to-blue-500 opa ">
-        <div className=" w-65 min-[500px]:w-80 h-90 md:h-88 bg-white rounded-2xl shadow-gray-500 shadow-2xl flex flex-col items-center">
+        <div className=" w-65 min-[500px]:w-80 h-95 md:h-95 bg-white rounded-2xl shadow-gray-500 shadow-2xl flex flex-col items-center">
           <h1 className=" m-5 text-2xl min-[500px]:text-3xl font-sans  text-[#1a1a1a] font-bold ">
             Create Account
           </h1>
@@ -62,12 +62,13 @@ function Register() {
               </button>
             </div>
             <div className="w-50 h-15 min-[500px]:w-70 text-white text-lg font-bold bg-linear-to-br from-purple-600 to-blue-600 rounded-2xl flex justify-center 
-            items-center mt-4  relative">
+            items-center mt-5 mb-2  relative">
               <UserPlus className="w-10" />
               <button type="submit" className="w-35">
                 Create Account
               </button>
             </div>
+            <span>Have an account? <a href="/"><button type="button" className="text-blue-800 cursor-pointer">Log in</button></a></span>
           </form>
         </div>
       </div>

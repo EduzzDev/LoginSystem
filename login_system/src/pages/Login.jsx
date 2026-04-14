@@ -69,7 +69,7 @@ function Login() {
               </button>
             </div>
             <div>
-            <span>New here? <button type="button" className="text-blue-800">Create an account</button></span>
+            <span>New here? <a href="/register"><button type="button" className="text-blue-800 cursor-pointer">Create an account</button></a></span>
             </div>
           </form>
         </div>
