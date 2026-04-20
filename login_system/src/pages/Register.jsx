@@ -70,7 +70,8 @@ function Register() {
                 maxLength={254}
               />
             </div>
-            <div className="w-50 min-[500px]:w-70 p-1.5 bg-[#ffffff] border border-[#E5E7EB] rounded-2xl flex items-center mt-5  relative">
+            <div className="w-50 min-[500px]:w-70 p-1.5 bg-[#ffffff] border border-[#E5E7EB] 
+            rounded-2xl flex items-center mt-5  relative">
               <LockKeyhole className=" w-10 relative " />
               <Input
                 type={mostrarSenha ? "text" : "password"}
@@ -79,6 +80,7 @@ function Register() {
                 placeholder="Password"
                 required
                 minLength={5}
+                maxLength={72}
               />
               <button
                 className="w-10 relative"

@@ -35,12 +35,15 @@ db.prepare("CREATE INDEX IF NOT EXISTS idx_email ON usuarios(email)").run();
 app.post("/register", async (req, res) => {
   try {
     const { email, senha } = req.body;
-
+    //validação email
     if (!email) {
       return res.status(400).json({ error: "Email required" });
     }
     if (email.length > 254) {
       return res.status(400).json({ error: "Email too big" });
+    }
+    if (email.length < 5) {
+      return res.status(400).json({ error: "Email too short" });
     }
     if (!email.includes("@")) {
       return res.status(400).json({ error: "Invalid Email" });
@@ -57,14 +60,28 @@ app.post("/register", async (req, res) => {
         message: "Email address is already in use.",
       });
     }
-
+    // validação da senha
+    if (!senha) {
+      return res.status(400).json({ error: "Password required" });
+    }
+    if (senha.length > 72) {
+      return res.status(400).json({
+        error: "PASSWORD_TOO_LONG",
+        message: "Password must be at most 72 characters",
+      });
+    }
+    if (senha.length < 5) {
+      return res.status(400).json({
+        error: "PASSWORD_TOO_SHORT",
+        message: "Password must be at learst 4 characters",
+      });
+    }
     // criptografar a senha
     const hashedPassword = await bcrypt.hash(senha, 10);
 
     const stmt = db.prepare(
       "INSERT INTO usuarios (email, senha) VALUES (?, ?)",
     );
-
     const result = stmt.run(email, hashedPassword);
 
     res.json({ id: result.lastInsertRowid });
