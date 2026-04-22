@@ -11,7 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
-
+*.sqbpro
+*.db
+*.db-wal
+*.db-shm
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
