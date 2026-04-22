@@ -16,7 +16,7 @@ app.use(
 
 const db = new Database(process.env.DATABASE_PATH || "LoginSystem.db");
 db.pragma("journal_mode = WAL");
-db.pragma("busy_timeout = 5000");
+db.pragma("busy_timeout = 5500");
 
 // criar tabela
 db.prepare(

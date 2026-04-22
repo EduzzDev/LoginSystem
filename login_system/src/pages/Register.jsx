@@ -6,6 +6,7 @@ import { LockOpen } from "lucide-react";
 import { UserPlus } from "lucide-react";
 import { useState } from "react";
 import { registerUser } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -14,11 +15,14 @@ function Register() {
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
     try {
       await registerUser({ nome, email, senha });
+      navigate("/")
     } catch (err) {
       if (err.error === "EMAIL_ALREADY_REGISTERED") {
         setError("Email address is already in use");
@@ -94,7 +98,7 @@ function Register() {
             items-center mt-5 mb-2  relative"
             >
               <UserPlus className="w-10" />
-              <button type="submit" className="w-35">
+              <button  type="submit" className="w-35">
                 Create Account
               </button>
             </div>

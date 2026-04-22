@@ -10,5 +10,5 @@ export const registerUser = async (data) => {
   if (!res.ok) {
     throw result;
   }
-  return result
+  return result;
 };
