@@ -4,15 +4,39 @@ import { Mail } from "lucide-react";
 import { LockKeyhole } from "lucide-react";
 import { LockOpen } from "lucide-react";
 import { useState } from "react";
+import { loginUser } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
 
-  function handleLogin(e) {
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-  }
+
+    // Validação básica
+    if (!email.trim()) {
+      setError("Please enter your Email address");
+      return;
+    }
+    if (!senha.trim()) {
+      setError("Please enter your Password");
+      return;
+    }
+    try {
+      await loginUser({ email, senha });
+      navigate("/dashboard");
+      alert("Login successful");
+    } catch (error) {
+      const errorMessage = error?.message || "Erro ao fazer login";
+      setError(errorMessage);
+      console.error("Erro de login:", error);
+    }
+  };
 
   return (
     <>
@@ -21,7 +45,7 @@ function Login() {
       bg-linear-to-r from-[#aebcd4] to-blue-500  "
       >
         <div
-          className=" w-65 min-[500px]:w-80 h-85 md:h-90 bg-white 
+          className=" w-65 min-[500px]:w-82 h-98 bg-white 
         rounded-2xl shadow-gray-500 shadow-2xl flex flex-col 
         items-left"
         >
@@ -68,7 +92,7 @@ function Login() {
             </div>
             <div
               className="w-50 h-15 min-[500px]:w-70 text-white text-2xl font-bold bg-linear-to-br from-purple-600 to-blue-600 rounded-2xl flex 
-            justify-center items-center mt-6 mb-2  relative"
+            justify-center items-center mt-6 mb-3.5  relative"
             >
               <button type="submit" className="w-35">
                 Sign In
@@ -87,6 +111,11 @@ function Login() {
                 </a>
               </span>
             </div>
+            {error && (
+              <p className="w-full flex justify-center text-red-600 font-bold text-lg md:text-lg">
+                {error}
+              </p>
+            )}
           </form>
         </div>
       </div>

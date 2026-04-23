@@ -23,6 +23,7 @@ function Register() {
     try {
       await registerUser({ nome, email, senha });
       navigate("/")
+      alert("register successful");
     } catch (err) {
       if (err.error === "EMAIL_ALREADY_REGISTERED") {
         setError("Email address is already in use");
@@ -35,7 +36,7 @@ function Register() {
   return (
     <>
       <div className="w-full  h-screen flex flex-col justify-center items-center bg-linear-to-r from-[#aebcd4] to-blue-500 opa ">
-        <div className=" w-68 min-[500px]:w-82 h-98 md:h-98 bg-white rounded-2xl shadow-gray-500 shadow-2xl flex flex-col items-center">
+        <div className=" w-68 min-[500px]:w-82 h-98 bg-white rounded-2xl shadow-gray-500 shadow-2xl flex flex-col items-center">
           <h1 className=" m-5 text-2xl min-[500px]:text-3xl font-sans  text-[#1a1a1a] font-bold ">
             Create Account
           </h1>

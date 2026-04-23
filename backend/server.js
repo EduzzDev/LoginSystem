@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 
 dotenv.config();
-
+/* global process */
 const app = express();
 app.use(express.json());
 app.use(
@@ -16,7 +16,7 @@ app.use(
 
 const db = new Database(process.env.DATABASE_PATH || "LoginSystem.db");
 db.pragma("journal_mode = WAL");
-db.pragma("busy_timeout = 5500");
+db.pragma("busy_timeout = 5000");
 
 // criar tabela
 db.prepare(
@@ -86,6 +86,35 @@ app.post("/register", async (req, res) => {
 
     res.json({ id: result.lastInsertRowid });
   } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    const { email, senha } = req.body;
+    console.log("Login attempt:", email);
+
+    const emailNormalizado = email.toLowerCase().trim();
+    const user = db
+      .prepare("SELECT * FROM usuarios WHERE email = ?")
+      .get(emailNormalizado);
+
+    if (!user) {
+      console.log("User not found:", emailNormalizado);
+      return res.status(401).json({ message: "User not found" });
+    }
+
+    const senhaValid = await bcrypt.compare(senha, user.senha);
+    if (!senhaValid) {
+      console.log("Invalid password for user:", emailNormalizado);
+      return res.status(401).json({ message: "Incorrect password" });
+    }
+
+    console.log("Login successful:", emailNormalizado);
+    res.json({ success: true, message: "Login successful" });
+  } catch (err) {
+    console.error("Login error:", err);
     res.status(500).json({ error: err.message });
   }
 });
