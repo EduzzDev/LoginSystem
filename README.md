@@ -1,19 +1,37 @@
 # 🔐 Login System
 
-Um sistema completo de autenticação e gerenciamento de usuários com frontend moderno e backend seguro.
+<div align="center">
+
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+
+<br/>
+
+> Sistema completo de autenticação e gerenciamento de usuários com frontend moderno e backend seguro.
+
+[![License: ISC](https://img.shields.io/badge/License-ISC-green.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-blue.svg)](#)
+
+</div>
 
 ## 📋 Sumário
 
-- [Arquitetura](#arquitetura)
-- [Tecnologias](#-tecnologias)
-- [Funcionalidades](#-funcionalidades)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação](#instalação)
-- [Como Rodar](#-como-rodar)
-- [Variáveis de Ambiente](#variáveis-de-ambiente)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Endpoints da API](#endpoints-da-api)
-- [Melhorias Futuras](#melhorias-futuras)
+- [🏗️ Arquitetura](#arquitetura)
+- [⚙️ Tecnologias](#-tecnologias)
+- [✨ Funcionalidades](#-funcionalidades)
+- [📦 Pré-requisitos](#pré-requisitos)
+- [🔨 Instalação](#instalação)
+- [🚀 Como Rodar](#-como-rodar)
+- [🔐 Variáveis de Ambiente](#variáveis-de-ambiente)
+- [📂 Estrutura do Projeto](#estrutura-do-projeto)
+- [🌐 Endpoints da API](#endpoints-da-api)
+- [🔄 Fluxo de Autenticação](#fluxo-de-autenticação)
+- [🐛 Troubleshooting](#-troubleshooting)
+- [📚 Melhorias Futuras](#melhorias-futuras)
+- [🛠️ Script de Desenvolvedor](#-script-de-desenvolvedor)
 
 ## Arquitetura
 
@@ -44,6 +62,8 @@ LoginSystem/
 - **CORS** - Cross-Origin Resource Sharing
 - **dotenv** - Variáveis de ambiente
 
+---
+
 ## 📌 Funcionalidades
 
 ### ✅ Implementadas
@@ -54,19 +74,27 @@ LoginSystem/
 - 🚀 API REST com Express
 - 🔄 CORS configurado
 - 🛡️ Variáveis de ambiente para segurança
-- 📊 Dashboard (estrutura base)
 - 🎨 Componente Input reutilizável
+- 📝 Sistema de login com validação
+- 🔐 Normalização de email (toLowerCase + trim)
+- ⚠️ Tratamento de erros no frontend e backend
+
+### 🚧 Em Desenvolvimento
+
+- 📊 Dashboard com informações do usuário
 
 ### 🚧 Planejadas
 
 - 🔑 Autenticação com JWT
-- 📝 Sistema de login
-- 🏠 Dashboard com informações do usuário
 - 🔄 Refresh tokens
 - 📧 Validação de email
 - 🔐 Recuperação de senha
+- 👤 Perfil do usuário
+- 🚪 Logout
 
-## Pré-requisitos
+---
+
+## 📦 Pré-requisitos
 
 - **Node.js** >= 18.0.0
 - **pnpm** >= 8.0.0 (ou npm/yarn)
@@ -79,7 +107,9 @@ node --version
 pnpm --version
 ```
 
-## Instalação
+---
+
+## 🔨 Instalação
 
 ### 1. Clone ou abra o projeto
 
@@ -119,7 +149,9 @@ CORS_ORIGIN=http://localhost:5173
 cp login_system/.env.example login_system/.env 2>/dev/null || echo "Sem .env.example no frontend"
 ```
 
-## 🔧 Como Rodar
+---
+
+## 🚀 Como Rodar
 
 ### Opção 1: Ambos os projetos em paralelo (recomendado)
 
@@ -159,7 +191,9 @@ pnpm install
 pnpm run dev
 ```
 
-## Variáveis de Ambiente
+---
+
+## 🔐 Variáveis de Ambiente
 
 ### Backend
 
@@ -177,7 +211,9 @@ pnpm run dev
 | -------------- | ----------------------- | ------------------ |
 | `VITE_API_URL` | `http://localhost:3000` | URL da API backend |
 
-## Estrutura do Projeto
+---
+
+## 📂 Estrutura do Projeto
 
 ```
 LoginSystem/
@@ -209,7 +245,9 @@ LoginSystem/
 └── README.md
 ```
 
-## Endpoints da API
+---
+
+## 🌐 Endpoints da API
 
 ### Registros de Usuário
 
@@ -252,16 +290,35 @@ Rota de teste para verificar se o servidor está rodando.
 Backend funcionando 🚀
 ```
 
-## Fluxo de Autenticação (PLANEJADO)
+---
+
+## 🔄 Fluxo de Autenticação
+
+### Registro
 
 1. Usuário preenche formulário de registro
 2. Frontend valida os dados
 3. Envia POST para `/register`
-4. Backend criptografa a senha com bcrypt
-5. Insere usuário no banco
-6. Retorna ID do usuário
-7. Frontend armazena token/sessão
-8. Redireciona para dashboard (planejado)
+4. Backend valida email e senha
+5. Normaliza email (toLowerCase + trim)
+6. Verifica se email já existe
+7. Criptografa a senha com bcrypt (10 salt rounds)
+8. Insere usuário no banco SQLite
+9. Retorna ID do usuário
+10. Frontend redireciona para Login
+
+### Login
+
+1. Usuário preenche formulário de login
+2. Frontend valida campos obrigatórios
+3. Envia POST para `/login`
+4. Backend normaliza email (toLowerCase + trim)
+5. Busca usuário no banco
+6. Compara senha com bcrypt
+7. Retorna sucesso/erro
+8. Frontend redireciona para Dashboard
+
+---
 
 ## 🐛 Troubleshooting
 
@@ -292,22 +349,46 @@ Verifique se `CORS_ORIGIN` em `.env` corresponde à URL do frontend.
 
 Delete `LoginSystem.db` e reinicie o servidor (criará novo).
 
+---
+
 ## 📚 Melhorias Futuras
 
+### Autenticação & Segurança
+
 - [ ] Autenticação com JWT
-- [ ] Sistema completo de Login
+- [ ] Refresh tokens
+- [ ] Rate limiting
+- [ ] Criptografia de dados sensíveis
+
+### Funcionalidades
+
 - [ ] Dashboard com dados do usuário
 - [ ] Validação de email com regex
-- [ ] Rate limiting
-- [ ] Testes automatizados (Jest/Vitest)
-- [ ] Deployment em produção
-- [ ] Docker containers
-- [ ] CI/CD pipeline
-- [ ] Logs estruturados
-- [ ] Paginação na listagem
-- [ ] Segurança: HTTPS, Headers, Helmet.js
+- [ ] Recuperação de senha por email
+- [ ] Perfil do usuário (editar dados)
+- [ ] Logout
+- [ ] Sessão persistente (lembrar-me)
 
-## 📝 Script de Desenvolvedor
+### UI/UX
+
+- [ ] Loading states
+- [ ] Animações de transição
+- [ ] Validação visual inline
+- [ ] Tema escuro (dark mode)
+
+### Infraestrutura & DevOps
+
+- [ ] Deploy (Vercel/Railway) — frontend
+- [ ] Deploy (Render/Railway/Heroku) — backend
+- [ ] Banco de dados em produção (PostgreSQL)
+- [ ] Docker containers
+- [ ] CI/CD pipeline (GitHub Actions)
+- [ ] Logs e monitoramento
+- [ ] Testes automatizados (Jest/Vitest)
+
+---
+
+## 🛠️ Script de Desenvolvedor
 
 Comandos úteis:
 
@@ -328,10 +409,26 @@ pnpm run build
 pnpm run preview
 ```
 
+---
+
+<div align="center">
+
 ## 📄 Licença
 
-ISC
+[![License: ISC](https://img.shields.io/badge/License-ISC-green.svg)](LICENSE)
+
+</div>
+
+---
+
+<div align="center">
 
 ## 👨‍💻 Desenvolvedor
 
-Desenvolvido por EduzzDev
+Desenvolvido por [EduzzDev](https://github.com/EduzzDev)
+
+---
+
+⭐️ _Se este projeto foi útil, considere dar uma estrela!_ ⭐️
+
+</div>
