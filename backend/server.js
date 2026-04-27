@@ -35,6 +35,9 @@ db.prepare("CREATE INDEX IF NOT EXISTS idx_email ON usuarios(email)").run();
 app.post("/register", async (req, res) => {
   try {
     const { email, senha } = req.body;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     //validação email
     if (!email) {
       return res.status(400).json({ error: "Email required" });
@@ -45,10 +48,9 @@ app.post("/register", async (req, res) => {
     if (email.length < 5) {
       return res.status(400).json({ error: "Email too short" });
     }
-    if (!email.includes("@")) {
+    if (!emailRegex.test(email)) {
       return res.status(400).json({ error: "Invalid Email" });
     }
-
     // verificar se email já existe
     const emailNormalizado = email.toLowerCase().trim();
     const existente = db
@@ -101,17 +103,13 @@ app.post("/login", async (req, res) => {
       .get(emailNormalizado);
 
     if (!user) {
-      console.log("User not found:", emailNormalizado);
       return res.status(401).json({ message: "User not found" });
     }
 
     const senhaValid = await bcrypt.compare(senha, user.senha);
     if (!senhaValid) {
-      console.log("Invalid password for user:", emailNormalizado);
       return res.status(401).json({ message: "Incorrect password" });
     }
-
-    console.log("Login successful:", emailNormalizado);
     res.json({ success: true, message: "Login successful" });
   } catch (err) {
     console.error("Login error:", err);

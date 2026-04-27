@@ -30,7 +30,7 @@ function Login() {
     try {
       await loginUser({ email, senha });
       navigate("/dashboard");
-      alert("Login successful");
+      setError("");
     } catch (error) {
       const errorMessage = error?.message || "Erro ao fazer login";
       setError(errorMessage);
@@ -68,6 +68,7 @@ function Login() {
                 label="Email"
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
+                required
                 placeholder="Email"
               />
             </div>
@@ -81,6 +82,7 @@ function Login() {
                 value={senha}
                 type={mostrarSenha ? "text" : "password"}
                 placeholder="Password"
+                required
                 onChange={(e) => setSenha(e.target.value)}
               />
               <button

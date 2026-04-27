@@ -23,7 +23,6 @@ function Register() {
     try {
       await registerUser({ nome, email, senha });
       navigate("/")
-      alert("register successful");
     } catch (err) {
       if (err.error === "EMAIL_ALREADY_REGISTERED") {
         setError("Email address is already in use");
