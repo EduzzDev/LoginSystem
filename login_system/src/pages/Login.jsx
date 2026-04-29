@@ -1,5 +1,6 @@
 import Input from "../components/Input";
 import BoxInputLogin from "../components/BoxInputLogin";
+import Wrapper from "../components/Wrapper";
 import { CircleUserRound } from "lucide-react";
 import { Mail } from "lucide-react";
 import { LockKeyhole } from "lucide-react";
@@ -85,14 +86,11 @@ function Login() {
                 {mostrarSenha ? <LockOpen /> : <LockKeyhole />}
               </button>
             </BoxInputLogin>
-            <div
-              className="w-50 h-15 min-[500px]:w-70 text-white text-2xl font-bold bg-linear-to-br from-purple-600 to-blue-600 rounded-2xl flex 
-            justify-center items-center mt-6 mb-3.5  relative"
-            >
+            <Wrapper variant="B">
               <button type="submit" className="w-35">
                 Sign In
               </button>
-            </div>
+            </Wrapper>
             <div>
               <span>
                 New here?{" "}

@@ -2,6 +2,7 @@ import { CircleUserRound } from "lucide-react";
 import { Mail } from "lucide-react";
 import Input from "../components/Input";
 import BoxInput from "../components/BoxInputRegister";
+import Wrapper from "../components/Wrapper";
 import { LockKeyhole } from "lucide-react";
 import { LockOpen } from "lucide-react";
 import { UserPlus } from "lucide-react";
@@ -71,8 +72,7 @@ function Register() {
                 maxLength={254}
               />
             </BoxInput>
-            <BoxInput
-            >
+            <BoxInput>
               <LockKeyhole className=" w-10 relative " />
               <Input
                 type={mostrarSenha ? "text" : "password"}
@@ -90,17 +90,12 @@ function Register() {
                 {mostrarSenha ? <LockOpen /> : <LockKeyhole />}
               </button>
             </BoxInput>
-            <div
-              className="w-50 h-14 min-[500px]:w-70
-               text-white text-lg font-bold bg-linear-to-br
-                from-purple-600 to-blue-600 rounded-2xl flex justify-center 
-            items-center mt-2 mb-2.5  relative"
-            >
+            <Wrapper variant="B">
               <UserPlus className="w-10" />
               <button type="submit" className="w-35">
                 Create Account
               </button>
-            </div>
+            </Wrapper>
             <span>
               Have an account?{" "}
               <a href="/">
