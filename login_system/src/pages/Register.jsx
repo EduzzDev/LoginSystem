@@ -1,7 +1,7 @@
 import { CircleUserRound } from "lucide-react";
 import { Mail } from "lucide-react";
 import Input from "../components/Input";
-import BoxInput from "../components/BoxInput";
+import BoxInput from "../components/BoxInputRegister";
 import { LockKeyhole } from "lucide-react";
 import { LockOpen } from "lucide-react";
 import { UserPlus } from "lucide-react";

@@ -1,4 +1,4 @@
-function BoxInput({ children }) {
+function BoxInputRegister({ children }) {
   return (
     <div
       className=" w-50 min-[500px]:w-70 rounded-2xl 
@@ -9,4 +9,4 @@ function BoxInput({ children }) {
   );
 }
 
-export default BoxInput;
+export default BoxInputRegister;

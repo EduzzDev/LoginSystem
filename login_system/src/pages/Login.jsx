@@ -1,4 +1,5 @@
 import Input from "../components/Input";
+import BoxInputLogin from "../components/BoxInputLogin";
 import { CircleUserRound } from "lucide-react";
 import { Mail } from "lucide-react";
 import { LockKeyhole } from "lucide-react";
@@ -57,11 +58,7 @@ function Login() {
             className="flex flex-col items-center  rounded-2xl "
             action=""
           >
-            <div
-              className="w-50  min-[500px]:w-70 p-2
-             bg-[#ffffff] border border-[#E5E7EB] 
-             rounded-2xl flex items-center mt-5  relative"
-            >
+            <BoxInputLogin>
               <Mail className=" w-10 relative " />
               <Input
                 value={email}
@@ -71,12 +68,8 @@ function Login() {
                 required
                 placeholder="Email"
               />
-            </div>
-            <div
-              className="w-50 min-[500px]:w-70 p-2 bg-[#ffffff]
-             border border-[#E5E7EB] rounded-2xl flex items-center 
-             mt-5  relative"
-            >
+            </BoxInputLogin>
+            <BoxInputLogin>
               <LockKeyhole className=" w-10 relative" />
               <Input
                 value={senha}
@@ -91,7 +84,7 @@ function Login() {
               >
                 {mostrarSenha ? <LockOpen /> : <LockKeyhole />}
               </button>
-            </div>
+            </BoxInputLogin>
             <div
               className="w-50 h-15 min-[500px]:w-70 text-white text-2xl font-bold bg-linear-to-br from-purple-600 to-blue-600 rounded-2xl flex 
             justify-center items-center mt-6 mb-3.5  relative"
