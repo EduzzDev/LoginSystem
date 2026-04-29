@@ -3,14 +3,24 @@ import Database from "better-sqlite3";
 import cors from "cors";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+import authRoutes from "./routes/authRoutes.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
+
 /* global process */
+
 const app = express();
+
 app.use(express.json());
+
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    credentials: true,
   }),
 );
 
@@ -110,6 +120,18 @@ app.post("/login", async (req, res) => {
     if (!senhaValid) {
       return res.status(401).json({ message: "Incorrect password" });
     }
+
+    // gerar o token jwt
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict",
+    });
+
     res.json({ success: true, message: "Login successful" });
   } catch (err) {
     console.error("Login error:", err);
@@ -124,6 +146,8 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || "localhost";
+
+app.use("/", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://${HOST}:${PORT}`);

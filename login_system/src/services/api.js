@@ -20,6 +20,7 @@ export const loginUser = async (data) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+    credentials: "include",
   });
   const result = await res.json();
   console.log("Login response status:", res.status);
@@ -30,3 +31,15 @@ export const loginUser = async (data) => {
   }
   return result;
 };
+
+export async function checkAuth() {
+    const response = await fetch("http://localhost:3000/dashboard", {
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error("Não autorizado");
+    }
+
+    return await response.json();
+}
