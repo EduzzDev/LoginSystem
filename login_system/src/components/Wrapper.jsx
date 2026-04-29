@@ -5,7 +5,7 @@ function Wrapper({ variant, children }) {
                text-white text-lg font-bold bg-linear-to-br
                 from-purple-600 to-blue-600 rounded-2xl flex justify-center 
             items-center relative ${
-              variant === "A" ? " mt-2 mb-2.5" : "  mt-6 mb-3.5"
+              variant === "A" ? " mt-6.5 mb-3.5" : "  mt-3 mb-3.5"
             }`}
     >
       {children}

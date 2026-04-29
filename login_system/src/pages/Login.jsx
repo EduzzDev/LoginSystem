@@ -86,7 +86,7 @@ function Login() {
                 {mostrarSenha ? <LockOpen /> : <LockKeyhole />}
               </button>
             </BoxInputLogin>
-            <Wrapper variant="B">
+            <Wrapper variant="A">
               <button type="submit" className="w-35">
                 Sign In
               </button>
