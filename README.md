@@ -2,6 +2,13 @@
 
 <div align="center">
 
+[![GitHub stars](https://img.shields.io/github/stars/EduzzDev/LoginSystem?style=social)](https://github.com/EduzzDev/LoginSystem/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/EduzzDev/LoginSystem?style=social)](https://github.com/EduzzDev/LoginSystem/network)
+[![GitHub issues](https://img.shields.io/github/issues/EduzzDev/LoginSystem)](https://github.com/EduzzDev/LoginSystem/issues)
+[![Last commit](https://img.shields.io/github/last-commit/EduzzDev/LoginSystem)](https://github.com/EduzzDev/LoginSystem/commits/main)
+
+<br/>
+
 ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
@@ -17,8 +24,32 @@
 
 </div>
 
+---
+
+## ⚡ Quick Start
+
+```bash
+# Clone o projeto
+git clone https://github.com/EduzzDev/LoginSystem.git
+cd LoginSystem
+
+# Instale as dependências (monorepo)
+pnpm install
+
+# Inicie o backend (Terminal 1)
+cd backend && pnpm dev
+
+# Inicie o frontend (Terminal 2)
+cd login_system && pnpm dev
+```
+
+> ⏩ Pronto! Acesse `http://localhost:5173` no seu navegador.
+
+---
+
 ## 📋 Sumário
 
+- [⚡ Quick Start](#-quick-start)
 - [🏗️ Arquitetura](#arquitetura)
 - [⚙️ Tecnologias](#-tecnologias)
 - [✨ Funcionalidades](#-funcionalidades)
@@ -46,21 +77,18 @@ LoginSystem/
 
 ## 🚀 Tecnologias
 
-### Frontend
-
-- **React** - UI Library
-- **Vite** - Build tool rápido
-- **TailwindCSS** - Styling
-- **Axios/Fetch API** - HTTP requests
-
-### Backend
-
-- **Node.js** - Runtime
-- **Express.js** - Web framework
-- **better-sqlite3** - Database (SQLite)
-- **bcrypt** - Autenticação segura
-- **CORS** - Cross-Origin Resource Sharing
-- **dotenv** - Variáveis de ambiente
+| Camada      | Tecnologia     | Descrição              |
+| ----------- | -------------- | ---------------------- |
+| 🖥️ Frontend | React          | UI Library             |
+| ⚡ Frontend | Vite           | Build tool rápido      |
+| 🎨 Frontend | TailwindCSS    | Styling                |
+| 🌐 Frontend | Axios          | HTTP requests          |
+| 🖥️ Backend  | Node.js        | Runtime                |
+| 🌐 Backend  | Express.js     | Web framework          |
+| 💾 Backend  | better-sqlite3 | Database SQLite        |
+| 🔐 Backend  | bcrypt         | Criptografia de senhas |
+| 🌐 Backend  | jsonwebtoken   | Autenticação JWT       |
+| ⚙️ Backend  | dotenv         | Variáveis de ambiente  |
 
 ---
 
@@ -78,6 +106,9 @@ LoginSystem/
 - 📝 Sistema de login com validação
 - 🔐 Normalização de email (toLowerCase + trim)
 - ⚠️ Tratamento de erros no frontend e backend
+- 🔑 **Validação JWT no Dashboard** - apenas usuários autenticados podem acessar
+- 📧 **Validação de email com regex** - validação de formato de email
+- 📄 **Arquivo .env.example** - template para variáveis de ambiente
 
 ### 🚧 Em Desenvolvimento
 
