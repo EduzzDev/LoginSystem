@@ -1,6 +1,7 @@
 import { CircleUserRound } from "lucide-react";
 import { Mail } from "lucide-react";
 import Input from "../components/Input";
+import BoxInput from "../components/BoxInput";
 import { LockKeyhole } from "lucide-react";
 import { LockOpen } from "lucide-react";
 import { UserPlus } from "lucide-react";
@@ -22,7 +23,7 @@ function Register() {
     setError("");
     try {
       await registerUser({ nome, email, senha });
-      navigate("/")
+      navigate("/");
     } catch (err) {
       if (err.error === "EMAIL_ALREADY_REGISTERED") {
         setError("Email address is already in use");
@@ -34,17 +35,17 @@ function Register() {
 
   return (
     <>
-      <div className="w-full  h-screen flex flex-col justify-center items-center bg-linear-to-r from-[#aebcd4] to-blue-500 opa ">
+      <div className="w-full  h-screen flex justify-center items-center bg-linear-to-r from-[#aebcd4] to-blue-500  ">
         <div className=" w-68 min-[500px]:w-82 h-98 bg-white rounded-2xl shadow-gray-500 shadow-2xl flex flex-col items-center">
           <h1 className=" m-5 text-2xl min-[500px]:text-3xl font-sans  text-[#1a1a1a] font-bold ">
             Create Account
           </h1>
           <form
             onSubmit={handleRegister}
-            className="  flex flex-col items-center  rounded-2xl "
+            className="flex flex-col items-center  rounded-2xl "
             action=""
           >
-            <div className=" w-50 min-[500px]:w-70 rounded-2xl p-1.5 bg-[#ffffff] border border-[#E5E7EB] flex items-center  relative">
+            <BoxInput>
               <CircleUserRound className=" w-10 relative " />
               <Input
                 placeholder="Name"
@@ -54,12 +55,8 @@ function Register() {
                 required
                 minLength={4}
               />
-            </div>
-            <div
-              className="w-50 min-[500px]:w-70 p-1.5
-             bg-[#ffffff] border border-[#E5E7EB] 
-             rounded-2xl flex items-center mt-5  relative"
-            >
+            </BoxInput>
+            <BoxInput>
               <Mail className=" w-10 relative " />
               <Input
                 type="email"
@@ -73,9 +70,9 @@ function Register() {
                 minLength={5}
                 maxLength={254}
               />
-            </div>
-            <div className="w-50 min-[500px]:w-70 p-1.5 bg-[#ffffff] border border-[#E5E7EB] 
-            rounded-2xl flex items-center mt-5  relative">
+            </BoxInput>
+            <BoxInput
+            >
               <LockKeyhole className=" w-10 relative " />
               <Input
                 type={mostrarSenha ? "text" : "password"}
@@ -92,13 +89,15 @@ function Register() {
               >
                 {mostrarSenha ? <LockOpen /> : <LockKeyhole />}
               </button>
-            </div>
+            </BoxInput>
             <div
-              className="w-50 h-14 min-[500px]:w-70 text-white text-lg font-bold bg-linear-to-br from-purple-600 to-blue-600 rounded-2xl flex justify-center 
-            items-center mt-5 mb-2  relative"
+              className="w-50 h-14 min-[500px]:w-70
+               text-white text-lg font-bold bg-linear-to-br
+                from-purple-600 to-blue-600 rounded-2xl flex justify-center 
+            items-center mt-2 mb-2.5  relative"
             >
               <UserPlus className="w-10" />
-              <button  type="submit" className="w-35">
+              <button type="submit" className="w-35">
                 Create Account
               </button>
             </div>
