@@ -1,30 +1,27 @@
-# Variáveis de ambiente
-.env
-.env.local
-.env.*.local
-
-# Node
-node_modules/
-pnpm-debug.log*
-
-# Banco de Dados
-*.db
-*.sqlite
-*.sqlite3
-
 # Logs
-logs/
+logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# OS
+node_modules
+dist
+dist-ssr
+*.local
+*.db
+*.db-wal
+*.db-shm
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Dependências de lock (opcional - remova se quiser versionar)
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

@@ -3,6 +3,7 @@ import { Mail } from "lucide-react";
 import Input from "../components/Input";
 import BoxInput from "../components/BoxInputRegister";
 import Wrapper from "../components/Wrapper";
+import AuthSwitchLink from "../components/AuthSwitchLink";
 import { LockKeyhole } from "lucide-react";
 import { LockOpen } from "lucide-react";
 import { UserPlus } from "lucide-react";
@@ -96,14 +97,10 @@ function Register() {
                 Create Account
               </button>
             </Wrapper>
-            <span>
-              Have an account?{" "}
-              <a href="/">
-                <button type="button" className="text-blue-800 cursor-pointer">
-                  Log in
-                </button>
-              </a>
-            </span>
+              <span>
+                Have an account?{" "}
+                <AuthSwitchLink variant="B">Log in</AuthSwitchLink>
+              </span>
             {error && (
               <p className="w-full flex justify-center text-red-600 font-bold text-px md:text-lg">
                 {error}
