@@ -89,7 +89,6 @@ LoginSystem/
 | 🔐 Backend  | bcrypt         | Criptografia de senhas |
 | 🌐 Backend  | jsonwebtoken   | Autenticação JWT       |
 | ⚙️ Backend  | dotenv         | Variáveis de ambiente  |
-
 ---
 
 ## 📌 Funcionalidades
@@ -98,17 +97,20 @@ LoginSystem/
 
 - ✨ Página de registro de usuários
 - 🔐 Criptografia de senhas com bcrypt (salt rounds: 10)
-- 💾 Persistência de dados em SQLite
+- 💾 Persistência de dados em SQLite via better-sqlite3
 - 🚀 API REST com Express
-- 🔄 CORS configurado
+- 🌐 CORS configurado para frontend local
 - 🛡️ Variáveis de ambiente para segurança
 - 🎨 Componente Input reutilizável
+- 🔁 Componente AuthSwitchLink para alternar entre login e cadastro
+- ♻️ Refatoração dos formulários com componentes reutilizáveis no frontend
 - 📝 Sistema de login com validação
 - 🔐 Normalização de email (toLowerCase + trim)
 - ⚠️ Tratamento de erros no frontend e backend
-- 🔑 **Validação JWT no Dashboard** - apenas usuários autenticados podem acessar
-- 📧 **Validação de email com regex** - validação de formato de email
-- 📄 **Arquivo .env.example** - template para variáveis de ambiente
+- 🔑 Autenticação backend com JWT + cookie httpOnly
+- 🧾 Rota /dashboard protegida por token
+- 📧 Validação de email com regex - validação de formato de email
+- 📄 Arquivo .env.example - template para variáveis de ambiente
 
 ### 🚧 Em Desenvolvimento
 
