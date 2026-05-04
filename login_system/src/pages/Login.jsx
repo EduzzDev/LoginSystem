@@ -2,6 +2,7 @@ import Input from "../components/Input";
 import BoxInputLogin from "../components/BoxInputLogin";
 import Wrapper from "../components/Wrapper";
 import AuthSwitchLink from "../components/AuthSwitchLink";
+import SubmitButton from "../components/SubmitButton";
 import { CircleUserRound } from "lucide-react";
 import { Mail } from "lucide-react";
 import { LockKeyhole } from "lucide-react";
@@ -88,14 +89,12 @@ function Login() {
               </button>
             </BoxInputLogin>
             <Wrapper variant="A">
-              <button type="submit" className="w-35">
-                Sign In
-              </button>
+              <SubmitButton>Sign In</SubmitButton>
             </Wrapper>
-              <span>
-                New here?{" "}
-                <AuthSwitchLink variant="A">Create an account</AuthSwitchLink>
-              </span>
+            <span>
+              New here?{" "}
+              <AuthSwitchLink variant="A">Create an account</AuthSwitchLink>
+            </span>
             {error && (
               <p className="w-full flex justify-center text-red-600 font-bold text-lg md:text-lg">
                 {error}

@@ -4,6 +4,7 @@ import Input from "../components/Input";
 import BoxInput from "../components/BoxInputRegister";
 import Wrapper from "../components/Wrapper";
 import AuthSwitchLink from "../components/AuthSwitchLink";
+import SubmitButton from "../components/SubmitButton";
 import { LockKeyhole } from "lucide-react";
 import { LockOpen } from "lucide-react";
 import { UserPlus } from "lucide-react";
@@ -93,14 +94,12 @@ function Register() {
             </BoxInput>
             <Wrapper variant="B">
               <UserPlus className="w-10" />
-              <button type="submit" className="w-35">
-                Create Account
-              </button>
+              <SubmitButton>Create Account</SubmitButton>
             </Wrapper>
-              <span>
-                Have an account?{" "}
-                <AuthSwitchLink variant="B">Log in</AuthSwitchLink>
-              </span>
+            <span>
+              Have an account?{" "}
+              <AuthSwitchLink variant="B">Log in</AuthSwitchLink>
+            </span>
             {error && (
               <p className="w-full flex justify-center text-red-600 font-bold text-px md:text-lg">
                 {error}
