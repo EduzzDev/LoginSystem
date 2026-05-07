@@ -1,6 +1,6 @@
 function SubmitButton({ children }) {
   return (
-    <button className="w-35">
+    <button type="submit" className="w-35">
       {children}
     </button>
   );
