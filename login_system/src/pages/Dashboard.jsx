@@ -1,11 +1,15 @@
 import { checkAuth } from "../services/api";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bell } from "lucide-react";
 import { Search } from "lucide-react";
+import { ChevronDown } from 'lucide-react';
+import userImg from "../assets/userImg.png";
+import { AuthContext } from "../context/authContext";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { nome } = useContext(AuthContext);
 
   useEffect(() => {
     async function verifyUser() {
@@ -22,7 +26,7 @@ function Dashboard() {
   return (
     <>
       <nav className="w-screen flex justify-end">
-        <div className="bg-[#1A1C20] w-[80%] flex justify-between text-left pl-10 h-15 items-center bg-transparent-2">
+        <div className="bg-[#1A1C20] w-[80%] flex justify-around gap-2 text-left pl-10 h-15 items-center bg-transparent-2">
           <span className="text-gray-500 flex-col  text-[18px] mr-2">
             Dashboard {">"}{" "}
             <span className="text-white text-[18px]">Geral</span>
@@ -36,7 +40,13 @@ function Dashboard() {
                bg-[#2D3035] outline-0 text-gray-400"
             />
           </div>
-          <Bell />
+          <Bell className="text-gray-400" />
+          <img src={userImg} className="w-10" alt="" />
+          <div className="flex flex-col">
+            <span className="text-white">{nome}</span>
+            <span className="text-gray-400">logado há 2h</span>
+          </div>
+          <ChevronDown className="text-white"/>
         </div>
       </nav>
     </>

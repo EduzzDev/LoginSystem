@@ -104,8 +104,8 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   try {
-    const { email, senha } = req.body;
-    console.log("Login attempt:", email);
+    const { nome, email, senha } = req.body;
+    console.log("Login attempt:", nome, email);
 
     const emailNormalizado = email.toLowerCase().trim();
     const user = db
