@@ -4,6 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Bell } from "lucide-react";
 import { Search } from "lucide-react";
 import { ChevronDown } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
+import { User } from "lucide-react";
+import { ClipboardList } from "lucide-react";
+import { Shield } from "lucide-react";
+import { ShieldQuestionMark } from "lucide-react";
+import { LogOut } from "lucide-react";
+import { Zap } from "lucide-react";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 
@@ -24,13 +31,13 @@ function Dashboard() {
   }, [navigate]);
 
   return (
-    < >
-      <div className=" w-screen h-screen bg-[#2D3035] ">
-        {/* Menu PC */}
+    <>
+      {/* Menu PC */}
+      <div className=" w-screen h-screen hidden lg:block bg-[#2D3035] ">
         <nav className="w-screen hidden  lg:flex justify-end">
           <div
             className="bg-[#1A1C20] w-[80%] flex justify-between
-             h-18 items-center rounded-t-lg -translate-x-0.5"
+             h-18 items-center rounded-t-lg -translate-x-0.5  border-b  border-gray-700 "
           >
             <div className=" flex ml-4">
               <span className="text-gray-500 flex-col  text-[18px] mr-2">
@@ -61,6 +68,42 @@ function Dashboard() {
               <ChevronDown className="text-white mr-4" />
             </div>
           </div>
+        </nav>
+        <nav className=" w-[20%] h-full flex flex-col justify-between pl-6 border-r border-gray-600  absolute bottom-0 text-white bg-[#1A1C20] ">
+          <h1 className="flex relative text-3xl top-4.5 items-center text-gray-200">
+            <Zap className="relative mr-1 ml-1 " />
+            <span className="font-extrabold">Login</span>System
+          </h1>
+          <ul className="flex flex-col items-baseline">
+            <li className="flex text-gray-300  text-xl items-center mb-3.5 ">
+              <LayoutDashboard className=" mr-4 ml-3" />
+              Geral
+            </li>
+            <li className="flex text-gray-300  text-xl items-center mb-3.5 p-2  ">
+              <User className=" mr-4 ml-1" />
+              Meu Perfil
+            </li>
+            <li className="flex text-gray-300 items-center  text-xl mb-3.5 p-2 ">
+              <ClipboardList className=" mr-4 ml-1" />
+              Tarefas
+            </li>
+            <li className="flex text-gray-300 items-center text-xl mb-3.5 p-2 ">
+              <Shield className=" mr-4 ml-1" />
+              Segurança
+            </li>
+            <li className="flex text-gray-300 items-center text-xl mb-3.5 p-2 ">
+              <ShieldQuestionMark className=" mr-4 ml-1" />
+              Ajuda
+            </li>
+            <li className="flex text-gray-300 items-center text-xl mb-3.5 p-2 ">
+              <LogOut className=" mr-4 ml-1" />
+              Sair
+            </li>
+          </ul>
+          <li className="flex text-gray-300 text-xl mb-5 items-center ">
+            <LogOut className=" mr-4 ml-1" />
+            Sair
+          </li>
         </nav>
       </div>
     </>
