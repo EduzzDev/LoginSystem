@@ -1,4 +1,5 @@
 import { checkAuth } from "../services/api";
+import SideBarItem from "../components/SideBarItem";
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bell } from "lucide-react";
@@ -75,35 +76,35 @@ function Dashboard() {
             <span className="font-extrabold">Login</span>System
           </h1>
           <ul className="flex flex-col items-baseline">
-            <li className="flex text-gray-300  text-xl items-center mb-3.5 ">
-              <LayoutDashboard className=" mr-4 ml-3" />
+            <SideBarItem>
+              <LayoutDashboard className=" mr-3 ml-2" />
               Geral
-            </li>
-            <li className="flex text-gray-300  text-xl items-center mb-3.5 p-2  ">
+            </SideBarItem>
+            <SideBarItem>
               <User className=" mr-4 ml-1" />
               Meu Perfil
-            </li>
-            <li className="flex text-gray-300 items-center  text-xl mb-3.5 p-2 ">
+            </SideBarItem>
+            <SideBarItem>
               <ClipboardList className=" mr-4 ml-1" />
               Tarefas
-            </li>
-            <li className="flex text-gray-300 items-center text-xl mb-3.5 p-2 ">
+            </SideBarItem>
+            <SideBarItem>
               <Shield className=" mr-4 ml-1" />
               Segurança
-            </li>
-            <li className="flex text-gray-300 items-center text-xl mb-3.5 p-2 ">
+            </SideBarItem>
+            <SideBarItem>
               <ShieldQuestionMark className=" mr-4 ml-1" />
               Ajuda
-            </li>
-            <li className="flex text-gray-300 items-center text-xl mb-3.5 p-2 ">
+            </SideBarItem>
+            <SideBarItem>
               <LogOut className=" mr-4 ml-1" />
               Sair
-            </li>
+            </SideBarItem>
           </ul>
-          <li className="flex text-gray-300 text-xl mb-5 items-center ">
+          <SideBarItem>
             <LogOut className=" mr-4 ml-1" />
             Sair
-          </li>
+          </SideBarItem>
         </nav>
       </div>
     </>
