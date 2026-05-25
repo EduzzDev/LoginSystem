@@ -142,8 +142,6 @@ app.post("/login", async (req, res) => {
       secure: false,
       sameSite: "strict",
     });
-
-    console.log("Login successful:", user.email, user.nome);
     res.json({
       success: true,
       message: "Login successful",
