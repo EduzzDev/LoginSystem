@@ -17,7 +17,7 @@ import { AuthContext } from "../context/authContext";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { nome } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     async function verifyUser() {
@@ -63,7 +63,7 @@ function Dashboard() {
               <Bell className="text-gray-400" />
               <img src={userImg} className="w-10" alt="" />
               <div className="flex flex-col">
-                <span className="text-white text-[16px]">{nome}</span>
+                <span className="text-white text-[16px]">{user}</span>
                 <span className="text-gray-400 text-[14px]">Logado há 2h</span>
               </div>
               <ChevronDown className="text-white mr-4" />

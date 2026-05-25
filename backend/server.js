@@ -33,6 +33,7 @@ db.prepare(
   `
   CREATE TABLE IF NOT EXISTS usuarios (
     id INTEGER PRIMARY KEY,
+    nome TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     senha TEXT NOT NULL
   )
@@ -44,7 +45,7 @@ db.prepare("CREATE INDEX IF NOT EXISTS idx_email ON usuarios(email)").run();
 
 app.post("/register", async (req, res) => {
   try {
-    const { email, senha } = req.body;
+    const { nome, email, senha } = req.body;
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -72,6 +73,17 @@ app.post("/register", async (req, res) => {
         message: "Email address is already in use.",
       });
     }
+    if (!nome) {
+      return res.status(400).json({ error: "Name required" });
+    }
+    if (nome.length < 2) {
+      return res
+        .status(400)
+        .json({ error: "Name must be at least 2 characters" });
+    }
+    if (nome.length > 100) {
+      return res.status(400).json({ error: "Name too long" });
+    }
     // validação da senha
     if (!senha) {
       return res.status(400).json({ error: "Password required" });
@@ -92,9 +104,9 @@ app.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(senha, 10);
 
     const stmt = db.prepare(
-      "INSERT INTO usuarios (email, senha) VALUES (?, ?)",
+      "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)",
     );
-    const result = stmt.run(email, hashedPassword);
+    const result = stmt.run(nome, email, hashedPassword);
 
     res.json({ id: result.lastInsertRowid });
   } catch (err) {
@@ -104,8 +116,7 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   try {
-    const { nome, email, senha } = req.body;
-    console.log("Login attempt:", nome, email);
+    const { email, senha } = req.body;
 
     const emailNormalizado = email.toLowerCase().trim();
     const user = db
@@ -132,7 +143,13 @@ app.post("/login", async (req, res) => {
       sameSite: "strict",
     });
 
-    res.json({ success: true, message: "Login successful" });
+    console.log("Login successful:", user.email, user.nome);
+    res.json({
+      success: true,
+      message: "Login successful",
+      nome: user.nome,
+      userId: user.id,
+    });
   } catch (err) {
     console.error("Login error:", err);
     res.status(500).json({ error: err.message });

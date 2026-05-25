@@ -10,6 +10,8 @@ import { LockOpen } from "lucide-react";
 import { useState } from "react";
 import { loginUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 
 function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -18,6 +20,7 @@ function Login() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const { Login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,9 +35,10 @@ function Login() {
       return;
     }
     try {
-      await loginUser({ email, senha });
-      navigate("/dashboard");
+      const response = await loginUser({ email, senha });
+      Login(response.nome);
       setError("");
+      navigate("/dashboard");
     } catch (error) {
       const errorMessage = error?.message || "Erro ao fazer login";
       setError(errorMessage);
