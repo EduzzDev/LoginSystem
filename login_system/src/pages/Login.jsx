@@ -36,7 +36,6 @@ function Login() {
     }
     try {
       const response = await loginUser({ email, senha });
-      console.log("login response:", response);
       Login(response.nome, response.token);
       setError("");
       navigate("/dashboard");

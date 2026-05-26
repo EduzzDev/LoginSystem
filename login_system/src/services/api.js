@@ -23,8 +23,6 @@ export const loginUser = async (data) => {
     credentials: "include",
   });
   const result = await res.json();
-  console.log("Login response status:", res.status);
-  console.log("Login response data:", result);
 
   if (!res.ok) {
     throw result;
@@ -33,13 +31,13 @@ export const loginUser = async (data) => {
 };
 
 export async function checkAuth() {
-    const response = await fetch("http://localhost:3000/dashboard", {
-      credentials: "include",
-    });
+  const response = await fetch("http://localhost:3000/dashboard", {
+    credentials: "include",
+  });
 
-    if (!response.ok) {
-      throw new Error("Não autorizado");
-    }
+  if (!response.ok) {
+    throw new Error("Não autorizado");
+  }
 
-    return await response.json();
+  return await response.json();
 }

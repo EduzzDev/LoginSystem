@@ -62,7 +62,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("userNome", nome);
     if (token) {
       localStorage.setItem("token", token);
-      console.log("token stored:", token);
     } else {
       // remove any previous token if server didn't return one
       localStorage.removeItem("token");
