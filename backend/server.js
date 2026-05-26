@@ -134,7 +134,7 @@ app.post("/login", async (req, res) => {
 
     // gerar o token jwt
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "2h",
     });
 
     res.cookie("token", token, {
@@ -147,6 +147,7 @@ app.post("/login", async (req, res) => {
       message: "Login successful",
       nome: user.nome,
       userId: user.id,
+      token: token,
     });
   } catch (err) {
     console.error("Login error:", err);
