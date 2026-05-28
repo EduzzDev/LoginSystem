@@ -1,10 +1,15 @@
 import { useState } from "react";
 
-function SideBarItem({ children }) {
+function SideBarItem({ children, onClick }) {
   const [isActive, setIsActive] = useState(false);
   return (
     <li
-      onClick={() => setIsActive(!isActive)}
+      onClick={(event) => {
+        setIsActive(!isActive);
+        if (onClick) {
+          onClick(event);
+        }
+      }}
       className={`flex w-[95%] p-2.5 rounded-2xl  hover:bg-gray-600 hover:text-white  text-xl items-center mb-2 cursor-pointer
         ${
           isActive

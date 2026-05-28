@@ -63,9 +63,8 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       localStorage.setItem("token", token);
     } else {
-      // remove any previous token if server didn't return one
       localStorage.removeItem("token");
-      console.warn("Login called without token; token not stored");
+      console.warn("Login chamado sem a chave token; token não salvo!");
     }
   };
 

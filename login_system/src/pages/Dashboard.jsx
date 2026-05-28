@@ -17,8 +17,8 @@ import { AuthContext } from "../context/authContext";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const {user, timeLogged  } = useContext(AuthContext);
-  
+  const { user, timeLogged } = useContext(AuthContext);
+
   useEffect(() => {
     async function verifyUser() {
       try {
@@ -30,6 +30,23 @@ function Dashboard() {
 
     verifyUser();
   }, [navigate]);
+
+  async function handleLogoutClick() {
+    try {
+      const response = await fetch("http://localhost:3000/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      const data = await response.json();
+      if (!data) return
+      alert( `You logged out with success`);
+
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <>
@@ -64,7 +81,9 @@ function Dashboard() {
               <img src={userImg} className="w-10" alt="" />
               <div className="flex flex-col">
                 <span className="text-white text-[16px]">{user}</span>
-                <span className="text-gray-400 text-[14px]">Logado há {timeLogged} </span>
+                <span className="text-gray-400 text-[14px]">
+                  Logado há {timeLogged}{" "}
+                </span>
               </div>
               <ChevronDown className="text-white mr-4" />
             </div>
@@ -96,12 +115,12 @@ function Dashboard() {
               <ShieldQuestionMark className=" mr-4 ml-1" />
               Ajuda
             </SideBarItem>
-            <SideBarItem>
+            <SideBarItem onClick={() => handleLogoutClick()}>
               <LogOut className=" mr-4 ml-1" />
               Sair
             </SideBarItem>
           </ul>
-          <SideBarItem>
+          <SideBarItem onClick={() => handleLogoutClick()}>
             <LogOut className=" mr-4 ml-1" />
             Sair
           </SideBarItem>

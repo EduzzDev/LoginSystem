@@ -23,7 +23,7 @@ router.get("/dashboard", (req, res) => {
 // Logout
 router.post("/logout", (req, res) => {
   res.clearCookie("token");
-  res.json({ sucess: true });
+  res.json({ success: true });
 });
 
 export default router;
