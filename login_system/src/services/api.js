@@ -1,5 +1,8 @@
+const BASE_URL =
+  import.meta.env.VITE_API_URL || "https://loginsystem-d86j.onrender.com";
+
 export const registerUser = async (data) => {
-  const res = await fetch("https://loginsystem-d86j.onrender.com/register", {
+  const res = await fetch(`${BASE_URL}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,7 +17,7 @@ export const registerUser = async (data) => {
 };
 
 export const loginUser = async (data) => {
-  const res = await fetch("https://loginsystem-d86j.onrender.com/login", {
+  const res = await fetch(`${BASE_URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,12 +34,9 @@ export const loginUser = async (data) => {
 };
 
 export async function checkAuth() {
-  const response = await fetch(
-    "https://loginsystem-d86j.onrender.com/dashboard",
-    {
-      credentials: "include",
-    },
-  );
+  const response = await fetch(`${BASE_URL}/dashboard`, {
+    credentials: "include",
+  });
 
   if (!response.ok) {
     throw new Error("Não autorizado");
