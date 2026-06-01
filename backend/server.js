@@ -11,13 +11,6 @@ dotenv.config();
 
 /* global process */
 
-const isProduction = process.env.NODE_ENV === "production";
-const allowedOrigins = [
-  process.env.CORS_ORIGIN,
-  "http://localhost:5173",
-  "http://127.0.0.1:5173",
-].filter(Boolean);
-
 const app = express();
 
 app.use(express.json());
@@ -27,10 +20,13 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        origin.startsWith("https://login-system-eta-rose.vercel.app")
+      ) {
         callback(null, true);
       } else {
-        callback(new Error(`CORS policy does not allow access from ${origin}`));
+        callback(new Error("Not allowed by CORS"));
       }
     },
     credentials: true,
@@ -152,8 +148,8 @@ app.post("/login", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
+      secure: false,
+      sameSite: "strict",
     });
     res.json({
       success: true,
