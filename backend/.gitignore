@@ -15,6 +15,8 @@ dist-ssr
 *.db-wal
 *.db-shm
 .sqbpro
+.env
+.env*
 
 # Editor directories and files
 .vscode/*
