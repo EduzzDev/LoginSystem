@@ -33,7 +33,7 @@ function Dashboard() {
 
   async function handleLogoutClick() {
     try {
-      const response = await fetch("http://localhost:3000/logout", {
+      const response = await fetch("https://loginsystem-d86j.onrender.com/logout", {
         method: "POST",
         credentials: "include",
       });

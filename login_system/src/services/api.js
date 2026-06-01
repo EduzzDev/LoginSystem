@@ -1,5 +1,5 @@
 export const registerUser = async (data) => {
-  const res = await fetch("http://localhost:3000/register", {
+  const res = await fetch("https://loginsystem-d86j.onrender.com/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,7 +14,7 @@ export const registerUser = async (data) => {
 };
 
 export const loginUser = async (data) => {
-  const res = await fetch("http://localhost:3000/login", {
+  const res = await fetch("https://loginsystem-d86j.onrender.com/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,9 +31,12 @@ export const loginUser = async (data) => {
 };
 
 export async function checkAuth() {
-  const response = await fetch("http://localhost:3000/dashboard", {
-    credentials: "include",
-  });
+  const response = await fetch(
+    "https://loginsystem-d86j.onrender.com/dashboard",
+    {
+      credentials: "include",
+    },
+  );
 
   if (!response.ok) {
     throw new Error("Não autorizado");
