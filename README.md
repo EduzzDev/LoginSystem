@@ -89,17 +89,19 @@ LoginSystem/
 | 🔐 Backend  | bcrypt         | Criptografia de senhas |
 | 🌐 Backend  | jsonwebtoken   | Autenticação JWT       |
 | ⚙️ Backend  | dotenv         | Variáveis de ambiente  |
+
 ---
 
 ## 📌 Funcionalidades
 
 ### ✅ Implementadas
 
-- ✨ Página de registro de usuários
+- ✨ Página de registro e login de usuários
 - 🔐 Criptografia de senhas com bcrypt (salt rounds: 10)
 - 💾 Persistência de dados em SQLite via better-sqlite3
 - 🚀 API REST com Express
-- 🌐 CORS configurado para frontend local
+- 🌐 CORS configurado para frontend local e ambientes de produção (Render + Vercel)
+- 🍪 Cookies httpOnly com configurações seguras (secure: true, sameSite: none)
 - 🛡️ Variáveis de ambiente para segurança
 - 🎨 Componente Input reutilizável
 - 🔁 Componente AuthSwitchLink para alternar entre login e cadastro
@@ -111,19 +113,19 @@ LoginSystem/
 - 🧾 Rota /dashboard protegida por token
 - 📧 Validação de email com regex - validação de formato de email
 - 📄 Arquivo .env.example - template para variáveis de ambiente
-
-### 🚧 Em Desenvolvimento
-
-- 📊 Dashboard com informações do usuário
+- 🚪 Logout com limpeza de cookies e contexto de autenticação
+- 👤 Dashboard com dados do usuário (nome e tempo logado)
+- ⏱️ Contador de tempo logado exibido para o usuário
+- 🔗 Sidebar com navegação (PC) com items com hover e estado ativo
+- 🎯 Header de navegação melhorado com design responsivo
 
 ### 🚧 Planejadas
 
-- 🔑 Autenticação com JWT
 - 🔄 Refresh tokens
-- 📧 Validação de email
 - 🔐 Recuperação de senha
-- 👤 Perfil do usuário
-- 🚪 Logout
+- 👤 Perfil do usuário (editar dados)
+- 📱 Responsividade completa (mobile/tablet)
+- 🎨 Tema escuro (dark mode)
 
 ---
 
@@ -230,19 +232,21 @@ pnpm run dev
 
 ### Backend
 
-| Variável        | Padrão                  | Descrição                        |
-| --------------- | ----------------------- | -------------------------------- |
-| `NODE_ENV`      | `development`           | Ambiente de execução             |
-| `PORT`          | `3000`                  | Porta do servidor                |
-| `HOST`          | `localhost`             | Host do servidor                 |
-| `DATABASE_PATH` | `LoginSystem.db`        | Caminho do banco de dados SQLite |
-| `CORS_ORIGIN`   | `http://localhost:5173` | Origem CORS permitida            |
+| Variável        | Padrão                  | Descrição                                 |
+| --------------- | ----------------------- | ----------------------------------------- |
+| `NODE_ENV`      | `development`           | Ambiente de execução                      |
+| `PORT`          | `3000`                  | Porta do servidor                         |
+| `HOST`          | `localhost`             | Host do servidor                          |
+| `DATABASE_PATH` | `LoginSystem.db`        | Caminho do banco de dados SQLite          |
+| `CORS_ORIGIN`   | `http://localhost:5173` | Origem CORS permitida (ou URLs de deploy) |
+| `CLIENT_URL`    | `http://localhost:5173` | URL do frontend para cookies              |
 
-### Frontend (se necessário)
+### Frontend
 
-| Variável       | Padrão                  | Descrição          |
-| -------------- | ----------------------- | ------------------ |
-| `VITE_API_URL` | `http://localhost:3000` | URL da API backend |
+| Variável        | Padrão                  | Descrição            |
+| --------------- | ----------------------- | -------------------- |
+| `VITE_API_URL`  | `http://localhost:3000` | URL da API backend   |
+| `VITE_BASE_URL` | `/`                     | URL base para deploy |
 
 ---
 
@@ -376,7 +380,16 @@ pnpm add dotenv
 
 ### CORS Error
 
-Verifique se `CORS_ORIGIN` em `.env` corresponde à URL do frontend.
+Verifique se `CORS_ORIGIN` em `.env` corresponde à URL do frontend. Em produção, adicione as URLs de deploy (ex: vercel.app, render.com).
+
+### Cookies não funcionam em produção
+
+Certifique-se de que:
+
+- `secure: true` está configurado
+- `sameSite: 'none'` está definido
+- Protocolo é HTTPS em produção
+- `CLIENT_URL` corresponde à URL do frontend
 
 ### Banco de dados trava
 
@@ -384,23 +397,57 @@ Delete `LoginSystem.db` e reinicie o servidor (criará novo).
 
 ---
 
+## � Deployment
+
+### Frontend - Vercel
+
+O frontend está configurado para deploy automático no Vercel:
+
+```bash
+# Arquivo: vercel.json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
+```
+
+**Deploy:** `https://seu-dominio.vercel.app`
+
+### Backend - Render
+
+O backend está hospedado no Render com as seguintes configurações:
+
+- **URL:** `https://seu-backend.onrender.com`
+- **CORS:** Configurado para aceitar requisições da Vercel
+- **Cookies:** Configurados com `secure: true` e `sameSite: 'none'`
+
+**Variáveis de Ambiente em Produção:**
+
+```env
+NODE_ENV=production
+PORT=3000
+CORS_ORIGIN=https://seu-dominio.vercel.app
+CLIENT_URL=https://seu-dominio.vercel.app
+```
+
+---
+
 ## 📚 Melhorias Futuras
 
 ### Autenticação & Segurança
 
-- [ ] Autenticação com JWT
 - [ ] Refresh tokens
 - [ ] Rate limiting
-- [ ] Criptografia de dados sensíveis
+- [ ] Proteção contra CSRF
+- [ ] 2FA (autenticação de dois fatores)
 
 ### Funcionalidades
 
-- [ ] Dashboard com dados do usuário
-- [ ] Validação de email com regex
 - [ ] Recuperação de senha por email
 - [ ] Perfil do usuário (editar dados)
-- [ ] Logout
 - [ ] Sessão persistente (lembrar-me)
+- [ ] Notificações em tempo real
 
 ### UI/UX
 
@@ -408,16 +455,16 @@ Delete `LoginSystem.db` e reinicie o servidor (criará novo).
 - [ ] Animações de transição
 - [ ] Validação visual inline
 - [ ] Tema escuro (dark mode)
+- [ ] Responsividade completa (mobile/tablet)
 
 ### Infraestrutura & DevOps
 
-- [ ] Deploy (Vercel/Railway) — frontend
-- [ ] Deploy (Render/Railway/Heroku) — backend
 - [ ] Banco de dados em produção (PostgreSQL)
 - [ ] Docker containers
 - [ ] CI/CD pipeline (GitHub Actions)
 - [ ] Logs e monitoramento
 - [ ] Testes automatizados (Jest/Vitest)
+- [ ] Backup automático de dados
 
 ---
 
