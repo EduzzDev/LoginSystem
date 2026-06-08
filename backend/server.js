@@ -20,9 +20,21 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: (origin, callback) => {
+      const isDevelopment = process.env.NODE_ENV !== "production";
+      const allowedOrigins = isDevelopment
+        ? [
+            undefined,
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            "http://localhost:3000",
+          ]
+        : ["https://login-system-eta-rose.vercel.app"];
+
       if (
         !origin ||
-        origin.startsWith("https://login-system-eta-rose.vercel.app")
+        allowedOrigins.includes(origin) ||
+        (!isDevelopment &&
+          origin?.startsWith("https://login-system-eta-rose.vercel.app"))
       ) {
         callback(null, true);
       } else {
@@ -170,10 +182,10 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || "localhost";
+const HOST = process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost";
 
 app.use("/", authRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
   console.log(`Servidor rodando em http://${HOST}:${PORT}`);
 });
