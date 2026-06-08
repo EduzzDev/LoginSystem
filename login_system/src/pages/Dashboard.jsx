@@ -1,4 +1,5 @@
 import { checkAuth } from "../services/api";
+import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -33,15 +34,8 @@ function Dashboard() {
 
   async function handleLogoutClick() {
     try {
-      const response = await fetch("https://loginsystem-d86j.onrender.com/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-
-      const data = await response.json();
-      if (!data) return
-      alert( `You logged out with success`);
-
+      await logout();
+      alert(`You logged out with success`);
       navigate("/");
     } catch (err) {
       console.log(err);

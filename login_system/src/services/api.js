@@ -44,3 +44,15 @@ export async function checkAuth() {
 
   return await response.json();
 }
+export async function logout() {
+  const res = await fetch(`${BASE_URL}/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw result;
+  }
+  return result;
+}
