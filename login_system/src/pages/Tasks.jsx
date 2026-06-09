@@ -16,7 +16,7 @@ import { Zap } from "lucide-react";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 
-function Dashboard() {
+function Tasks() {
   const navigate = useNavigate();
   const { user, timeLogged } = useContext(AuthContext);
 
@@ -41,10 +41,6 @@ function Dashboard() {
       console.log(err);
     }
   }
-
-  function handleTasks() {
-    navigate("/tasks");
-  }
   return (
     <>
       {/* Menu PC */}
@@ -57,7 +53,7 @@ function Dashboard() {
             <div className=" flex ml-4">
               <span className="text-gray-500 flex-col  text-[18px] mr-2">
                 Dashboard {">"}{" "}
-                <span className="text-white text-[18px]">Geral</span>
+                <span className="text-white text-[18px]">Tasks</span>
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -100,7 +96,7 @@ function Dashboard() {
               <User className=" mr-4 ml-1" />
               Meu Perfil
             </SideBarItem>
-            <SideBarItem onClick={() => handleTasks()}>
+            <SideBarItem>
               <ClipboardList className=" mr-4 ml-1" />
               Tarefas
             </SideBarItem>
@@ -126,5 +122,4 @@ function Dashboard() {
     </>
   );
 }
-
-export default Dashboard;
+export default Tasks;
