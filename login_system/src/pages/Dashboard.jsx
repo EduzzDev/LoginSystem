@@ -45,6 +45,15 @@ function Dashboard() {
   function handleTasks() {
     navigate("/tasks");
   }
+  function myProfile() {
+    navigate("/myProfile");
+  }
+  function handleSecurity() {
+    navigate("/security");
+  }
+  function handleHelp() {
+    navigate("/help");
+  }
   return (
     <>
       {/* Menu PC */}
@@ -96,7 +105,7 @@ function Dashboard() {
               <LayoutDashboard className=" mr-3 ml-2" />
               Geral
             </SideBarItem>
-            <SideBarItem>
+            <SideBarItem onClick={() => myProfile()}>
               <User className=" mr-4 ml-1" />
               Meu Perfil
             </SideBarItem>
@@ -104,11 +113,11 @@ function Dashboard() {
               <ClipboardList className=" mr-4 ml-1" />
               Tarefas
             </SideBarItem>
-            <SideBarItem>
+            <SideBarItem onClick={ () => handleSecurity()}>
               <Shield className=" mr-4 ml-1" />
               Segurança
             </SideBarItem>
-            <SideBarItem>
+            <SideBarItem onClick={ () => handleHelp()}>
               <ShieldQuestionMark className=" mr-4 ml-1" />
               Ajuda
             </SideBarItem>
