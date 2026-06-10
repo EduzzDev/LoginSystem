@@ -41,6 +41,18 @@ function Tasks() {
       console.log(err);
     }
   }
+  function handleDashboard() {
+    navigate("/dashboard");
+  }
+  function myProfile() {
+    navigate("/myProfile");
+  }
+  function handleSecurity() {
+    navigate("/security");
+  }
+  function handleHelp() {
+    navigate("/help");
+  }
   return (
     <>
       {/* Menu PC */}
@@ -88,11 +100,11 @@ function Tasks() {
             <span className="font-extrabold">Login</span>System
           </h1>
           <ul className="flex flex-col items-baseline">
-            <SideBarItem>
+            <SideBarItem onClick={() => handleDashboard()}>
               <LayoutDashboard className=" mr-3 ml-2" />
               Geral
             </SideBarItem>
-            <SideBarItem>
+            <SideBarItem onClick={() => myProfile()}>
               <User className=" mr-4 ml-1" />
               Meu Perfil
             </SideBarItem>
@@ -100,11 +112,11 @@ function Tasks() {
               <ClipboardList className=" mr-4 ml-1" />
               Tarefas
             </SideBarItem>
-            <SideBarItem>
+            <SideBarItem onClick={() => handleSecurity()}>
               <Shield className=" mr-4 ml-1" />
               Segurança
             </SideBarItem>
-            <SideBarItem>
+            <SideBarItem onClick={() => handleHelp()}>
               <ShieldQuestionMark className=" mr-4 ml-1" />
               Ajuda
             </SideBarItem>
