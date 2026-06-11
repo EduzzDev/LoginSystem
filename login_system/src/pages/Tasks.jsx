@@ -1,7 +1,7 @@
 import { checkAuth } from "../services/api";
 import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bell } from "lucide-react";
 import { Search } from "lucide-react";
@@ -19,6 +19,8 @@ import { AuthContext } from "../context/authContext";
 function Tasks() {
   const navigate = useNavigate();
   const { user, timeLogged } = useContext(AuthContext);
+  const [showInput, setShowInput] = useState(false);
+  const [tasks, setTask] = useState("");
 
   useEffect(() => {
     async function verifyUser() {
@@ -94,7 +96,7 @@ function Tasks() {
             </div>
           </div>
         </nav>
-        <nav className=" w-[20%] h-full flex flex-col justify-between pl-6 border-r border-gray-600  absolute bottom-0 text-white bg-[#1A1C20] ">
+        <nav className=" w-[20%] h-full flex flex-col justify-between mr-4 pl-6 border-r border-gray-600  absolute bottom-0 text-white bg-[#1A1C20] ">
           <h1 className="flex relative text-3xl top-4.5 items-center text-gray-200">
             <Zap className="relative mr-1 ml-1 " />
             <span className="font-extrabold">Login</span>System
@@ -130,6 +132,52 @@ function Tasks() {
             Sair
           </SideBarItem>
         </nav>
+        <main>
+          <div className="w-[60%] hidden lg:flex justify-center relative ">
+            {!showInput ? (
+              <button
+                className=" w-55 h-10 pl-2 pr-2 text-xl border 
+                top-8 relative rounded-xl bg-[#6366F1] border-[#4F46E5]
+                 text-[#FFFFFF]  cursor-pointer 
+                 hover:bg-[#1F2937] hover:text-white"
+                onClick={() => setShowInput(true)}
+              >
+                Add a new task
+              </button>
+            ) : (
+              <>
+                <div className="w-[30%] ml-1 top-8 relative text-lg ">
+                  <input
+                    className="w-80 ml-4 mb-2  pl-4 pt-2 pb-2 bg-[#6366F1]
+                     hover:border-[#4F46E5] hover:border rounded-xl 
+                    placeholder:text-white text-[#ffffff] outline-none
+                    hover:bg-[#1F2937] hover:placeholder:text-white
+                     hover:text-white  cursor-pointer"
+                    value={tasks}
+                    onChange={(e) => setTask(e.target.value)}
+                    placeholder="Enter your task"
+                  />
+                  <button
+                    className=" w-20 relative p-1 bg-[#6366F1] 
+                    ml-5 mr-5 rounded-xl
+                   text-white hover:bg-[#1F2937] hover:border-[#6366F1] hover:border
+                    cursor-pointer"
+                  >
+                    Add
+                  </button>
+                  <button
+                    className=" w-20 relative bg-red-400 p-1 
+                    rounded-xl text-[#1F2937]  cursor-pointer hover:text-red-400 hover:bg-[#1F2937]
+                     hover:border-[#6366F1] hover:border"
+                    onClick={() => setShowInput(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </main>
       </div>
     </>
   );
