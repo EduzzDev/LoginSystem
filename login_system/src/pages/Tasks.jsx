@@ -20,7 +20,8 @@ function Tasks() {
   const navigate = useNavigate();
   const { user, timeLogged } = useContext(AuthContext);
   const [showInput, setShowInput] = useState(false);
-  const [tasks, setTask] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     async function verifyUser() {
@@ -54,6 +55,9 @@ function Tasks() {
   }
   function handleHelp() {
     navigate("/help");
+  }
+  function onAddTask() {
+    setTasks([...tasks, inputValue]);
   }
   return (
     <>
@@ -133,7 +137,7 @@ function Tasks() {
           </SideBarItem>
         </nav>
         <main>
-          <div className="w-[60%] hidden lg:flex justify-center relative ">
+          <div className="w-[60%] h-full hidden lg:flex justify-center relative">
             {!showInput ? (
               <button
                 className=" w-55 h-10 pl-2 pr-2 text-xl border 
@@ -153,11 +157,14 @@ function Tasks() {
                     placeholder:text-white text-[#ffffff] outline-none
                     hover:bg-[#1F2937] hover:placeholder:text-white
                      hover:text-white  cursor-pointer"
-                    value={tasks}
-                    onChange={(e) => setTask(e.target.value)}
+                    value={inputValue}
+                    min={3}
+                    maxLength={30}
+                    onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Enter your task"
                   />
                   <button
+                    onClick={() => onAddTask()}
                     className=" w-20 relative p-1 bg-[#6366F1] 
                     ml-5 mr-5 rounded-xl
                    text-white hover:bg-[#1F2937] hover:border-[#6366F1] hover:border
@@ -177,6 +184,26 @@ function Tasks() {
               </>
             )}
           </div>
+          <article
+            className="w-[50%] text-white flex flex-col items-center pt-2 pb-2
+           justify-center mt-5 ml-10 left-15 top-10 relative text-2xl"
+          >
+            <h2>To do</h2>
+            {tasks.length === 0 ? (
+              <div>Add a task</div>
+            ) : (
+              tasks.map((task, index) => (
+                <div
+                  className=" w-100 h-20 border-2  
+              flex justify-center items-center relative left-10 ml-12 
+              m-2 border-[#1F2937] "
+                  key={index}
+                >
+                  {task}
+                </div>
+              ))
+            )}
+          </article>
         </main>
       </div>
     </>
