@@ -3,7 +3,7 @@ import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bell } from "lucide-react";
+import { Bell, UserCircle } from "lucide-react";
 import { Search } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { LayoutDashboard } from "lucide-react";
@@ -113,11 +113,11 @@ function Dashboard() {
               <ClipboardList className=" mr-4 ml-1" />
               Tarefas
             </SideBarItem>
-            <SideBarItem onClick={ () => handleSecurity()}>
+            <SideBarItem onClick={() => handleSecurity()}>
               <Shield className=" mr-4 ml-1" />
               Segurança
             </SideBarItem>
-            <SideBarItem onClick={ () => handleHelp()}>
+            <SideBarItem onClick={() => handleHelp()}>
               <ShieldQuestionMark className=" mr-4 ml-1" />
               Ajuda
             </SideBarItem>
@@ -130,6 +130,26 @@ function Dashboard() {
             <LogOut className=" mr-4 ml-1" />
             Sair
           </SideBarItem>
+        </nav>
+      </div>
+      {/* menu MOBILE*/}
+      <div className="w-screen h-screen lg:hidden bg-[#2D3035]">
+        <nav className="w-screen lg:hidden  flex justify-center">
+          <div
+            className="bg-[#1A1C20] w-full flex justify-between
+             h-18 items-center rounded-t-lg -translate-x-0.5  border-b  border-gray-700 text-gray-200 "
+          >
+            <div className=" flex ml-1.5">
+              <h1 className="flex relative text-2xl  justify-center items-center">
+                <Zap className="relative mr-1 ml-1 " />
+                <span className="font-extrabold">Login</span>System
+              </h1>
+            </div>
+            <div className=" flex justify-center items-center mr-2 gap-3.5 p-1.5">
+              <Search />
+              <UserCircle />
+            </div>
+          </div>
         </nav>
       </div>
     </>
