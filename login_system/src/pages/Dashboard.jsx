@@ -151,6 +151,31 @@ function Dashboard() {
             </div>
           </div>
         </nav>
+        <footer
+          className=" fixed right-0 left-0 bottom-0 p-2
+         border-[#31353a] text-gray-200 border-t-2"
+        >
+          <div className=" w-full flex flex-row items-center 
+          justify-between py-1 px-[1.5dvw] 
+          text-lg min-[600px]:text-2xl min-[600px]:px-[5.5dvw]">
+            <div className="flex flex-col items-center ">
+              <LayoutDashboard />
+              <h2>General</h2>
+            </div>
+            <div className="flex flex-col items-center  ">
+              <ClipboardList/>
+                <h2>Tasks</h2>
+              </div>
+                <div className="flex flex-col items-center ">
+                  <Shield/>
+                <h2>Security</h2>
+              </div>
+               <div className="flex flex-col items-center relative ">
+                  <User/>
+                <h2>User</h2>
+              </div>
+          </div>
+        </footer>
       </div>
     </>
   );
