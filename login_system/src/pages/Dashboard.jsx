@@ -162,15 +162,15 @@ function Dashboard() {
               <LayoutDashboard />
               <h2>General</h2>
             </div>
-            <div className="flex flex-col items-center  ">
+            <div onClick={() => handleTasks()} className="flex flex-col items-center  ">
               <ClipboardList/>
                 <h2>Tasks</h2>
               </div>
-                <div className="flex flex-col items-center ">
+                <div onClick={() => handleSecurity()} className="flex flex-col items-center ">
                   <Shield/>
                 <h2>Security</h2>
               </div>
-               <div className="flex flex-col items-center relative ">
+               <div onClick={() => myProfile()} className="flex flex-col items-center relative ">
                   <User/>
                 <h2>User</h2>
               </div>
