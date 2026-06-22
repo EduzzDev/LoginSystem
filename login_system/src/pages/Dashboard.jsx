@@ -15,6 +15,7 @@ import { LogOut } from "lucide-react";
 import { Zap } from "lucide-react";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
+import SideBarMobile from "../components/SideBarMobile";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -155,26 +156,26 @@ function Dashboard() {
           className=" fixed right-0 left-0 bottom-0 p-2
          border-[#31353a] text-gray-200 border-t-2"
         >
-          <div className=" w-full flex flex-row items-center 
+          <ul className=" w-full flex flex-row items-center 
           justify-between py-1 px-[1.5dvw] 
           text-lg min-[600px]:text-2xl min-[600px]:px-[5.5dvw]">
-            <div className="flex flex-col items-center ">
+            <SideBarMobile >
               <LayoutDashboard />
               <h2>General</h2>
-            </div>
-            <div onClick={() => handleTasks()} className="flex flex-col items-center  ">
+            </SideBarMobile>
+            <SideBarMobile onClick={() => handleTasks()}>
               <ClipboardList/>
                 <h2>Tasks</h2>
-              </div>
-                <div onClick={() => handleSecurity()} className="flex flex-col items-center ">
+              </SideBarMobile>
+                <SideBarMobile onClick={() => handleSecurity()} >
                   <Shield/>
                 <h2>Security</h2>
-              </div>
-               <div onClick={() => myProfile()} className="flex flex-col items-center relative ">
+              </SideBarMobile>
+               <SideBarMobile onClick={() => myProfile()} >
                   <User/>
                 <h2>User</h2>
-              </div>
-          </div>
+              </SideBarMobile>
+          </ul>
         </footer>
       </div>
     </>
