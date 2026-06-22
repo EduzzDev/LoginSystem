@@ -47,7 +47,7 @@ function Security() {
   function handleTasks() {
     navigate("/tasks");
   }
-  function myProfile() {
+  function handleMyProfile() {
     navigate("/myProfile");
   }
   function handleHelp() {
@@ -104,7 +104,7 @@ function Security() {
               <LayoutDashboard className=" mr-3 ml-2" />
               Geral
             </SideBarItem>
-            <SideBarItem onClick={() => myProfile()}>
+            <SideBarItem onClick={() => handleMyProfile()}>
               <User className=" mr-4 ml-1" />
               Meu Perfil
             </SideBarItem>

@@ -46,7 +46,7 @@ function Dashboard() {
   function handleTasks() {
     navigate("/tasks");
   }
-  function myProfile() {
+  function handleMyProfile() {
     navigate("/myProfile");
   }
   function handleSecurity() {
@@ -106,7 +106,7 @@ function Dashboard() {
               <LayoutDashboard className=" mr-3 ml-2" />
               Geral
             </SideBarItem>
-            <SideBarItem onClick={() => myProfile()}>
+            <SideBarItem onClick={() => handleMyProfile()}>
               <User className=" mr-4 ml-1" />
               Meu Perfil
             </SideBarItem>
@@ -156,25 +156,31 @@ function Dashboard() {
           className=" fixed right-0 left-0 bottom-0 p-2
          border-[#31353a] text-gray-200 border-t-2"
         >
-          <ul className=" w-full flex flex-row items-center 
-          justify-between py-1 px-[1.5dvw] 
-          text-lg min-[600px]:text-2xl min-[600px]:px-[5.5dvw]">
-            <SideBarMobile >
+          <ul
+            className=" w-full flex flex-row items-center 
+          justify-between py-1 max-[350px]:-ml-2 relative  max-[350px]:text-[16px]
+          text-lg min-[600px]:text-2xl min-[600px]:px-[5.5dvw]"
+          >
+            <SideBarMobile>
               <LayoutDashboard />
               <h2>General</h2>
             </SideBarMobile>
             <SideBarMobile onClick={() => handleTasks()}>
-              <ClipboardList/>
-                <h2>Tasks</h2>
-              </SideBarMobile>
-                <SideBarMobile onClick={() => handleSecurity()} >
-                  <Shield/>
-                <h2>Security</h2>
-              </SideBarMobile>
-               <SideBarMobile onClick={() => myProfile()} >
-                  <User/>
-                <h2>User</h2>
-              </SideBarMobile>
+              <ClipboardList />
+              <h2>Tasks</h2>
+            </SideBarMobile>
+            <SideBarMobile onClick={() => handleSecurity()}>
+              <Shield />
+              <h2>Security</h2>
+            </SideBarMobile>
+            <SideBarMobile onClick={() => handleMyProfile()}>
+              <User />
+              <h2>User</h2>
+            </SideBarMobile>
+            <SideBarMobile onClick={() => handleLogoutClick()}>
+              <LogOut />
+              <h2>Exit</h2>
+            </SideBarMobile>
           </ul>
         </footer>
       </div>
