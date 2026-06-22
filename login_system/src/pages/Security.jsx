@@ -15,6 +15,8 @@ import { LogOut } from "lucide-react";
 import { Zap } from "lucide-react";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
+import SideBarMobile from "../components/SideBarMobile";
+import { UserCircle } from "lucide-react";
 
 function Security() {
   const navigate = useNavigate();
@@ -116,7 +118,7 @@ function Security() {
               <Shield className=" mr-4 ml-1" />
               Segurança
             </SideBarItem>
-            <SideBarItem onClick={ () => handleHelp()}>
+            <SideBarItem onClick={() => handleHelp()}>
               <ShieldQuestionMark className=" mr-4 ml-1" />
               Ajuda
             </SideBarItem>
@@ -130,6 +132,56 @@ function Security() {
             Sair
           </SideBarItem>
         </nav>
+      </div>
+      <div className="w-screen h-screen lg:hidden bg-[#2D3035]">
+        <nav className="w-screen lg:hidden  flex justify-center">
+          <div
+            className="bg-[#1A1C20] w-full flex justify-between
+             h-18 items-center rounded-t-lg -translate-x-0.5  border-b  border-gray-700 text-gray-200 "
+          >
+            <div className=" flex ml-1.5">
+              <h1 className="flex relative text-2xl  justify-center items-center">
+                <Zap className="relative mr-1 ml-1 " />
+                <span className="font-extrabold">Login</span>System
+              </h1>
+            </div>
+            <div className=" flex justify-center items-center mr-2 gap-3.5 p-1.5">
+              <Search />
+              <UserCircle />
+            </div>
+          </div>
+        </nav>
+        <footer
+          className=" fixed right-0 left-0 bottom-0 p-2
+         border-[#31353a] text-gray-200 border-t-2"
+        >
+          <ul
+            className=" w-full flex flex-row items-center 
+          justify-between py-1 max-[350px]:-ml-2 relative  max-[350px]:text-[16px]
+          text-lg min-[600px]:text-2xl min-[600px]:px-[5.5dvw]"
+          >
+            <SideBarMobile>
+              <LayoutDashboard onClick={() => handleDashboard()} />
+              <h2>General</h2>
+            </SideBarMobile>
+            <SideBarMobile onClick={() => handleTasks()}>
+              <ClipboardList />
+              <h2>Tasks</h2>
+            </SideBarMobile>
+            <SideBarMobile>
+              <Shield />
+              <h2>Security</h2>
+            </SideBarMobile>
+            <SideBarMobile onClick={()=> handleMyProfile()}>
+              <User />
+              <h2>User</h2>
+            </SideBarMobile>
+            <SideBarMobile onClick={() => handleLogoutClick()}>
+              <LogOut />
+              <h2>Exit</h2>
+            </SideBarMobile>
+          </ul>
+        </footer>
       </div>
     </>
   );

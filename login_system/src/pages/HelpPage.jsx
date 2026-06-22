@@ -15,6 +15,8 @@ import { LogOut } from "lucide-react";
 import { Zap } from "lucide-react";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
+import SideBarMobile from "../components/SideBarMobile";
+import { UserCircle } from "lucide-react";
 
 function HelpPage() {
   const navigate = useNavigate();
