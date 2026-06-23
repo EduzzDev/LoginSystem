@@ -155,7 +155,7 @@ app.post("/login", async (req, res) => {
 
     // gerar o token jwt
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "2h",
+      expiresIn: "5h",
     });
 
     res.cookie("token", token, {
