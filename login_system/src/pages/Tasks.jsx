@@ -208,21 +208,23 @@ function Tasks() {
             </div>
             <div className=" w-[60%]">
               {tasks.length === 0 ? (
-                <div>Add a task</div>
+                <div className="relative left-4 top-4">Add a task</div>
               ) : (
                 tasks.map((task, index) => (
                   <div
-                    className=" w-[80%] h-15 border-2
+                    className=" 
                 flex justify-left items-center relative
-                m-2 p-5 border-[#1F2937] "
+                 "
                     key={index}
                   >
                     <input
+                    className="w-[80%] p-1 pl-5 relative 
+                    m-1  border-[#1f2124] border-2 
+                    outline-0 rounded-2xl hover:border-gray-400
+                   hover:bg-[#1f2124]"
                       type="text"
                       value={task}
                       onChange={(e) => onChangeTask(e.target.value, index)}
-                      name=""
-                      id=""
                     />
                   </div>
                 ))
