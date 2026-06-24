@@ -64,7 +64,7 @@ function Tasks() {
   function onChangeTask(task, index) {
     const changeTask = [...tasks];
     changeTask[index] = task;
-    setTasks([...changeTask])
+    setTasks([...changeTask]);
   }
 
   return (
@@ -192,43 +192,44 @@ function Tasks() {
             )}
           </div>
           <article
-            className="w-[80%] text-white flex flex-col items-center pt-2 pb-2
-           justify-center mt-5 ml-10 left-15 top-10 relative text-2xl"
+            className="w-[90%] text-white flex flex-col items-end pt-2
+            mt-5  top-10 relative left-10 text-2xl"
           >
-            <div className="w-full justify-end flex">
-              <div className="w-120 mr-2">
-                <span>Title</span>
+            <div
+              className="w-[80%] min-h-full-25  relative left-10  
+            pt-2 pb-5  border bg-[#494e57] border-transparent rounded-2xl "
+            >
+              <ul className=" grid grid-cols-3  col-span-3 border-b border-[#1a1c1f]">
+                <div className=" ml-5 left-10 relative ">
+                  <span>Title</span>
+                </div>
+                <div className="ml-10 pl-10 left-10 relative">
+                  <span>Expiration Date</span>
+                </div>
+                <div className="">
+                  <span >Important</span>
+                </div>
+              </ul>
+              <div className="    ">
+                {tasks.length === 0 ? (
+                  <div className="relative left-4 top-4">Add a task</div>
+                ) : (
+                  tasks.map((task, index) => (
+                    <div key={index}>
+                      <div className="border-b border-[#1a1c1f]">
+                        <input
+                          className="w-[32dvw] p-1 pl-5 relative
+                              m-1  hover:border-2   outline-0 rounded-2xl
+                               hover:border-gray-400 hover:bg-[#1f2124]"
+                          type="text"
+                          value={task}
+                          onChange={(e) => onChangeTask(e.target.value, index)}
+                        />
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
-              <div className=" w-50 mr-2">
-                <span>expiration date</span>
-              </div>
-              <div>
-                <span className=" w-50 mr-2">important</span>
-              </div>
-            </div>
-            <div className=" w-[60%]">
-              {tasks.length === 0 ? (
-                <div className="relative left-4 top-4">Add a task</div>
-              ) : (
-                tasks.map((task, index) => (
-                  <div
-                    className=" 
-                flex justify-left items-center relative
-                 "
-                    key={index}
-                  >
-                    <input
-                    className="w-[80%] p-1 pl-5 relative 
-                    m-1  border-[#1f2124] border-2 
-                    outline-0 rounded-2xl hover:border-gray-400
-                   hover:bg-[#1f2124]"
-                      type="text"
-                      value={task}
-                      onChange={(e) => onChangeTask(e.target.value, index)}
-                    />
-                  </div>
-                ))
-              )}
             </div>
           </article>
         </main>
