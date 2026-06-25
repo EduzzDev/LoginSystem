@@ -207,7 +207,7 @@ function Tasks() {
                   <span>Expiration Date</span>
                 </div>
                 <div className="">
-                  <span >Important</span>
+                  <span>Important</span>
                 </div>
               </ul>
               <div className="    ">
@@ -224,6 +224,12 @@ function Tasks() {
                           type="text"
                           value={task}
                           onChange={(e) => onChangeTask(e.target.value, index)}
+                        />
+                        <input
+                          className="w-45 p-1 pl-5 relative right-1 
+                              m-1  hover:border-2   outline-0 rounded-2xl
+                               hover:border-gray-400 hover:bg-[#1f2124]"
+                          type="date"
                         />
                       </div>
                     </div>
