@@ -3,7 +3,7 @@ import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bell } from "lucide-react";
+import { Bell, Star } from "lucide-react";
 import { Search } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { LayoutDashboard } from "lucide-react";
@@ -216,7 +216,7 @@ function Tasks() {
                 ) : (
                   tasks.map((task, index) => (
                     <div key={index}>
-                      <div className="border-b border-[#1a1c1f]">
+                      <div className="border-b border-[#1a1c1f] flex">
                         <input
                           className="w-[32dvw] p-1 pl-5 relative
                               m-1  hover:border-2   outline-0 rounded-2xl
@@ -226,11 +226,17 @@ function Tasks() {
                           onChange={(e) => onChangeTask(e.target.value, index)}
                         />
                         <input
-                          className="w-45 p-1 pl-5 relative right-1 
+                          className="w-45 p-1 pl-5 relative right-2 
                               m-1  hover:border-2   outline-0 rounded-2xl
                                hover:border-gray-400 hover:bg-[#1f2124]"
                           type="date"
                         />
+                        <div className="flex relative right-3">
+                          <input  className="w-30  rounded-2xl
+                           hover:border-gray-200 hover:border-2 
+                           appearance-none outline-0" type="text" readOnly value="" />
+                          <button className="relative right-7.5 -ml-10 cursor-pointer "><Star/></button>
+                        </div>
                       </div>
                     </div>
                   ))
