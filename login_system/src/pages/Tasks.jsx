@@ -192,11 +192,11 @@ function Tasks() {
             )}
           </div>
           <article
-            className="w-[90%] text-white flex flex-col items-end pt-2
-            mt-5  top-10 relative left-10 text-2xl"
+            className=" text-white flex flex-col items-end pt-2
+            mt-5  top-10 relative text-2xl"
           >
             <div
-              className="w-[80%] min-h-full-25  relative left-10  
+              className="min-w-[70%] min-h-full-25  relative right-10
             pt-2 pb-5  border bg-[#494e57] border-transparent rounded-2xl "
             >
               <ul className=" grid grid-cols-3  col-span-3 border-b border-[#1a1c1f]">
