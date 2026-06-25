@@ -3,7 +3,7 @@ import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bell, Star } from "lucide-react";
+import { Bell, CalendarDays, Star, StarHalf } from "lucide-react";
 import { Search } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { LayoutDashboard } from "lucide-react";
@@ -24,6 +24,7 @@ function Tasks() {
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState([]);
+  const [important, setImportant] = useState(false);
 
   useEffect(() => {
     async function verifyUser() {
@@ -225,17 +226,37 @@ function Tasks() {
                           value={task}
                           onChange={(e) => onChangeTask(e.target.value, index)}
                         />
-                        <input
-                          className="w-45 p-1 pl-5 relative right-2 
+                        <div
+                          className="relative flex items-center justify-betweenp-1 pl-5 
                               m-1  hover:border-2   outline-0 rounded-2xl
-                               hover:border-gray-400 hover:bg-[#1f2124]"
-                          type="date"
-                        />
+                               hover:border-gray-400 hover:bg-[#1f2124] right-5"
+                        >
+                          <input
+                            className="w-full cursor-pointer bg-transparent
+                                 outline-none [&::-webkit-calendar-picker-indicator]:hidden"
+                            type="date"
+                          />
+                          <CalendarDays size={24} className="shrink-0  right-5 relative" />
+                        </div>
                         <div className="flex relative right-3">
-                          <input  className="w-30  rounded-2xl
+                          <input
+                            className="w-30  rounded-2xl
                            hover:border-gray-200 hover:border-2 
-                           appearance-none outline-0" type="text" readOnly value="" />
-                          <button className="relative right-7.5 -ml-10 cursor-pointer "><Star/></button>
+                           appearance-none outline-0"
+                            type="text"
+                            readOnly
+                            value=""
+                          />
+                          <button
+                            onClick={() => setImportant(!important)}
+                            className="relative right-7.5 -ml-10 cursor-pointer "
+                          >
+                            {!important ? (
+                              <Star />
+                            ) : (
+                              <Star className="fill-white" />
+                            )}
+                          </button>
                         </div>
                       </div>
                     </div>
