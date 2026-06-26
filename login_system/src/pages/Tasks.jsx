@@ -1,7 +1,7 @@
 import { checkAuth } from "../services/api";
 import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bell, CalendarDays, Star, StarHalf } from "lucide-react";
 import { Search } from "lucide-react";
@@ -25,6 +25,8 @@ function Tasks() {
   const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState([]);
   const [important, setImportant] = useState(false);
+  const [date, setDate] = useState("");
+  const inputRef = useRef(null);
 
   useEffect(() => {
     async function verifyUser() {
@@ -66,6 +68,12 @@ function Tasks() {
     const changeTask = [...tasks];
     changeTask[index] = task;
     setTasks([...changeTask]);
+  }
+  function openCalendar() {
+    if (inputRef.current) {
+      inputRef.current.showPicker();
+      inputRef.current.datePicker();
+    }
   }
 
   return (
@@ -229,14 +237,23 @@ function Tasks() {
                         <div
                           className="relative flex items-center justify-betweenp-1 pl-5 
                               m-1  hover:border-2   outline-0 rounded-2xl
-                               hover:border-gray-400 hover:bg-[#1f2124] right-5"
+                               hover:border-gray-200 right-5"
                         >
                           <input
-                            className="w-full cursor-pointer bg-transparent
-                                 outline-none [&::-webkit-calendar-picker-indicator]:hidden"
+                            ref={inputRef}
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            onFocus={"border-gray-200 border-2 rounded-2xl"}
+                            className={`w-full min-w-40 cursor-pointer bg-transparent
+                                 outline-none ${!date ? "[&::-webkit-datetime-edit]:hidden" : ""} 
+                                  [&::-webkit-calendar-picker-indicator]:hidden`}
                             type="date"
                           />
-                          <CalendarDays size={24} className="shrink-0  right-5 relative" />
+                          <CalendarDays
+                            onClick={openCalendar}
+                            size={20}
+                            className="shrink-0  right-5 relative text-blue-500"
+                          />
                         </div>
                         <div className="flex relative right-3">
                           <input
