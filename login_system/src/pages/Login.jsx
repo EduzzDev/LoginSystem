@@ -86,6 +86,7 @@ function Login() {
                 onChange={(e) => setSenha(e.target.value)}
               />
               <button
+              type="button"
                 onClick={() => setMostrarSenha(!mostrarSenha)}
                 className="w-10 relative"
               >

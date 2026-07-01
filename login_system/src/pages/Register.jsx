@@ -86,6 +86,7 @@ function Register() {
                 maxLength={72}
               />
               <button
+                type="button"
                 className="w-10 relative"
                 onClick={() => setMostrarSenha(!mostrarSenha)}
               >
