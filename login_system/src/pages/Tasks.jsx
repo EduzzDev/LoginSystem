@@ -24,8 +24,6 @@ function Tasks() {
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState([]);
-  const [important, setImportant] = useState(false);
-  const [date, setDate] = useState([]);
   const inputRef = useRef(new Map());
 
   
@@ -64,21 +62,32 @@ function Tasks() {
   }
   function onAddTask(inputValue) { 
     const textLimpo = inputValue.trim();
-    if ( textLimpo.length >= 5) {
-       setTasks([...tasks, inputValue]);
+    if (textLimpo.length >= 5) {
+      setTasks([...tasks, { text: textLimpo, date: "", important: false }]);
+      setInputValue("");
+      setShowInput(false);
     }
   }
   function onChangeTask(task, index) {
     const changeTask = [...tasks];
-    changeTask[index] = task;
+    changeTask[index].text = task;
     setTasks([...changeTask]);
   }
-  function openCalendar(index) {
-    const inputOpen = inputRef.current.get(index);
-    if (inputOpen) {
-      inputOpen.showPicker();
-      inputOpen.datePicker();
+  function handleDateChange(date, index) {
+    const changeDate = [...tasks];
+    changeDate[index].date = date;
+    setTasks(changeDate);
+  }
+  function toggleImportant(task, index) {
+      const changeTask = [...tasks];
+    changeTask[index].important = !changeTask[index].important;
+    if  (changeTask[index].important === true) {
+       const orderTask = [...changeTask];
+       const extractTask = changeTask.splice(index, 1)[0];
+        changeTask.unshift(extractTask)
+       changeTask[0].important = true
     }
+    setTasks(changeTask);
   }
 
   return (
@@ -236,7 +245,7 @@ function Tasks() {
                               m-1  hover:border-2   outline-0 rounded-2xl
                                hover:border-gray-400 hover:bg-[#1f2124]"
                           type="text"
-                          value={task}
+                          value={task.text}
                           onChange={(e) => onChangeTask(e.target.value, index)}
                         />
                         <div
@@ -252,21 +261,25 @@ function Tasks() {
                                 inputRef.current.delete(index);
                               }
                             }}
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            onFocus={"border-gray-200 border-2 rounded-2xl"}
-                            className={`w-full min-w-40 cursor-pointer bg-transparent
-                                 outline-none ${!date ? "[&::-webkit-datetime-edit]:hidden" : ""} 
-                                  [&::-webkit-calendar-picker-indicator]:hidden`}
+                            value={task.date}
+                            onChange={(e) => handleDateChange(e.target.value, index)}
+                            className={`w-full min-w-40 w-40 max-w-42 cursor-pointer bg-transparent
+                                 outline-none ${!task.date ? "[&::-webkit-datetime-edit]:hidden " : "min-w-2"} 
+                                  [&::-webkit-calendar-picker-indicator]:hidden `}
                             type="date"
                           />
                           <CalendarDays
-                            onClick={() => openCalendar(index)}
+                            onClick={() => {
+                              const inputOpen = inputRef.current.get(index);
+                              if (inputOpen) {
+                                inputOpen.showPicker();
+                              }
+                            }}
                             size={20}
-                            className="shrink-0  right-5 relative text-blue-500"
+                            className="shrink-0  right-4.5 relative text-blue-500"
                           />
                         </div>
-                        <div className="flex relative right-3">
+                        <div className="flex relative right-4.5">
                           <input
                             className="w-30  rounded-2xl
                            hover:border-gray-200 hover:border-2 
@@ -276,10 +289,10 @@ function Tasks() {
                             value=""
                           />
                           <button
-                            onClick={() => setImportant(!important)}
+                            onClick={() => toggleImportant(task,index)}
                             className="relative right-7.5 -ml-10 cursor-pointer "
                           >
-                            {!important ? (
+                            {!task.important ? (
                               <Star />
                             ) : (
                               <Star className="fill-white" />
