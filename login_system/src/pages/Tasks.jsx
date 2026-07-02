@@ -25,9 +25,10 @@ function Tasks() {
   const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState([]);
   const [important, setImportant] = useState(false);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState([]);
   const inputRef = useRef(new Map());
 
+  
   useEffect(() => {
     async function verifyUser() {
       try {
@@ -61,8 +62,11 @@ function Tasks() {
   function handleHelp() {
     navigate("/help");
   }
-  function onAddTask() {
-    setTasks([...tasks, inputValue]);
+  function onAddTask(inputValue) { 
+    if ( inputValue.length !== 3 ) {
+       setTasks([...tasks, inputValue]);
+    }
+   
   }
   function onChangeTask(task, index) {
     const changeTask = [...tasks];
@@ -181,7 +185,7 @@ function Tasks() {
                     placeholder="Enter your task"
                   />
                   <button
-                    onClick={() => onAddTask()}
+                    onClick={() => onAddTask(inputValue)}
                     className=" w-20 relative p-1 bg-[#6366F1] 
                     ml-5 mr-5 rounded-xl
                    text-white hover:bg-[#1F2937] hover:border-[#6366F1] hover:border
