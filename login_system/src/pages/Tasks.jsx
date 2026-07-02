@@ -26,7 +26,7 @@ function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [important, setImportant] = useState(false);
   const [date, setDate] = useState("");
-  const inputRef = useRef(null);
+  const inputRef = useRef(new Map());
 
   useEffect(() => {
     async function verifyUser() {
@@ -69,10 +69,11 @@ function Tasks() {
     changeTask[index] = task;
     setTasks([...changeTask]);
   }
-  function openCalendar() {
-    if (inputRef.current) {
-      inputRef.current.showPicker();
-      inputRef.current.datePicker();
+  function openCalendar(index) {
+    const inputOpen = inputRef.current.get(index);
+    if (inputOpen) {
+      inputOpen.showPicker();
+      inputOpen.datePicker();
     }
   }
 
@@ -219,7 +220,7 @@ function Tasks() {
                   <span>Important</span>
                 </div>
               </ul>
-              <div className="    ">
+              <div>
                 {tasks.length === 0 ? (
                   <div className="relative left-4 top-4">Add a task</div>
                 ) : (
@@ -240,7 +241,13 @@ function Tasks() {
                                hover:border-gray-200 right-5"
                         >
                           <input
-                            ref={inputRef}
+                            ref={(element) => {
+                              if (element) {
+                                inputRef.current.set(index, element);
+                              } else {
+                                inputRef.current.delete(index);
+                              }
+                            }}
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
                             onFocus={"border-gray-200 border-2 rounded-2xl"}
@@ -250,7 +257,7 @@ function Tasks() {
                             type="date"
                           />
                           <CalendarDays
-                            onClick={openCalendar}
+                            onClick={() => openCalendar(index)}
                             size={20}
                             className="shrink-0  right-5 relative text-blue-500"
                           />
