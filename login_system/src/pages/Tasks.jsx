@@ -63,10 +63,10 @@ function Tasks() {
     navigate("/help");
   }
   function onAddTask(inputValue) { 
-    if ( inputValue.length !== 3 ) {
+    const textLimpo = inputValue.trim();
+    if ( textLimpo.length >= 5) {
        setTasks([...tasks, inputValue]);
     }
-   
   }
   function onChangeTask(task, index) {
     const changeTask = [...tasks];
@@ -180,7 +180,7 @@ function Tasks() {
                     hover:bg-[#1F2937] hover:placeholder:text-white
                      hover:text-white  cursor-pointer"
                     value={inputValue}
-                    min={3}
+                    min={5}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Enter your task"
                   />
