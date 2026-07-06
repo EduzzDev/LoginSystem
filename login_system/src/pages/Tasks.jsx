@@ -69,6 +69,9 @@ function Tasks() {
     }
   }
   function onChangeTask(task, index) {
+    if (!task.trim()) {
+      return
+    }
     const changeTask = [...tasks];
     changeTask[index].text = task;
     setTasks([...changeTask]);
