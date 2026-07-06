@@ -82,7 +82,6 @@ function Tasks() {
       const changeTask = [...tasks];
     changeTask[index].important = !changeTask[index].important;
     if  (changeTask[index].important === true) {
-       const orderTask = [...changeTask];
        const extractTask = changeTask.splice(index, 1)[0];
         changeTask.unshift(extractTask)
        changeTask[0].important = true
@@ -157,10 +156,6 @@ function Tasks() {
               <ShieldQuestionMark className=" mr-4 ml-1" />
               Ajuda
             </SideBarItem>
-            <SideBarItem onClick={() => handleLogoutClick()}>
-              <LogOut className=" mr-4 ml-1" />
-              Sair
-            </SideBarItem>
           </ul>
           <SideBarItem onClick={() => handleLogoutClick()}>
             <LogOut className=" mr-4 ml-1" />
@@ -222,14 +217,14 @@ function Tasks() {
               className="min-w-[70%] min-h-full-25  relative right-10
             pt-2 pb-5  border bg-[#494e57] border-transparent rounded-2xl "
             >
-              <ul className=" grid grid-cols-3  col-span-3 border-b border-[#1a1c1f]">
-                <div className=" ml-5 left-10 relative ">
+              <ul className=" grid grid-cols-3 m-1 p-1  col-span-3 border-b border-[#1a1c1f]">
+                <div className=" ml-5  relative ">
                   <span>Title</span>
                 </div>
-                <div className="ml-10 pl-10 left-10 relative">
+                <div className="ml-12 pl-10 left-10 relative">
                   <span>Expiration Date</span>
                 </div>
-                <div className="">
+                <div className=" left-2 ml-1 relative">
                   <span>Important</span>
                 </div>
               </ul>
@@ -242,15 +237,15 @@ function Tasks() {
                       <div className="border-b border-[#1a1c1f] flex">
                         <input
                           className="w-[32dvw] p-1 pl-5 relative
-                              m-1  hover:border-2   outline-0 rounded-2xl
-                               hover:border-gray-400 hover:bg-[#1f2124]"
+                              m-1  hover:border-2   outline-0 rounded-xl
+                               hover:border-gray-200 "
                           type="text"
                           value={task.text}
                           onChange={(e) => onChangeTask(e.target.value, index)}
                         />
                         <div
-                          className="relative flex items-center justify-betweenp-1 pl-5 
-                              m-1  hover:border-2   outline-0 rounded-2xl
+                          className="relative flex items-center justify-between p-1 pl-5 
+                              m-1  hover:border-2   outline-0 rounded-xl
                                hover:border-gray-200 right-5"
                         >
                           <input
