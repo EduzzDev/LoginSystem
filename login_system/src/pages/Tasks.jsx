@@ -141,28 +141,28 @@ function Tasks() {
           <ul className="flex flex-col items-baseline">
             <SideBarItem onClick={() => handleDashboard()}>
               <LayoutDashboard className=" mr-3 ml-2" />
-              Geral
+              General
             </SideBarItem>
             <SideBarItem onClick={() => handleMyProfile()}>
               <User className=" mr-4 ml-1" />
-              Meu Perfil
+              My Profile
             </SideBarItem>
             <SideBarItem>
               <ClipboardList className=" mr-4 ml-1" />
-              Tarefas
+              Tasks
             </SideBarItem>
             <SideBarItem onClick={() => handleSecurity()}>
               <Shield className=" mr-4 ml-1" />
-              Segurança
+              Security
             </SideBarItem>
             <SideBarItem onClick={() => handleHelp()}>
               <ShieldQuestionMark className=" mr-4 ml-1" />
-              Ajuda
+              Help
             </SideBarItem>
           </ul>
           <SideBarItem onClick={() => handleLogoutClick()}>
             <LogOut className=" mr-4 ml-1" />
-            Sair
+            Logout
           </SideBarItem>
         </nav>
         <main>
@@ -239,7 +239,7 @@ function Tasks() {
                     <div key={index}>
                       <div className="border-b border-[#1a1c1f] flex">
                         <input
-                          className="w-[32dvw] p-1 pl-5 relative
+                          className="w-[32dvw] p-1.5 pl-5 relative
                               m-1  hover:border-2   outline-0 rounded-xl
                                hover:border-gray-200 "
                           type="text"
@@ -247,7 +247,7 @@ function Tasks() {
                           onChange={(e) => onChangeTask(e.target.value, index)}
                         />
                         <div
-                          className="relative flex items-center justify-between p-1 pl-5 
+                          className="relative flex items-center text-center justify-between h-10 min-h-12 p-2 pl-5 
                               m-1  hover:border-2   outline-0 rounded-xl
                                hover:border-gray-200 right-5"
                         >
@@ -261,7 +261,7 @@ function Tasks() {
                             }}
                             value={task.date}
                             onChange={(e) => handleDateChange(e.target.value, index)}
-                            className={`w-full min-w-40 w-40 max-w-42 cursor-pointer bg-transparent
+                            className={`w-full  min-w-40 w-40 max-w-42 cursor-pointer bg-transparent
                                  outline-none ${!task.date ? "[&::-webkit-datetime-edit]:hidden " : "min-w-2"} 
                                   [&::-webkit-calendar-picker-indicator]:hidden `}
                             type="date"
@@ -279,7 +279,7 @@ function Tasks() {
                         </div>
                         <div className="flex relative right-4.5">
                           <input
-                            className="w-30  rounded-2xl
+                            className="w-30  rounded-xl
                            hover:border-gray-200 hover:border-2 
                            appearance-none outline-0"
                             type="text"

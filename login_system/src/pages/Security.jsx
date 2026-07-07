@@ -104,32 +104,28 @@ function Security() {
           <ul className="flex flex-col items-baseline">
             <SideBarItem onClick={() => handleDashboard()}>
               <LayoutDashboard className=" mr-3 ml-2" />
-              Geral
+              General
             </SideBarItem>
             <SideBarItem onClick={() => handleMyProfile()}>
               <User className=" mr-4 ml-1" />
-              Meu Perfil
+              My Profile
             </SideBarItem>
             <SideBarItem onClick={() => handleTasks()}>
               <ClipboardList className=" mr-4 ml-1" />
-              Tarefas
+              Tasks
             </SideBarItem>
             <SideBarItem>
               <Shield className=" mr-4 ml-1" />
-              Segurança
+              Security
             </SideBarItem>
             <SideBarItem onClick={() => handleHelp()}>
               <ShieldQuestionMark className=" mr-4 ml-1" />
-              Ajuda
-            </SideBarItem>
-            <SideBarItem onClick={() => handleLogoutClick()}>
-              <LogOut className=" mr-4 ml-1" />
-              Sair
+              Help
             </SideBarItem>
           </ul>
           <SideBarItem onClick={() => handleLogoutClick()}>
             <LogOut className=" mr-4 ml-1" />
-            Sair
+            Logout
           </SideBarItem>
         </nav>
       </div>
