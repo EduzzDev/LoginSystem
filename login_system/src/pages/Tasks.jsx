@@ -26,7 +26,6 @@ function Tasks() {
   const [tasks, setTasks] = useState([]);
   const inputRef = useRef(new Map());
 
-  
   useEffect(() => {
     async function verifyUser() {
       try {
@@ -60,7 +59,7 @@ function Tasks() {
   function handleHelp() {
     navigate("/help");
   }
-  function onAddTask(inputValue) { 
+  function onAddTask(inputValue) {
     const textLimpo = inputValue.trim();
     if (textLimpo.length >= 5) {
       setTasks([...tasks, { text: textLimpo, date: "", important: false }]);
@@ -70,24 +69,27 @@ function Tasks() {
   }
   function onChangeTask(task, index) {
     if (!task.trim()) {
-      return
+      return;
     }
     const changeTask = [...tasks];
     changeTask[index].text = task;
     setTasks([...changeTask]);
   }
   function handleDateChange(date, index) {
+    if (!date.trim()) {
+      return;
+    }
     const changeDate = [...tasks];
     changeDate[index].date = date;
     setTasks(changeDate);
   }
   function toggleImportant(task, index) {
-      const changeTask = [...tasks];
+    const changeTask = [...tasks];
     changeTask[index].important = !changeTask[index].important;
-    if  (changeTask[index].important === true) {
-       const extractTask = changeTask.splice(index, 1)[0];
-        changeTask.unshift(extractTask)
-       changeTask[0].important = true
+    if (changeTask[index].important === true) {
+      const extractTask = changeTask.splice(index, 1)[0];
+      changeTask.unshift(extractTask);
+      changeTask[0].important = true;
     }
     setTasks(changeTask);
   }
@@ -95,7 +97,7 @@ function Tasks() {
   return (
     <>
       {/* Menu PC */}
-      <div className=" w-screen h-screen hidden lg:block bg-[#2D3035] ">
+      <div className="relative w-screen h-screen hidden lg:block bg-[#2D3035] ">
         <nav className="w-screen hidden  lg:flex justify-end">
           <div
             className="bg-[#1A1C20] w-[80%] flex justify-between
@@ -133,7 +135,8 @@ function Tasks() {
             </div>
           </div>
         </nav>
-        <nav className=" w-[20%] h-full flex flex-col justify-between mr-4 pl-6 border-r border-gray-600  absolute bottom-0 text-white bg-[#1A1C20] ">
+        <nav className=" w-[20%] h-full flex flex-col justify-between mr-4 pl-6 border-r
+         border-gray-600  absolute bottom-0 text-white bg-[#1A1C20] ">
           <h1 className="flex relative text-3xl top-4.5 items-center text-gray-200">
             <Zap className="relative mr-1 ml-1 " />
             <span className="font-extrabold">Login</span>System
@@ -166,129 +169,128 @@ function Tasks() {
           </SideBarItem>
         </nav>
         <main>
-          <div className="w-[60%] h-full hidden lg:flex justify-center relative">
-            {!showInput ? (
-              <button
-                className=" w-55 h-10 pl-2 pr-2 text-xl border 
+          <div className="px-6 lg:ml-[20%] lg:pr-8">
+            <div className="w-full h-full hidden lg:flex justify-start relative ">
+              {!showInput ? (
+                <button
+                  className=" w-55 h-10 pl-2 pr-2 text-xl border 
                 top-8 relative rounded-xl bg-[#6366F1] border-[#4F46E5]
                  text-[#FFFFFF]  cursor-pointer 
                  hover:bg-[#1F2937] hover:text-white"
-                onClick={() => setShowInput(true)}
-              >
-                Add a new task
-              </button>
-            ) : (
-              <>
-                <div className="w-[30%] ml-1 top-8 relative text-lg ">
-                  <input
-                    className="w-80 ml-4 mb-2  pl-4 pt-2 pb-2 bg-[#6366F1]
+                  onClick={() => setShowInput(true)}
+                >
+                  Add a new task
+                </button>
+              ) : (
+                <>
+                  <div className="w-[30%] ml-1 top-8 relative text-lg ">
+                    <input
+                      className="w-80 ml-4 mb-2  pl-4 pt-2 pb-1 bg-[#6366F1]
                      hover:border-[#4F46E5] hover:border rounded-xl 
                     placeholder:text-white text-[#ffffff] outline-none
                     hover:bg-[#1F2937] hover:placeholder:text-white
                      hover:text-white  cursor-pointer"
-                    value={inputValue}
-                    min={5}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Enter your task"
-                  />
-                  <button
-                    onClick={() => onAddTask(inputValue)}
-                    className=" w-20 relative p-1 bg-[#6366F1] 
+                      value={inputValue}
+                      min={5}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      placeholder="Enter your task"
+                    />
+                    <button
+                      onClick={() => onAddTask(inputValue)}
+                      className=" w-20 relative p-1 bg-[#6366F1] 
                     ml-5 mr-5 rounded-xl
                    text-white hover:bg-[#1F2937] hover:border-[#6366F1] hover:border
                     cursor-pointer"
-                  >
-                    Add
-                  </button>
-                  <button
-                    className=" w-20 relative bg-red-400 p-1 
+                    >
+                      Add
+                    </button>
+                    <button
+                      className=" w-20 relative bg-red-400 p-1 
                     rounded-xl text-[#1F2937]  cursor-pointer hover:text-red-400 hover:bg-[#1F2937]
                      hover:border-[#6366F1] hover:border"
-                    onClick={() => setShowInput(false)}
-                  >
-                    Cancel
-                  </button>
+                      onClick={() => setShowInput(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+            <article className="w-full text-white flex justify-center flex-col pt-5 mt-8 relative text-2xl overflow-hidden">
+              <div className="w-full relative mx-auto pt-2 pb-5 bg-[#494e57] rounded-2xl">
+                <div
+                  className=" grid grid-cols-3 gap-4 px-6 py-2
+               border-b border-[#1a1c1f] font-semibold text-white"
+                >
+                  <div className=" flex justify-start ">
+                    <span>Title</span>
+                  </div>
+                  <div className="flex justify-center">
+                    <span>Expiration Date</span>
+                  </div>
+                  <div className="flex justify-end lg:justify-center">
+                    <span>Important</span>
+                  </div>
                 </div>
-              </>
-            )}
-          </div>
-          <article
-            className=" text-white flex flex-col items-end pt-2
-            mt-5  top-10 relative text-2xl"
-          >
-            <div
-              className="min-w-[70%] min-h-full-25  relative right-10
-            pt-2 pb-5  border bg-[#494e57] border-transparent rounded-2xl "
-            >
-              <ul className=" grid grid-cols-3 m-1 p-1  col-span-3 border-b border-[#1a1c1f]">
-                <div className=" ml-5  relative ">
-                  <span>Title</span>
-                </div>
-                <div className="ml-12 pl-10 left-10 relative">
-                  <span>Expiration Date</span>
-                </div>
-                <div className=" left-2 ml-1 relative">
-                  <span>Important</span>
-                </div>
-              </ul>
-              <div>
-                {tasks.length === 0 ? (
-                  <div className="relative left-4 top-4">Add a task</div>
-                ) : (
-                  tasks.map((task, index) => (
-                    <div key={index}>
-                      <div className="border-b border-[#1a1c1f] flex">
-                        <input
-                          className="w-[32dvw] p-1.5 pl-5 relative
-                              m-1  hover:border-2   outline-0 rounded-xl
-                               hover:border-gray-200 "
-                          type="text"
-                          value={task.text}
-                          onChange={(e) => onChangeTask(e.target.value, index)}
-                        />
-                        <div
-                          className="relative flex items-center text-center justify-between h-10 min-h-12 p-2 pl-5 
-                              m-1  hover:border-2   outline-0 rounded-xl
-                               hover:border-gray-200 right-5"
-                        >
+                <div>
+                  {tasks.length === 0 ? (
+                    <div className="text-left ml-4  py-1.5 h-8 items-center text-gray-400">
+                      Add a task
+                    </div>
+                  ) : (
+                    tasks.map((task, index) => (
+                      <div
+                        className="grid grid-cols-3 gap-4 px-6 items-center border-b border-[#1a1c1f]"
+                        key={index}
+                      >
+                        <div className="flex justify-start w-screen">
                           <input
-                            ref={(element) => {
-                              if (element) {
-                                inputRef.current.set(index, element);
-                              } else {
-                                inputRef.current.delete(index);
-                              }
-                            }}
-                            value={task.date}
-                            onChange={(e) => handleDateChange(e.target.value, index)}
-                            className={`w-full  min-w-40 w-40 max-w-42 cursor-pointer bg-transparent
-                                 outline-none ${!task.date ? "[&::-webkit-datetime-edit]:hidden " : "min-w-2"} 
-                                  [&::-webkit-calendar-picker-indicator]:hidden `}
-                            type="date"
-                          />
-                          <CalendarDays
-                            onClick={() => {
-                              const inputOpen = inputRef.current.get(index);
-                              if (inputOpen) {
-                                inputOpen.showPicker();
-                              }
-                            }}
-                            size={20}
-                            className="shrink-0  right-4.5 relative text-blue-500"
+                            className="w-[30dvw] p-2 pl-2.5 m-1 outline-0 rounded-xl hover:border-2 relative 
+                            right-4.5
+                             hover:border-gray-200 bg-transparent text-white"
+                            type="text"
+                            value={task.text}
+                            onChange={(e) =>
+                              onChangeTask(e.target.value, index)
+                            }
                           />
                         </div>
-                        <div className="flex relative right-4.5">
-                          <input
-                            className="w-30  rounded-xl
-                           hover:border-gray-200 hover:border-2 
-                           appearance-none outline-0"
-                            type="text"
-                            readOnly
-                            value=""
-                          />
+                        <div className="flex justify-center items-center">
+                          <div className="w-full flex items-center justify-center text-center">
+                            <input
+                              ref={(element) => {
+                                if (element) {
+                                  inputRef.current.set(index, element);
+                                } else {
+                                  inputRef.current.delete(index);
+                                }
+                              }}
+                              value={task.date}
+                              onChange={(e) =>
+                                handleDateChange(e.target.value, index)
+                              }
+                              className={`min-w-40 w-40 max-w-42
+                                 cursor-pointer bg-transparent 
+                                 outline-none ${!task.date ? "[&::-webkit-datetime-edit]:hidden" : ""} 
+                                 [&::-webkit-calendar-picker-indicator]:hidden`}
+                              type="date"
+                            />
+                            <CalendarDays 
+                              onClick={() => {
+                                const inputOpen = inputRef.current.get(index);
+                                if (inputOpen) {
+                                  inputOpen.showPicker();
+                                }
+                              }}
+                              size={20}
+                              className="shrink-0 relative text-blue-500 right-2 "
+                            />
+                          </div>
+                        </div>
+                        <div className="flex justify-center ">
                           <button
-                            onClick={() => toggleImportant(task,index)}
-                            className="relative right-7.5 -ml-10 cursor-pointer "
+                            onClick={() => toggleImportant(task, index)}
+                            className="cursor-pointer"
                           >
                             {!task.important ? (
                               <Star />
@@ -298,12 +300,12 @@ function Tasks() {
                           </button>
                         </div>
                       </div>
-                    </div>
-                  ))
-                )}
+                    ))
+                  )}
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
+          </div>
         </main>
       </div>
       {/* menu MOBILE*/}
