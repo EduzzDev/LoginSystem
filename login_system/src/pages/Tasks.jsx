@@ -67,14 +67,19 @@ function Tasks() {
       setShowInput(false);
     }
   }
-  function onChangeTask(task, index) {
-    if (!task.trim()) {
+  function onChangeTask(newTask, index) {
+    if (!newTask.trim()) {
       return;
     }
-    const changeTask = [...tasks];
-    changeTask[index].text = task;
-    setTasks([...changeTask]);
+    const changeTask =  tasks.map((currentTask, indexTask) => {
+        if (index === indexTask) {
+            return {...currentTask, text: newTask}
+        }
+        return currentTask;
+    })
+    setTasks(changeTask);
   }
+
   function handleDateChange(date, index) {
     if (!date.trim()) {
       return;
@@ -93,7 +98,7 @@ function Tasks() {
     }
     setTasks(changeTask);
   }
-
+  
   return (
     <>
       {/* Menu PC */}
@@ -135,7 +140,7 @@ function Tasks() {
             </div>
           </div>
         </nav>
-        <nav className=" w-[20%] h-full flex flex-col justify-between mr-4 pl-6 border-r
+        <nav className=" w-[20%] h-full flex flex-col justify-between mr-4 pl-5 border-r
          border-gray-600  absolute bottom-0 text-white bg-[#1A1C20] ">
           <h1 className="flex relative text-3xl top-4.5 items-center text-gray-200">
             <Zap className="relative mr-1 ml-1 " />
