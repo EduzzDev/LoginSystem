@@ -23,7 +23,11 @@ function Tasks() {
   const { user, timeLogged } = useContext(AuthContext);
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const SavedTasks = localStorage.getItem("lista_tarefas");
+    return SavedTasks ? JSON.parse(SavedTasks) : [];
+  });
+
   const inputRef = useRef(new Map());
 
   useEffect(() => {
@@ -71,21 +75,28 @@ function Tasks() {
     if (!newTask.trim()) {
       return;
     }
-    const changeTask =  tasks.map((currentTask, indexTask) => {
-        if (index === indexTask) {
-            return {...currentTask, text: newTask}
-        }
-        return currentTask;
-    })
+    const changeTask = tasks.map((currentTask, indexTask) => {
+      if (index === indexTask) {
+        return { ...currentTask, text: newTask };
+      }
+      return currentTask;
+    });
     setTasks(changeTask);
   }
+  useEffect(() => {
+    localStorage.setItem("lista_tarefas", JSON.stringify(tasks));
+  }, [tasks]);
 
-  function handleDateChange(date, index) {
-    if (!date.trim()) {
+  function handleDateChange(newDate, index) {
+    if (!newDate.trim()) {
       return;
     }
-    const changeDate = [...tasks];
-    changeDate[index].date = date;
+    const changeDate = tasks.map((currentDate, indexDate) => {
+      if (index === indexDate) {
+        return { ...currentDate, date: newDate };
+      }
+      return currentDate;
+    });
     setTasks(changeDate);
   }
   function toggleImportant(task, index) {
@@ -98,7 +109,7 @@ function Tasks() {
     }
     setTasks(changeTask);
   }
-  
+
   return (
     <>
       {/* Menu PC */}
@@ -140,8 +151,10 @@ function Tasks() {
             </div>
           </div>
         </nav>
-        <nav className=" w-[20%] h-full flex flex-col justify-between mr-4 pl-5 border-r
-         border-gray-600  absolute bottom-0 text-white bg-[#1A1C20] ">
+        <nav
+          className=" w-[20%] h-full flex flex-col justify-between mr-4 pl-5 border-r
+         border-gray-600  absolute bottom-0 text-white bg-[#1A1C20] "
+        >
           <h1 className="flex relative text-3xl top-4.5 items-center text-gray-200">
             <Zap className="relative mr-1 ml-1 " />
             <span className="font-extrabold">Login</span>System
@@ -280,7 +293,7 @@ function Tasks() {
                                  [&::-webkit-calendar-picker-indicator]:hidden`}
                               type="date"
                             />
-                            <CalendarDays 
+                            <CalendarDays
                               onClick={() => {
                                 const inputOpen = inputRef.current.get(index);
                                 if (inputOpen) {
