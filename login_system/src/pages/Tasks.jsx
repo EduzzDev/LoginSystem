@@ -19,6 +19,7 @@ import SideBarMobile from "../components/SideBarMobile";
 import { UserCircle } from "lucide-react";
 import { Circle } from "lucide-react";
 import { Trash2 } from "lucide-react";
+import { CircleCheckBig } from "lucide-react";
 
 function Tasks() {
   const navigate = useNavigate();
@@ -68,7 +69,10 @@ function Tasks() {
   function onAddTask(inputValue) {
     const textLimpo = inputValue.trim();
     if (textLimpo.length >= 5) {
-      setTasks([...tasks, { text: textLimpo, date: "", important: false }]);
+      setTasks([
+        ...tasks,
+        { text: textLimpo, date: "", important: false, isCompleted: false },
+      ]);
       setInputValue("");
       setShowInput(false);
     }
@@ -110,6 +114,15 @@ function Tasks() {
       changeTask[0].important = true;
     }
     setTasks(changeTask);
+  }
+  function toggleCompleted(index) {
+    const completed = tasks.map((task, i) => {
+      if (index === i) {
+        return { ...task, isCompleted: !task.isCompleted };
+      }
+      return task;
+    });
+    setTasks(completed);
   }
   const deleteTask = (index) => {
     setTasks(tasks.filter((_, i) => i !== index));
@@ -270,13 +283,20 @@ function Tasks() {
                         key={index}
                       >
                         <div className="flex justify-start w-screen">
-                          <button className="relative right-5 ml-0.5  cursor-pointer ">
-                            <Circle />
+                          <button
+                            onClick={() => toggleCompleted(index)}
+                            className="relative right-5 ml-0.5  cursor-pointer "
+                          >
+                            {!task.isCompleted ? (
+                              <Circle />
+                            ) : (
+                              <CircleCheckBig />
+                            )}
                           </button>
                           <input
-                            className=" w-[22dvw]  p-2  m-1 outline-0 rounded-xl hover:border-2 relative 
+                            className={` w-[22dvw]  p-2  m-1 outline-0 rounded-xl hover:border-2 relative 
                             right-5.5
-                             hover:border-gray-200 bg-transparent text-white"
+                             hover:border-gray-200 bg-transparent text-white ${!task.isCompleted ? "" : "line-through"}`}
                             type="text"
                             value={task.text}
                             onChange={(e) =>
