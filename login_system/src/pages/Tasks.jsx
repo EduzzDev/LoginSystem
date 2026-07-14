@@ -17,9 +17,8 @@ import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 import SideBarMobile from "../components/SideBarMobile";
 import { UserCircle } from "lucide-react";
-import { Circle } from 'lucide-react';
-import { Trash2 } from 'lucide-react';
-
+import { Circle } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 function Tasks() {
   const navigate = useNavigate();
@@ -112,6 +111,9 @@ function Tasks() {
     }
     setTasks(changeTask);
   }
+  const deleteTask = (index) => {
+    setTasks(tasks.filter((_, i) => i !== index));
+  };
 
   return (
     <>
@@ -252,9 +254,9 @@ function Tasks() {
                   <div className="flex justify-center">
                     <span>Important</span>
                   </div>
-                   <div className="flex justify-center">
-                  <span>Action</span>
-                </div>
+                  <div className="flex justify-center">
+                    <span>Action</span>
+                  </div>
                 </div>
                 <div>
                   {tasks.length === 0 ? (
@@ -263,14 +265,13 @@ function Tasks() {
                     </div>
                   ) : (
                     tasks.map((task, index) => (
-                      
                       <div
                         className="grid grid-cols-4 gap-4 px-6 items-center border-b border-[#1a1c1f]"
                         key={index}
                       >
                         <div className="flex justify-start w-screen">
                           <button className="relative right-5 ml-0.5  cursor-pointer ">
-                            <Circle/>
+                            <Circle />
                           </button>
                           <input
                             className=" w-[22dvw]  p-2  m-1 outline-0 rounded-xl hover:border-2 relative 
@@ -286,6 +287,12 @@ function Tasks() {
                         <div className="flex justify-center items-center  relative left-8.5">
                           <div className="w-full flex items-center justify-center text-center">
                             <input
+                              onClick={() => {
+                                const inputOpen = inputRef.current.get(index);
+                                if (inputOpen) {
+                                  inputOpen.showPicker();
+                                }
+                              }}
                               ref={(element) => {
                                 if (element) {
                                   inputRef.current.set(index, element);
@@ -328,8 +335,11 @@ function Tasks() {
                           </button>
                         </div>
                         <div className="flex justify-center">
-                          <button className="cursor-pointer">
-                            <Trash2/>
+                          <button
+                            onClick={() => deleteTask(index)}
+                            className="cursor-pointer"
+                          >
+                            <Trash2 />
                           </button>
                         </div>
                       </div>
