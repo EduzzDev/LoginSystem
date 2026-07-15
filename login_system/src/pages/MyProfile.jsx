@@ -49,6 +49,9 @@ function MyProfile() {
   function handleTasks() {
     navigate("/tasks");
   }
+  function handleMyProfile() {
+    navigate("/myProfile");
+  }
   function handleSecurity() {
     navigate("/security");
   }
@@ -58,16 +61,20 @@ function MyProfile() {
   return (
     <>
       {/* Menu PC */}
-      <div className=" w-screen h-screen hidden lg:block bg-[#2D3035] ">
+      <div className="relative w-screen h-screen hidden lg:block bg-[#2D3035] overflow-x-hidden overflow-y-hidden ">
         <nav className="w-screen hidden  lg:flex justify-end">
           <div
-            className="bg-[#1A1C20] w-[80%] flex justify-between
-             h-18 items-center rounded-t-lg -translate-x-0.5  border-b  border-gray-700 "
+            className="bg-[#1A1C20] w-full flex justify-between
+             h-18 items-center rounded-t-lg   border-b  border-gray-700 "
           >
-            <div className=" flex ml-4">
-              <span className="text-gray-500 flex-col  text-[18px] mr-2">
+            <h1 className="flex  relative text-3xl  items-center text-gray-200">
+              <Zap className="relative mr-1 ml-1 " />
+              <span className="font-extrabold">Login</span>System
+            </h1>
+            <div className=" flex  absolute left-1/5 ml-2 right-0">
+              <span className="text-gray-500 flex-col  text-[18px]">
                 Dashboard {">"}{" "}
-                <span className="text-white text-[18px]">myProfile</span>
+                <span className="text-white text-[18px]">My Profile</span>
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -96,37 +103,38 @@ function MyProfile() {
             </div>
           </div>
         </nav>
-        <nav className=" w-[20%] h-full flex flex-col justify-between pl-6 border-r border-gray-600  absolute bottom-0 text-white bg-[#1A1C20] ">
-          <h1 className="flex relative text-3xl top-4.5 items-center text-gray-200">
-            <Zap className="relative mr-1 ml-1 " />
-            <span className="font-extrabold">Login</span>System
-          </h1>
-          <ul className="flex flex-col items-baseline">
+        <nav
+          className=" w-[20%] h-full  flex flex-col justify-center
+           pl-5 border-r 
+         border-gray-600  relative  text-white bg-[#1A1C20] 
+           "
+        >
+          <div className=" flex flex-col items-center   relative ">
             <SideBarItem onClick={() => handleDashboard()}>
-              <LayoutDashboard className=" mr-3 ml-2" />
+              <LayoutDashboard className=" mr-3 " />
               General
             </SideBarItem>
             <SideBarItem>
-              <User className=" mr-4 ml-1" />
-             My Profile
+              <User className=" mr-4 " />
+              My Profile
             </SideBarItem>
             <SideBarItem onClick={() => handleTasks()}>
-              <ClipboardList className=" mr-4 ml-1" />
+              <ClipboardList className=" mr-4 " />
               Tasks
             </SideBarItem>
             <SideBarItem onClick={() => handleSecurity()}>
-              <Shield className=" mr-4 ml-1" />
+              <Shield className=" mr-4" />
               Security
             </SideBarItem>
             <SideBarItem onClick={() => handleHelp()}>
-              <ShieldQuestionMark className=" mr-4 ml-1" />
+              <ShieldQuestionMark className=" mr-4 " />
               Help
             </SideBarItem>
-          </ul>
-          <SideBarItem onClick={() => handleLogoutClick()}>
-            <LogOut className=" mr-4 ml-1" />
-            Logout
-          </SideBarItem>
+            <SideBarItem onClick={() => handleLogoutClick()}>
+              <LogOut className=" mr-4 " />
+              Logout
+            </SideBarItem>
+          </div>
         </nav>
       </div>
       {/* menu MOBILE*/}
@@ -157,8 +165,8 @@ function MyProfile() {
           justify-between py-1 max-[350px]:-ml-2 relative  max-[350px]:text-[16px]
           text-lg min-[600px]:text-2xl min-[600px]:px-[5.5dvw]"
           >
-            <SideBarMobile>
-              <LayoutDashboard onClick={() => handleDashboard()} />
+            <SideBarMobile onClick={() => handleDashboard()}>
+              <LayoutDashboard />
               <h2>General</h2>
             </SideBarMobile>
             <SideBarMobile onClick={() => handleTasks()}>
@@ -169,7 +177,7 @@ function MyProfile() {
               <Shield />
               <h2>Security</h2>
             </SideBarMobile>
-            <SideBarMobile>
+            <SideBarMobile onClick={() => handleMyProfile()}>
               <User />
               <h2>User</h2>
             </SideBarMobile>
