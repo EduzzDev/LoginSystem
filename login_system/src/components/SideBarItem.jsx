@@ -10,7 +10,9 @@ function SideBarItem({ children, onClick }) {
           onClick(event);
         }
       }}
-      className={`flex w-[95%] p-2.5 rounded-2xl z-10 hover:bg-gray-600 hover:text-white  text-xl items-center mb-2 cursor-pointer
+      className={`flex w-[95%] p-2.5 rounded-2xl z-10 hover:bg-gray-600
+         hover:text-white text-2xl
+         items-center mb-2 cursor-pointer
         ${
           isActive
             ? " w-[95%] p-2.5 rounded-2xl bg-gray-600 text-white border-gray-200"
