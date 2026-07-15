@@ -131,14 +131,18 @@ function Tasks() {
   return (
     <>
       {/* Menu PC */}
-      <div className="relative w-screen h-screen hidden lg:block bg-[#2D3035] ">
+      <div className="relative w-screen h-screen hidden lg:block bg-[#2D3035] overflow-x-hidden overflow-y-hidden ">
         <nav className="w-screen hidden  lg:flex justify-end">
           <div
-            className="bg-[#1A1C20] w-[80%] flex justify-between
-             h-18 items-center rounded-t-lg -translate-x-0.5  border-b  border-gray-700 "
+            className="bg-[#1A1C20] w-full flex justify-between
+             h-18 items-center rounded-t-lg   border-b  border-gray-700 "
           >
-            <div className=" flex ml-4">
-              <span className="text-gray-500 flex-col  text-[18px] mr-2">
+            <h1 className="flex  relative text-3xl  items-center text-gray-200">
+              <Zap className="relative mr-1 ml-1 " />
+              <span className="font-extrabold">Login</span>System
+            </h1>
+            <div className=" flex  absolute left-1/5 ml-2 right-0">
+              <span className="text-gray-500 flex-col  text-[18px]">
                 Dashboard {">"}{" "}
                 <span className="text-white text-[18px]">Tasks</span>
               </span>
@@ -170,42 +174,40 @@ function Tasks() {
           </div>
         </nav>
         <nav
-          className=" w-[20%] h-full flex flex-col justify-between mr-4 pl-5 border-r
-         border-gray-600  absolute bottom-0 text-white bg-[#1A1C20] "
+          className=" w-[20%] h-full  flex flex-col justify-center
+           pl-5 border-r 
+         border-gray-600  relative  text-white bg-[#1A1C20] 
+           "
         >
-          <h1 className="flex relative text-3xl top-4.5 items-center text-gray-200">
-            <Zap className="relative mr-1 ml-1 " />
-            <span className="font-extrabold">Login</span>System
-          </h1>
-          <ul className="flex flex-col items-baseline">
+          <div className=" flex flex-col items-center   relative ">
             <SideBarItem onClick={() => handleDashboard()}>
-              <LayoutDashboard className=" mr-3 ml-2" />
+              <LayoutDashboard className=" mr-3 " />
               General
             </SideBarItem>
             <SideBarItem onClick={() => handleMyProfile()}>
-              <User className=" mr-4 ml-1" />
+              <User className=" mr-4 " />
               My Profile
             </SideBarItem>
             <SideBarItem>
-              <ClipboardList className=" mr-4 ml-1" />
+              <ClipboardList className=" mr-4 " />
               Tasks
             </SideBarItem>
             <SideBarItem onClick={() => handleSecurity()}>
-              <Shield className=" mr-4 ml-1" />
+              <Shield className=" mr-4" />
               Security
             </SideBarItem>
             <SideBarItem onClick={() => handleHelp()}>
-              <ShieldQuestionMark className=" mr-4 ml-1" />
+              <ShieldQuestionMark className=" mr-4 " />
               Help
             </SideBarItem>
-          </ul>
-          <SideBarItem onClick={() => handleLogoutClick()}>
-            <LogOut className=" mr-4 ml-1" />
-            Logout
-          </SideBarItem>
+            <SideBarItem onClick={() => handleLogoutClick()}>
+              <LogOut className=" mr-4 " />
+              Logout
+            </SideBarItem>
+          </div>
         </nav>
-        <main>
-          <div className="px-6 lg:ml-[20%] lg:pr-8">
+        <main className="relative bottom-1/1">
+          <div className="px-6 lg:ml-[20%] ">
             <div className="w-full h-full hidden lg:flex justify-start relative ">
               {!showInput ? (
                 <button
@@ -252,8 +254,14 @@ function Tasks() {
                 </>
               )}
             </div>
-            <article className="w-full text-white flex justify-center flex-col pt-5 mt-8 relative text-2xl overflow-hidden">
-              <div className="w-full relative mx-auto pt-2 pb-5 bg-[#494e57] rounded-2xl">
+            <article
+              className="w-full text-white flex justify-center flex-col 
+            pt-5 mt-8 relative text-2xl overflow-hidden"
+            >
+              <div
+                className="w-full relative mx-auto pt-2 pb-5 bg-[#494e57] 
+              rounded-2xl"
+              >
                 <div
                   className=" grid grid-cols-4 gap-4 px-6 py-2
                border-b border-[#1a1c1f] font-semibold text-white"
@@ -264,7 +272,7 @@ function Tasks() {
                   <div className="flex justify-center relative left-8">
                     <span>Expiration Date</span>
                   </div>
-                  <div className="flex justify-center">
+                  <div className="flex justify-center relative left-8">
                     <span>Important</span>
                   </div>
                   <div className="flex justify-center">
@@ -279,7 +287,8 @@ function Tasks() {
                   ) : (
                     tasks.map((task, index) => (
                       <div
-                        className="grid grid-cols-4 gap-4 px-6 items-center border-b border-[#1a1c1f]"
+                        className="grid grid-cols-4 gap-4 px-6 items-center
+                         border-b border-[#1a1c1f] "
                         key={index}
                       >
                         <div className="flex justify-start w-screen">
@@ -294,7 +303,7 @@ function Tasks() {
                             )}
                           </button>
                           <input
-                            className={` w-[22dvw]  p-2  m-1 outline-0 rounded-xl hover:border-2 relative 
+                            className={` lg:w-[19.5dvw] min-[1200px]:w-[22dvw]   p-2  m-1 outline-0 rounded-xl hover:border-2 relative 
                             right-5.5
                              hover:border-gray-200 bg-transparent text-white ${!task.isCompleted ? "" : "line-through"}`}
                             type="text"
@@ -305,7 +314,11 @@ function Tasks() {
                           />
                         </div>
                         <div className="flex justify-center items-center  relative left-8.5">
-                          <div className="w-full flex items-center justify-center text-center">
+                          <div
+                            className="w-full flex items-center 
+                          justify-center
+                           text-center"
+                          >
                             <input
                               onClick={() => {
                                 const inputOpen = inputRef.current.get(index);
@@ -342,7 +355,7 @@ function Tasks() {
                             />
                           </div>
                         </div>
-                        <div className="flex justify-center ">
+                        <div className="flex justify-center relative left-8">
                           <button
                             onClick={() => toggleImportant(task, index)}
                             className="cursor-pointer"
