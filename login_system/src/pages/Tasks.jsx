@@ -385,7 +385,7 @@ function Tasks() {
         </main>
       </div>
       {/* menu MOBILE*/}
-      <div className="w-screen h-screen lg:hidden bg-[#2D3035]">
+      <div className="w-screen h-dvh lg:hidden overflow-hidden bg-[#2D3035]">
         <nav className="w-screen lg:hidden  flex justify-center">
           <div
             className="bg-[#1A1C20] w-full flex justify-between
@@ -403,6 +403,52 @@ function Tasks() {
             </div>
           </div>
         </nav>
+          <div className="w-[80%] min-[500px]:w-[40%] h-full flex lg:hidden justify-start relative ">
+              {!showInput ? (
+                <button
+                  className=" w-50 h-10 pl-2 pr-2 text-xl left-5 border 
+                top-8 relative rounded-xl bg-[#6366F1] border-[#4F46E5]
+                 text-[#FFFFFF]  cursor-pointer 
+                 hover:bg-[#1F2937] hover:text-white"
+                  onClick={() => setShowInput(true)}
+                >
+                  Add a new task
+                </button>
+              ) : (
+                <>
+                  <div className="w-full ml-1 top-8 relative text-lg ">
+                    <input
+                      className="w-60 ml-4 mb-2  pl-4 pt-2 pb-1 bg-[#6366F1]
+                     hover:border-[#4F46E5] hover:border rounded-xl 
+                    placeholder:text-white text-[#ffffff] outline-none
+                    hover:bg-[#1F2937] hover:placeholder:text-white
+                     hover:text-white  cursor-pointer"
+                      value={inputValue}
+                      min={5}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      placeholder="Enter your task"
+                    />
+                    <button
+                      onClick={() => onAddTask(inputValue)}
+                      className=" w-20 relative p-1 bg-[#6366F1] 
+                    ml-5 mr-5 rounded-xl
+                   text-white hover:bg-[#1F2937] hover:border-[#6366F1] hover:border
+                    cursor-pointer"
+                    >
+                      Add
+                    </button>
+                    <button
+                      className=" w-20 relative bg-red-400 p-1 
+                    rounded-xl text-[#1F2937]  cursor-pointer hover:text-red-400 hover:bg-[#1F2937]
+                     hover:border-[#6366F1] hover:border"
+                      onClick={() => setShowInput(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </>
+              )}
+          </div>
         <footer
           className=" fixed right-0 left-0 bottom-0 p-2
          border-[#31353a] text-gray-200 border-t-2"
