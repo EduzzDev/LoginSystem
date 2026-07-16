@@ -174,7 +174,7 @@ function Tasks() {
           </div>
         </nav>
         <nav
-          className=" w-[20%] h-full  flex flex-col justify-center
+          className=" w-[22%] xl:w-[18%]  h-full  flex flex-col justify-center
            pl-5 border-r 
          border-gray-600  relative  text-white bg-[#1A1C20] 
            "
@@ -207,7 +207,7 @@ function Tasks() {
           </div>
         </nav>
         <main className="relative bottom-1/1">
-          <div className="px-6 lg:ml-[20%] ">
+          <div className="px-6 lg:ml-[22%] ">
             <div className="w-full h-full hidden lg:flex justify-start relative ">
               {!showInput ? (
                 <button
