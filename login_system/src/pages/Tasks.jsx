@@ -385,7 +385,7 @@ function Tasks() {
         </main>
       </div>
       {/* menu MOBILE*/}
-      <div className="w-screen h-dvh lg:hidden overflow-hidden bg-[#2D3035]">
+      <div className="w-screen h-dvh lg:hidden overflow-y-hidden bg-[#2D3035]">
         <nav className="w-screen lg:hidden  flex justify-center">
           <div
             className="bg-[#1A1C20] w-full flex justify-between
@@ -403,52 +403,176 @@ function Tasks() {
             </div>
           </div>
         </nav>
+        <main className="lg:hidden w-screen overflow-x-hidden">
           <div className="w-[80%] min-[500px]:w-[40%] h-full flex lg:hidden justify-start relative ">
-              {!showInput ? (
-                <button
-                  className=" w-50 h-10 pl-2 pr-2 text-xl left-5 border 
-                top-8 relative rounded-xl bg-[#6366F1] border-[#4F46E5]
-                 text-[#FFFFFF]  cursor-pointer 
-                 hover:bg-[#1F2937] hover:text-white"
-                  onClick={() => setShowInput(true)}
-                >
-                  Add a new task
-                </button>
-              ) : (
-                <>
-                  <div className="w-full ml-1 top-8 relative text-lg ">
-                    <input
-                      className="w-60 ml-4 mb-2  pl-4 pt-2 pb-1 bg-[#6366F1]
-                     hover:border-[#4F46E5] hover:border rounded-xl 
-                    placeholder:text-white text-[#ffffff] outline-none
-                    hover:bg-[#1F2937] hover:placeholder:text-white
-                     hover:text-white  cursor-pointer"
-                      value={inputValue}
-                      min={5}
-                      onChange={(e) => setInputValue(e.target.value)}
-                      placeholder="Enter your task"
-                    />
-                    <button
-                      onClick={() => onAddTask(inputValue)}
-                      className=" w-20 relative p-1 bg-[#6366F1] 
-                    ml-5 mr-5 rounded-xl
-                   text-white hover:bg-[#1F2937] hover:border-[#6366F1] hover:border
-                    cursor-pointer"
-                    >
-                      Add
-                    </button>
-                    <button
-                      className=" w-20 relative bg-red-400 p-1 
-                    rounded-xl text-[#1F2937]  cursor-pointer hover:text-red-400 hover:bg-[#1F2937]
-                     hover:border-[#6366F1] hover:border"
-                      onClick={() => setShowInput(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </>
-              )}
+            {!showInput ? (
+              <button
+                className=" w-50 h-10 pl-2 pr-2 text-xl left-5 border
+                  top-8 relative rounded-xl bg-[#6366F1] border-[#4F46E5]
+                   text-[#FFFFFF]  cursor-pointer
+                   hover:bg-[#1F2937] hover:text-white"
+                onClick={() => setShowInput(true)}
+              >
+                Add a new task
+              </button>
+            ) : (
+              <>
+                <div className="w-full ml-1 top-8 relative text-lg ">
+                  <input
+                    className="w-60 ml-4 mb-2  pl-4 pt-2 pb-1 bg-[#6366F1]
+                       hover:border-[#4F46E5] hover:border rounded-xl
+                      placeholder:text-white text-[#ffffff] outline-none
+                      hover:bg-[#1F2937] hover:placeholder:text-white
+                       hover:text-white  cursor-pointer"
+                    value={inputValue}
+                    min={5}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder="Enter your task"
+                  />
+                  <button
+                    onClick={() => onAddTask(inputValue)}
+                    className=" w-20 relative p-1 bg-[#6366F1]
+                      ml-5 mr-5 rounded-xl
+                     text-white hover:bg-[#1F2937] hover:border-[#6366F1] hover:border
+                      cursor-pointer"
+                  >
+                    Add
+                  </button>
+                  <button
+                    className=" w-20 relative bg-red-400 p-1
+                      rounded-xl text-[#1F2937]  cursor-pointer hover:text-red-400 hover:bg-[#1F2937]
+                       hover:border-[#6366F1] hover:border"
+                    onClick={() => setShowInput(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </>
+            )}
           </div>
+          <article
+            className="w-full text-white flex justify-center  flex-col 
+            pt-5 mt-8 relative text-xl overflow-x-auto"
+          >
+            <div
+              className=" w-[250dvw] min-[600px]:w-[150dvw] relative mx-auto pt-2 pb-5 bg-[#494e57] 
+              rounded-2xl"
+            >
+              <div
+                className=" grid grid-cols-4 gap-4 px-6 py-2
+               border-b border-[#1a1c1f] font-semibold text-white "
+              >
+                <div className=" flex justify-start relative left-3 ">
+                  <span>Title</span>
+                </div>
+                <div className="flex justify-center relative left-8">
+                  <span>Expiration Date</span>
+                </div>
+                <div className="flex justify-center relative left-8">
+                  <span>Important</span>
+                </div>
+                <div className="flex justify-center">
+                  <span>Action</span>
+                </div>
+              </div>
+              <div>
+                {tasks.length === 0 ? (
+                  <div className="text-left ml-4  py-1.5 h-8 items-center text-gray-400">
+                    Add a task
+                  </div>
+                ) : (
+                  tasks.map((task, index) => (
+                    <div
+                      className="grid grid-cols-4 gap-4 px-6 items-center
+                         border-b border-[#1a1c1f] "
+                      key={index}
+                    >
+                      <div className="flex justify-start w-screen">
+                        <button
+                          onClick={() => toggleCompleted(index)}
+                          className="relative right-5 ml-0.5  cursor-pointer "
+                        >
+                          {!task.isCompleted ? <Circle /> : <CircleCheckBig />}
+                        </button>
+                        <input
+                          className={` lg:w-[19.5dvw] min-[1200px]:w-[22dvw]   p-2  m-1 outline-0 rounded-xl
+                             hover:border-2 relative 
+                            right-5.5
+                             hover:border-gray-200 bg-transparent text-white ${!task.isCompleted ? "" : "line-through"}`}
+                          type="text"
+                          value={task.text}
+                          onChange={(e) => onChangeTask(e.target.value, index)}
+                        />
+                      </div>
+                      <div className="flex justify-center items-center  relative left-8.5">
+                        <div
+                          className="w-full flex items-center 
+                          justify-center
+                           text-center"
+                        >
+                          <input
+                            onClick={() => {
+                              const inputOpen = inputRef.current.get(index);
+                              if (inputOpen) {
+                                inputOpen.showPicker();
+                              }
+                            }}
+                            ref={(element) => {
+                              if (element) {
+                                inputRef.current.set(index, element);
+                              } else {
+                                inputRef.current.delete(index);
+                              }
+                            }}
+                            value={task.date}
+                            onChange={(e) =>
+                              handleDateChange(e.target.value, index)
+                            }
+                            className={`min-w-40 w-40 max-w-42
+                                 cursor-pointer bg-transparent 
+                                 outline-none ${!task.date ? "[&::-webkit-datetime-edit]:hidden" : ""} 
+                                 [&::-webkit-calendar-picker-indicator]:hidden`}
+                            type="date"
+                          />
+                          <CalendarDays
+                            onClick={() => {
+                              const inputOpen = inputRef.current.get(index);
+                              if (inputOpen) {
+                                inputOpen.showPicker();
+                              }
+                            }}
+                            size={20}
+                            className="shrink-0 relative text-blue-500 right-2 "
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-center relative left-8">
+                        <button
+                          onClick={() => toggleImportant(task, index)}
+                          className="cursor-pointer"
+                        >
+                          {!task.important ? (
+                            <Star />
+                          ) : (
+                            <Star className="fill-white" />
+                          )}
+                        </button>
+                      </div>
+                      <div className="flex justify-center">
+                        <button
+                          onClick={() => deleteTask(index)}
+                          className="cursor-pointer"
+                        >
+                          <Trash2 />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </article>
+        </main>
         <footer
           className=" fixed right-0 left-0 bottom-0 p-2
          border-[#31353a] text-gray-200 border-t-2"
