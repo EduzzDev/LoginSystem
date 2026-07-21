@@ -136,6 +136,22 @@ function MyProfile() {
             </SideBarItem>
           </div>
         </nav>
+        <main className="w-full flex justify-center  bottom-1/1 relative">
+          <header
+            className="w-[75%] relative top-5 p-2 flex  bg-[#3F434C] 
+          left-30 rounded-2xl "
+          >
+            <img className="w-25 mr-5" src={userImg} />
+            <div className="flex flex-col">
+              <h1 className="text-4xl text-white">{user}</h1>
+              <h2>Cargo:</h2>
+              <h2 className="text-white">Email:</h2>
+            </div>
+            <div className="w-full flex justify-end items-baseline text-white ">
+              <button className="w-40 bg-[#6366F1] p-2 rounded-xl relative top-2 right-2">Edit Profile</button>
+            </div>
+          </header>
+        </main>
       </div>
       {/* menu MOBILE*/}
       <div className="w-screen h-screen lg:hidden bg-[#2D3035]">
