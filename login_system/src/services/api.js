@@ -56,3 +56,17 @@ export async function logout() {
   }
   return result;
 }
+export async function getUserProfile() {
+  const res = await fetch(`${BASE_URL}/user/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+  const result = await res.json();
+  if (!res.ok) {
+    throw result;
+  }
+  return result;
+}

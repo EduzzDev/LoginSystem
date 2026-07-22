@@ -1,7 +1,7 @@
-import { checkAuth } from "../services/api";
+import { checkAuth, getUserProfile } from "../services/api";
 import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bell } from "lucide-react";
 import { Search } from "lucide-react";
@@ -21,6 +21,7 @@ import { UserCircle } from "lucide-react";
 function MyProfile() {
   const navigate = useNavigate();
   const { user, timeLogged } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     async function verifyUser() {
@@ -32,6 +33,14 @@ function MyProfile() {
     }
 
     verifyUser();
+  }, [navigate]);
+  useEffect(() => {
+    async function loadUserData() {
+      const data = await getUserProfile();
+      setEmail(data.email);
+    }
+
+    loadUserData();
   }, [navigate]);
 
   async function handleLogoutClick() {
@@ -138,17 +147,19 @@ function MyProfile() {
         </nav>
         <main className="w-full flex justify-center  bottom-1/1 relative">
           <header
-            className="w-[75%] relative top-5 p-2 flex  bg-[#3F434C] 
-          left-30 rounded-2xl "
+            className="w-[50dvw] relative top-5 p-2 flex  bg-[#3F434C] 
+          rounded-2xl "
           >
             <img className="w-25 mr-5" src={userImg} />
             <div className="flex flex-col">
               <h1 className="text-4xl text-white">{user}</h1>
               <h2>Cargo:</h2>
-              <h2 className="text-white">Email:</h2>
+              <h2 className="text-white">Email: {email}</h2>
             </div>
             <div className="w-full flex justify-end items-baseline text-white ">
-              <button className="w-40 bg-[#6366F1] p-2 rounded-xl relative top-2 right-2">Edit Profile</button>
+              <button className="w-40 bg-[#6366F1] p-2 rounded-xl relative top-2 right-2">
+                Edit Profile
+              </button>
             </div>
           </header>
         </main>

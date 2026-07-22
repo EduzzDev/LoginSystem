@@ -1,23 +1,37 @@
 import express from "express";
 const router = express.Router();
-import jwt from "jsonwebtoken";
+import verificarAutenticacao from "./middleware.js";
+import Database from "better-sqlite3";
+const db = new Database("LoginSystem.db");
+db.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT UNIQUE NOT NULL,
+    senha TEXT NOT NULL,
+    nome TEXT
+  )
+`);
+router.get("/dashboard", verificarAutenticacao, (req, res) => {
+  res.json({
+    message: "authorized acess",
+    userId: req.userId,
+  });
+});
 
-router.get("/dashboard", (req, res) => {
-  const token = req.cookies.token;
+router.get("/user/me", verificarAutenticacao, (req, res) => {
+  const stmt = db.prepare("SELECT email, nome FROM usuarios WHERE id = ?");
+  const user = stmt.get(req.userId);
 
-  if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
+  console.log("user:", user);
+
+  console.log("todos os usuários:");
+  console.log(db.prepare("SELECT id, nome, email FROM usuarios").all());
+  if (!user) {
+    return res.status(404).json({ error: "Usuário não encontrado." });
   }
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    res.json({
-      message: "authorized access",
-      userId: decoded.userId,
-    });
-  } catch {
-    res.status(401).json({ error: "Invalid token" });
-  }
+  res.json({ email: user.email, nome: user.nome });
+  res.json(user);
 });
 
 // Logout
