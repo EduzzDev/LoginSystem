@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import verificarAutenticacao from "./middleware.js";
+import verificarAutenticacao from "./verificarAuth.js";
 import Database from "better-sqlite3";
 const db = new Database("LoginSystem.db");
 db.exec(`
@@ -22,10 +22,6 @@ router.get("/user/me", verificarAutenticacao, (req, res) => {
   const stmt = db.prepare("SELECT email, nome FROM usuarios WHERE id = ?");
   const user = stmt.get(req.userId);
 
-  console.log("user:", user);
-
-  console.log("todos os usuários:");
-  console.log(db.prepare("SELECT id, nome, email FROM usuarios").all());
   if (!user) {
     return res.status(404).json({ error: "Usuário não encontrado." });
   }

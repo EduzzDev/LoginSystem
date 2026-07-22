@@ -34,10 +34,14 @@ function MyProfile() {
 
     verifyUser();
   }, [navigate]);
+
   useEffect(() => {
     async function loadUserData() {
-      const data = await getUserProfile();
+
+      const data = await getUserProfile();  
+      
       setEmail(data.email);
+
     }
 
     loadUserData();

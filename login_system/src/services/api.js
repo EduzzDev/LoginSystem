@@ -56,8 +56,9 @@ export async function logout() {
   }
   return result;
 }
+
 export async function getUserProfile() {
-  const res = await fetch(`${BASE_URL}/user/me`, {
+  const res = await fetch(`${BASE_URL}/user/me`,  {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

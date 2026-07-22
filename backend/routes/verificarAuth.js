@@ -10,7 +10,6 @@ function verificarAutenticacao(req, res, next) {
 
   try {
     const decoded = verify(token, process.env.JWT_SECRET);
-    console.log("decoded:", decoded);
     req.userId = decoded.userId;
     next();
   } catch {
