@@ -155,13 +155,14 @@ function MyProfile() {
           rounded-2xl "
           >
             <img className="w-25 mr-5" src={userImg} />
-            <div className="flex flex-col">
+            <div className=" flex flex-col">
               <h1 className="text-4xl text-white">{user}</h1>
-              <h2>Cargo:</h2>
-              <h2 className="text-white">Email: {email}</h2>
+              <h2 className="text-gray-400 text-lg">Cargo:</h2>
+              <h2 className="text-white text-lg">{email}</h2>
             </div>
             <div className="w-full flex justify-end items-baseline text-white ">
-              <button className="w-40 bg-[#6366F1] p-2 rounded-xl relative top-2 right-2">
+              <button className="w-40 bg-[#6366F1] p-2 rounded-xl 
+              relative top-2 right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer">
                 Edit Profile
               </button>
             </div>
