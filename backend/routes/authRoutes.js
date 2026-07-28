@@ -27,7 +27,6 @@ router.get("/user/me", verificarAutenticacao, (req, res) => {
   }
 
   res.json({ email: user.email, nome: user.nome });
-  res.json(user);
 });
 
 // Logout
