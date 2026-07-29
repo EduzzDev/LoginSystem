@@ -1,4 +1,4 @@
-import { checkAuth, getUserProfile } from "../services/api";
+import { checkAuth, getUserProfile, updateUserProfile } from "../services/api";
 import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
 import { useEffect, useContext, useState } from "react";
@@ -22,6 +22,8 @@ function MyProfile() {
   const navigate = useNavigate();
   const { user, timeLogged } = useContext(AuthContext);
   const [email, setEmail] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState(user);
 
   useEffect(() => {
     async function verifyUser() {
@@ -37,11 +39,9 @@ function MyProfile() {
 
   useEffect(() => {
     async function loadUserData() {
+      const data = await getUserProfile();
 
-      const data = await getUserProfile();  
-      
       setEmail(data.email);
-
     }
 
     loadUserData();
@@ -71,6 +71,12 @@ function MyProfile() {
   function handleHelp() {
     navigate("/help");
   }
+  const handleSave = async () => {
+    const result = await updateUserProfile(name, email);
+    localStorage.setItem("userNome", name);
+    setIsEditing(false);
+  };
+
   return (
     <>
       {/* Menu PC */}
@@ -150,23 +156,59 @@ function MyProfile() {
           </div>
         </nav>
         <main className="w-full flex justify-center  bottom-1/1 relative">
-          <header
-            className="w-[50dvw] relative top-5 p-2 flex  bg-[#3F434C] 
-          rounded-2xl "
-          >
-            <img className="w-25 mr-5" src={userImg} />
-            <div className=" flex flex-col">
-              <h1 className="text-4xl text-white">{user}</h1>
-              <h2 className="text-gray-400 text-lg">Cargo:</h2>
-              <h2 className="text-white text-lg">{email}</h2>
-            </div>
-            <div className="w-full flex justify-end items-baseline text-white ">
-              <button className="w-40 bg-[#6366F1] p-2 rounded-xl 
-              relative top-2 right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer">
-                Edit Profile
-              </button>
-            </div>
-          </header>
+          {isEditing ? (
+            <header
+              className="w-[50dvw] relative top-5 p-2 flex  bg-[#3F434C] 
+          rounded-2xl"
+            >
+              <img className="w-25 mr-5" src={userImg} />
+              <div className=" flex flex-col">
+                <input
+                  onChange={(e) => setName(e.target.value)}
+                  type="text"
+                  value={name}
+                />
+                <h2 className="text-gray-400 text-lg">
+                  Cargo:<span className="text-white">Membro</span>
+                </h2>
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="text-white text-lg"
+                />
+              </div>
+              <div className="w-full flex justify-end items-baseline text-white ">
+                <button
+                  onClick={handleSave}
+                  className="w-40 bg-[#6366F1] p-2 rounded-xl 
+              relative top-2 right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
+                >
+                  Save changes
+                </button>
+              </div>
+            </header>
+          ) : (
+            <header
+              className="w-[50dvw] relative top-5 p-2 flex  bg-[#3F434C] 
+          rounded-2xl"
+            >
+              <img className="w-25 mr-5" src={userImg} />
+              <div className=" flex flex-col">
+                <h1 className="text-4xl text-white font-bold">{name}</h1>
+                <h2 className="text-gray-400 text-lg">Cargo: Membro</h2>
+                <h2 className="text-white text-lg">{email}</h2>
+              </div>
+              <div className="w-full flex justify-end items-baseline text-white ">
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="w-40 bg-[#6366F1] p-2 rounded-xl 
+              relative top-2 right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
+                >
+                  Edit Profile
+                </button>
+              </div>
+            </header>
+          )}
         </main>
       </div>
       {/* menu MOBILE*/}

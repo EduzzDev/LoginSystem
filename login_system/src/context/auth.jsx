@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, []);
   const [user, setUser] = useState(() => {
-    return localStorage.getItem("userNome");
+    return localStorage.getItem("userNome") || null;
   });
 
   const SignIn = async (nome) => {

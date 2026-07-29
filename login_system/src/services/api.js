@@ -58,7 +58,7 @@ export async function logout() {
 }
 
 export async function getUserProfile() {
-  const res = await fetch(`${BASE_URL}/user/me`,  {
+  const res = await fetch(`${BASE_URL}/user/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -70,4 +70,21 @@ export async function getUserProfile() {
     throw result;
   }
   return result;
+}
+
+export async function updateUserProfile(name, email) {
+  const res = await fetch(`${BASE_URL}/user/update-profile`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ name, email }),
+  });
+  const result = await res.json();
+  if (!res.ok) {
+    throw new Error(
+      result.message || result.error || "Erro ao atualizar perfil.",
+    );
+  }
 }
