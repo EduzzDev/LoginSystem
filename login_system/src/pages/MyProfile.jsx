@@ -22,6 +22,7 @@ function MyProfile() {
   const navigate = useNavigate();
   const { user, timeLogged } = useContext(AuthContext);
   const [email, setEmail] = useState("");
+  const [cargo, setCargo] = useState("Developer");
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(user);
 
@@ -42,6 +43,7 @@ function MyProfile() {
       const data = await getUserProfile();
 
       setEmail(data.email);
+      setCargo(data.cargo);
     }
 
     loadUserData();
@@ -72,7 +74,7 @@ function MyProfile() {
     navigate("/help");
   }
   const handleSave = async () => {
-    const result = await updateUserProfile(name, email);
+    const result = await updateUserProfile(name, email, cargo);
     localStorage.setItem("userNome", name);
     setIsEditing(false);
   };
@@ -158,12 +160,12 @@ function MyProfile() {
         <main className="w-full flex justify-center  bottom-1/1 relative">
           {isEditing ? (
             <header
-              className="w-[50dvw] h-55 relative top-5 p-2 flex  bg-[#3F434C] 
+              className="w-[50dvw] h-58 relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl"
             >
               <img className="w-25 h-25 mr-5 relative top-10" src={userImg} />
               <div className=" flex flex-col gap-1">
-                <h2 className="text-lg text-gray-400 ">Name</h2>
+                <h2 className="text-lg text-gray-400 ">Name:</h2>
                 <input
                   className="w-55 h-10 pt-1 pb-1 pl-5 pr-2 text-xl border 
                  relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
@@ -174,9 +176,18 @@ function MyProfile() {
                   value={name}
                 />
                 <h2 className="text-gray-400 text-lg">
-                  Cargo:<span className="text-white"> Membro</span>
+                  Cargo:{" "}
+                  <input
+                    value={cargo}
+                    onChange={(e) => setCargo(e.target.value)}
+                    className="
+                  -55 h-10 pt-1 pb-1 pl-5 pr-2 text-xl border 
+                 relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
+                 text-[#FFFFFF]  cursor-pointer 
+                 bg-[#1F2937]"
+                  />
                 </h2>
-                <h2 className="text-lg text-gray-400 ">Email</h2>
+                <h2 className="text-lg text-gray-400 ">Email:</h2>
                 <input
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -204,7 +215,7 @@ function MyProfile() {
               <img className="w-25 mr-5" src={userImg} />
               <div className=" flex flex-col">
                 <h1 className="text-4xl text-white font-bold">{name}</h1>
-                <h2 className="text-gray-400 text-lg">Cargo: Membro</h2>
+                <h2 className="text-gray-400 text-lg">Cargo: {cargo}</h2>
                 <h2 className="text-white text-lg">{email}</h2>
               </div>
               <div className="w-full flex justify-end items-baseline text-white ">
