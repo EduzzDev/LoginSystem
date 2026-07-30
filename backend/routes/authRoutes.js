@@ -8,7 +8,8 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT UNIQUE NOT NULL,
     senha TEXT NOT NULL,
-    nome TEXT
+    nome TEXT,
+    cargo TEXT
   )
 `);
 router.get("/dashboard", verificarAutenticacao, (req, res) => {
@@ -19,19 +20,21 @@ router.get("/dashboard", verificarAutenticacao, (req, res) => {
 });
 
 router.get("/user/me", verificarAutenticacao, (req, res) => {
-  const stmt = db.prepare("SELECT email, nome FROM usuarios WHERE id = ?");
+  const stmt = db.prepare(
+    "SELECT email, nome, cargo FROM usuarios WHERE id = ?",
+  );
   const user = stmt.get(req.userId);
 
   if (!user) {
     return res.status(404).json({ error: "Usuário não encontrado." });
   }
 
-  res.json({ email: user.email, nome: user.nome });
+  res.json({ email: user.email, nome: user.nome, cargo: user.cargo });
 });
 
 router.put("/user/update-profile", verificarAutenticacao, (req, res) => {
   console.log("O QUE CHEGOU NO BACKEND:", req.body);
-  const { name, email } = req.body;
+  const { name, email, cargo } = req.body;
   const userId = req.userId;
   if (!name) {
     return res.status(400).json({ error: "Name required" });
@@ -78,9 +81,9 @@ router.put("/user/update-profile", verificarAutenticacao, (req, res) => {
       });
     }
     const updateStmt = db.prepare(
-      `UPDATE usuarios set nome = ?, email = ? WHERE id = ?`,
+      `UPDATE usuarios set nome = ?, email = ?, cargo = ? WHERE id = ?`,
     );
-    const result = updateStmt.run(name, emailNormalizado, userId);
+    const result = updateStmt.run(name, emailNormalizado, cargo, userId);
     if (result.changes === 0) {
       return res.status(404).json({ error: "User not found." });
     }
