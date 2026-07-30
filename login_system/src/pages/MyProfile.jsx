@@ -171,15 +171,19 @@ function MyProfile() {
                  relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
                  text-[#FFFFFF]  cursor-pointer 
                  bg-[#1F2937]"
+                  minLength={2}
+                  max={100}
                   onChange={(e) => setName(e.target.value)}
                   type="text"
                   value={name}
                 />
                 <h2 className="text-gray-400 text-lg">
-                  Cargo:{" "}
+                  Job Title:{" "}
                   <input
                     value={cargo}
                     onChange={(e) => setCargo(e.target.value)}
+                    minLength={2}
+                    max={100}
                     className="
                   -55 h-10 pt-1 pb-1 pl-5 pr-2 text-xl border 
                  relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
@@ -190,6 +194,8 @@ function MyProfile() {
                 <h2 className="text-lg text-gray-400 ">Email:</h2>
                 <input
                   value={email}
+                  minLength={5}
+                  max={254}
                   onChange={(e) => setEmail(e.target.value)}
                   className=" w-65 h-12 pt-1 pb-1 pl-2 pr-2 text-xl border 
                  relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
@@ -210,13 +216,17 @@ function MyProfile() {
           ) : (
             <header
               className="w-[50dvw] relative top-5 p-2 flex  bg-[#3F434C] 
-          rounded-2xl"
+          rounded-2xl gap-1"
             >
-              <img className="w-25 mr-5" src={userImg} />
-              <div className=" flex flex-col">
-                <h1 className="text-4xl text-white font-bold">{name}</h1>
-                <h2 className="text-gray-400 text-lg">Cargo: {cargo}</h2>
-                <h2 className="text-white text-lg">{email}</h2>
+              <img className="w-25 h-30 mr-5 " src={userImg} />
+              <div className=" w-full flex flex-col gap-0.5">
+                <h1 className="text-4xl text-white font-bold"> {name}</h1>
+                <h2 className="text-white text-lg">
+                  Job Title: <span className="text-gray-400">{cargo}</span>
+                </h2>
+                <h2 className="text-white text-lg">
+                  Email: <span className="text-gray-400">{email}</span>
+                </h2>
               </div>
               <div className="w-full flex justify-end items-baseline text-white ">
                 <button
