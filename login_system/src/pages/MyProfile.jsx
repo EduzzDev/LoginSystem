@@ -158,23 +158,32 @@ function MyProfile() {
         <main className="w-full flex justify-center  bottom-1/1 relative">
           {isEditing ? (
             <header
-              className="w-[50dvw] relative top-5 p-2 flex  bg-[#3F434C] 
+              className="w-[50dvw] h-55 relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl"
             >
-              <img className="w-25 mr-5" src={userImg} />
-              <div className=" flex flex-col">
+              <img className="w-25 h-25 mr-5 relative top-10" src={userImg} />
+              <div className=" flex flex-col gap-1">
+                <h2 className="text-lg text-gray-400 ">Name</h2>
                 <input
+                  className="w-55 h-10 pt-1 pb-1 pl-5 pr-2 text-xl border 
+                 relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
+                 text-[#FFFFFF]  cursor-pointer 
+                 bg-[#1F2937]"
                   onChange={(e) => setName(e.target.value)}
                   type="text"
                   value={name}
                 />
                 <h2 className="text-gray-400 text-lg">
-                  Cargo:<span className="text-white">Membro</span>
+                  Cargo:<span className="text-white"> Membro</span>
                 </h2>
+                <h2 className="text-lg text-gray-400 ">Email</h2>
                 <input
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="text-white text-lg"
+                  className=" w-65 h-12 pt-1 pb-1 pl-2 pr-2 text-xl border 
+                 relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
+                 text-[#FFFFFF]  cursor-pointer 
+                 bg-[#1F2937]"
                 />
               </div>
               <div className="w-full flex justify-end items-baseline text-white ">
