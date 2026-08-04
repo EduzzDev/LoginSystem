@@ -17,6 +17,7 @@ import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 import SideBarMobile from "../components/SideBarMobile";
 import { UserCircle } from "lucide-react";
+import SectionTitle from "../components/SectionTitle";
 
 function MyProfile() {
   const navigate = useNavigate();
@@ -163,9 +164,11 @@ function MyProfile() {
               className="w-[50dvw] h-58 relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl"
             >
-              <img className="w-25 h-25 mr-5 relative top-10" src={userImg} />
+              <img className="w-30 h-25 mr-5 relative top-10" src={userImg} />
               <div className=" flex flex-col gap-1">
-                <h2 className="text-lg text-gray-400 ">Name:</h2>
+                <SectionTitle className="text-lg text-gray-400">
+                  Name:
+                </SectionTitle>
                 <input
                   className="w-55 h-10 pt-1 pb-1 pl-5 pr-2 text-xl border 
                  relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
@@ -177,7 +180,7 @@ function MyProfile() {
                   type="text"
                   value={name}
                 />
-                <h2 className="text-gray-400 text-lg">
+                <SectionTitle className="text-gray-400 text-lg">
                   Job Title:{" "}
                   <input
                     value={cargo}
@@ -190,8 +193,10 @@ function MyProfile() {
                  text-[#FFFFFF]  cursor-pointer 
                  bg-[#1F2937]"
                   />
-                </h2>
-                <h2 className="text-lg text-gray-400 ">Email:</h2>
+                </SectionTitle>
+                <SectionTitle className="text-lg text-gray-400">
+                  Email:
+                </SectionTitle>
                 <input
                   value={email}
                   minLength={5}
@@ -218,15 +223,21 @@ function MyProfile() {
               className="w-[50dvw] relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl gap-1"
             >
-              <img className="w-25 h-30 mr-5 " src={userImg} />
+              <img className="w-30 h-30 mr-5 " src={userImg} />
               <div className=" w-full flex flex-col gap-0.5">
                 <h1 className="text-4xl text-white font-bold"> {name}</h1>
-                <h2 className="text-white text-lg">
+                <SectionTitle className="text-white text-lg">
                   Job Title: <span className="text-gray-400">{cargo}</span>
-                </h2>
-                <h2 className="text-white text-lg">
+                </SectionTitle>
+                <SectionTitle className="text-white text-lg">
                   Email: <span className="text-gray-400">{email}</span>
-                </h2>
+                </SectionTitle>
+                <SectionTitle className="text-white flex items-center gap-2">
+                  Senha:
+                  <span className="text-white tracking-[0.3rem] text-xl">
+                    ••••••••
+                  </span>
+                </SectionTitle>
               </div>
               <div className="w-full flex justify-end items-baseline text-white ">
                 <button
@@ -271,23 +282,23 @@ function MyProfile() {
           >
             <SideBarMobile onClick={() => handleDashboard()}>
               <LayoutDashboard />
-              <h2>General</h2>
+              <SectionTitle>General</SectionTitle>
             </SideBarMobile>
             <SideBarMobile onClick={() => handleTasks()}>
               <ClipboardList />
-              <h2>Tasks</h2>
+              <SectionTitle>Tasks</SectionTitle>
             </SideBarMobile>
             <SideBarMobile onClick={() => handleSecurity()}>
               <Shield />
-              <h2>Security</h2>
+              <SectionTitle>Security</SectionTitle>
             </SideBarMobile>
             <SideBarMobile onClick={() => handleMyProfile()}>
               <User />
-              <h2>User</h2>
+              <SectionTitle>User</SectionTitle>
             </SideBarMobile>
             <SideBarMobile onClick={() => handleLogoutClick()}>
               <LogOut />
-              <h2>Exit</h2>
+              <SectionTitle>Exit</SectionTitle>
             </SideBarMobile>
           </ul>
         </footer>
