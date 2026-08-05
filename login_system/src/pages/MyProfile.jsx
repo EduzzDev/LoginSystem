@@ -17,6 +17,7 @@ import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 import SideBarMobile from "../components/SideBarMobile";
 import { UserCircle } from "lucide-react";
+import ProfileInput from "../components/ProfileInput";
 import SectionTitle from "../components/SectionTitle";
 
 function MyProfile() {
@@ -161,7 +162,7 @@ function MyProfile() {
         <main className="w-full flex justify-center  bottom-1/1 relative">
           {isEditing ? (
             <header
-              className="w-[50dvw] h-58 relative top-5 p-2 flex  bg-[#3F434C] 
+              className="w-[50dvw] h-80 relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl"
             >
               <img className="w-30 h-25 mr-5 relative top-10" src={userImg} />
@@ -169,44 +170,36 @@ function MyProfile() {
                 <SectionTitle className="text-lg text-gray-400">
                   Name:
                 </SectionTitle>
-                <input
-                  className="w-55 h-10 pt-1 pb-1 pl-5 pr-2 text-xl border 
-                 relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
-                 text-[#FFFFFF]  cursor-pointer 
-                 bg-[#1F2937]"
-                  minLength={2}
-                  max={100}
-                  onChange={(e) => setName(e.target.value)}
+                <ProfileInput
                   type="text"
                   value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  minLength={2}
+                  maxLength={100}
                 />
                 <SectionTitle className="text-gray-400 text-lg">
-                  Job Title:{" "}
-                  <input
-                    value={cargo}
-                    onChange={(e) => setCargo(e.target.value)}
-                    minLength={2}
-                    max={100}
-                    className="
-                  -55 h-10 pt-1 pb-1 pl-5 pr-2 text-xl border 
-                 relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
-                 text-[#FFFFFF]  cursor-pointer 
-                 bg-[#1F2937]"
-                  />
+                  Job Title:
                 </SectionTitle>
+                <ProfileInput
+                  value={cargo}
+                  onChange={(e) => setCargo(e.target.value)}
+                  minLength={2}
+                  maxLength={100}
+                />
                 <SectionTitle className="text-lg text-gray-400">
                   Email:
                 </SectionTitle>
-                <input
+                <ProfileInput
+                  type="email"
                   value={email}
-                  minLength={5}
-                  max={254}
                   onChange={(e) => setEmail(e.target.value)}
-                  className=" w-65 h-12 pt-1 pb-1 pl-2 pr-2 text-xl border 
-                 relative rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
-                 text-[#FFFFFF]  cursor-pointer 
-                 bg-[#1F2937]"
+                  minLength={5}
+                  maxLength={254}
                 />
+                <SectionTitle className="text-white flex items-center gap-2">
+                  Senha:
+                </SectionTitle>
+                <ProfileInput type="password" placeholder="••••••••" />
               </div>
               <div className="w-full flex justify-end items-baseline text-white ">
                 <button
@@ -234,9 +227,7 @@ function MyProfile() {
                 </SectionTitle>
                 <SectionTitle className="text-white flex items-center gap-2">
                   Senha:
-                  <span className="text-white tracking-[0.3rem] text-xl">
-                    ••••••••
-                  </span>
+                  <span className=" tracking-[0.3rem] text-xl">••••••••</span>
                 </SectionTitle>
               </div>
               <div className="w-full flex justify-end items-baseline text-white ">
