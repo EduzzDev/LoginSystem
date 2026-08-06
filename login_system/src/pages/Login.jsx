@@ -12,6 +12,7 @@ import { loginUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
+import toast from "react-hot-toast";
 
 function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -24,7 +25,7 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    const loadingToast = toast.loading("Logging into your account...");
     // Validação básica
     if (!email.trim()) {
       setError("Please enter your Email address");
@@ -34,15 +35,17 @@ function Login() {
       setError("Please enter your Password");
       return;
     }
+    toast.dismiss(loadingToast);
     try {
       const response = await loginUser({ email, senha });
       Login(response.nome, response.token);
       setError("");
       navigate("/dashboard");
+      toast.success("Login successful!");
     } catch (error) {
-      const errorMessage = error?.message || "Erro ao fazer login";
+      const errorMessage = error?.message || "Login error";
       setError(errorMessage);
-      console.error("Erro de login:", error);
+      toast.dismiss(errorMessage);
     }
   };
 
@@ -86,7 +89,7 @@ function Login() {
                 onChange={(e) => setSenha(e.target.value)}
               />
               <button
-              type="button"
+                type="button"
                 onClick={() => setMostrarSenha(!mostrarSenha)}
                 className="w-10 relative"
               >
