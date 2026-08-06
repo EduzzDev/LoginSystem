@@ -25,6 +25,7 @@ function MyProfile() {
   const { user, timeLogged } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [cargo, setCargo] = useState("Developer");
+  const [newPassword, setNewPassword] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(user);
 
@@ -46,6 +47,7 @@ function MyProfile() {
 
       setEmail(data.email);
       setCargo(data.cargo);
+      setNewPassword(data.senha)
     }
 
     loadUserData();
@@ -76,7 +78,7 @@ function MyProfile() {
     navigate("/help");
   }
   const handleSave = async () => {
-    const result = await updateUserProfile(name, email, cargo);
+    const result = await updateUserProfile(name, email, cargo, newPassword);
     localStorage.setItem("userNome", name);
     setIsEditing(false);
   };
@@ -165,7 +167,7 @@ function MyProfile() {
               className="w-[50dvw] h-80 relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl"
             >
-              <img className="w-30 h-25 mr-5 relative top-10" src={userImg} />
+              <img className="w-30 h-30 mr-5 relative top-10" src={userImg} />
               <div className=" flex flex-col gap-1">
                 <SectionTitle className="text-lg text-gray-400">
                   Name:
@@ -199,7 +201,15 @@ function MyProfile() {
                 <SectionTitle className="text-white flex items-center gap-2">
                   Senha:
                 </SectionTitle>
-                <ProfileInput type="password" placeholder="••••••••" />
+                <ProfileInput
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  minLength={5}
+                  maxLength={72}
+                  required
+                  type="password"
+                  placeholder="••••••••"
+                />
               </div>
               <div className="w-full flex justify-end items-baseline text-white ">
                 <button
