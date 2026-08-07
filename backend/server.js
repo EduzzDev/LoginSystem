@@ -68,7 +68,7 @@ db.prepare("CREATE INDEX IF NOT EXISTS idx_email ON usuarios(email)").run();
 
 app.post("/register", async (req, res) => {
   try {
-    const { nome, email, senha, cargo } = req.body;
+    const { nome, email, senha } = req.body;
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
