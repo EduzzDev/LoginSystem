@@ -44,15 +44,23 @@ function MyProfile() {
 
   useEffect(() => {
     async function loadUserData() {
-      const data = await getUserProfile();
+      try {
+        const data = await getUserProfile();
 
-      setEmail(data.email);
-      setCargo(data.cargo);
-      setNewPassword(data.senha);
+        setName(data.nome || user);
+        setEmail(data.email);
+        setNewPassword(data.senha);
+      } catch (err) {
+        toast.error(
+          err?.message ||
+            "Erro ao carregar dados do perfil. Tente novamente mais tarde.",
+        );
+        navigate("/");
+      }
     }
 
     loadUserData();
-  }, [navigate]);
+  }, [navigate, user]);
 
   async function handleLogoutClick() {
     try {

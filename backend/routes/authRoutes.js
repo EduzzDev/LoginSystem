@@ -45,7 +45,7 @@ router.put("/user/update-profile", verificarAutenticacao, async (req, res) => {
   if (!name) {
     return res.status(400).json({ error: "Name required" });
   }
-  const stmt = db.prepare("SELECT * FROM users WHERE id = ?");
+  const stmt = db.prepare("SELECT * FROM usuarios WHERE id = ?");
   const user = stmt.get(req.userId);
 
   // validação email
