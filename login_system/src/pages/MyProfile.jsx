@@ -1,22 +1,25 @@
 import { checkAuth, getUserProfile, updateUserProfile } from "../services/api";
 import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bell } from "lucide-react";
-import { Search } from "lucide-react";
-import { ChevronDown } from "lucide-react";
-import { LayoutDashboard } from "lucide-react";
-import { User } from "lucide-react";
-import { ClipboardList } from "lucide-react";
-import { Shield } from "lucide-react";
-import { ShieldQuestionMark } from "lucide-react";
-import { LogOut } from "lucide-react";
-import { Zap } from "lucide-react";
+import {
+  Bell,
+  Pencil,
+  UserCircle,
+  Zap,
+  LogOut,
+  ShieldQuestionMark,
+  Shield,
+  ClipboardList,
+  User,
+  LayoutDashboard,
+  ChevronDown,
+  Search,
+} from "lucide-react";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 import SideBarMobile from "../components/SideBarMobile";
-import { UserCircle } from "lucide-react";
 import ProfileInput from "../components/ProfileInput";
 import SectionTitle from "../components/SectionTitle";
 import toast from "react-hot-toast";
@@ -27,9 +30,11 @@ function MyProfile() {
   const [email, setEmail] = useState("");
   const [cargo, setCargo] = useState("Developer");
   const [newPassword, setNewPassword] = useState("");
+  const [previewImg, SetpreviewImg] = useState(userImg);
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(user);
 
+  const fileInputRef = useRef(null);
   useEffect(() => {
     async function verifyUser() {
       try {
@@ -93,6 +98,13 @@ function MyProfile() {
       setIsEditing(false);
     } catch (error) {
       toast.error(error.response?.data?.message || "Invalid credentials.");
+    }
+  };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      SetpreviewImg(imageUrl);
     }
   };
 
@@ -180,7 +192,31 @@ function MyProfile() {
               className="w-[50dvw] h-80 relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl"
             >
-              <img className="w-30 h-30 mr-5 relative top-10" src={userImg} />
+              <div className="flex flex-col items-center justify-center gap-2">
+                <div className="w-30 group relative  overflow-hidden rounded-2xl">
+                  <img
+                    className="w-50 h-30 object-cover transition-transform duration-200 group-hover:scale-115"
+                    src={previewImg}
+                    alt="Profile preview"
+                    onClick={() => fileInputRef.current.click()}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current.click()}
+                    className="absolute inset-0 flex items-center justify-center rounded-2xl bg-black/40 opacity-0 transition-all duration-200 group-hover:opacity-100"
+                  >
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-[#1F2937]/80 text-white shadow-lg">
+                      <Pencil className="h-5 w-5" />
+                    </span>
+                  </button>
+                </div>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+              </div>
               <div className=" flex flex-col gap-1">
                 <SectionTitle className="text-lg text-gray-400">
                   Name:
