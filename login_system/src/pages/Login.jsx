@@ -35,17 +35,18 @@ function Login() {
       setError("Please enter your Password");
       return;
     }
-    toast.dismiss(loadingToast);
     try {
+      toast.dismiss(loadingToast);
       const response = await loginUser({ email, senha });
       Login(response.nome, response.token);
       setError("");
       navigate("/dashboard");
       toast.success("Login successful!");
     } catch (error) {
+      toast.dismiss(loadingToast);
       const errorMessage = error?.message || "Login error";
       setError(errorMessage);
-      toast.dismiss(errorMessage);
+      toast.error(error.message);
     }
   };
 

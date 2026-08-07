@@ -11,6 +11,7 @@ import { UserPlus } from "lucide-react";
 import { useState } from "react";
 import { registerUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Register() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -22,17 +23,22 @@ function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
+    const loadingToast = toast.loading("registering the account");
     e.preventDefault();
     setError("");
     try {
+      toast.dismiss(loadingToast);
       await registerUser({ nome, email, senha });
       navigate("/");
+      toast.success("successfully registered");
     } catch (err) {
       if (err.error === "EMAIL_ALREADY_REGISTERED") {
         setError("Email address is already in use");
       } else {
         setError(err.message || err.error || "Unexpected error!");
       }
+      toast.error(err.message)
+
     }
   };
 
