@@ -125,18 +125,7 @@ app.post("/register", async (req, res) => {
     }
     // criptografar a senha
     const hashedPassword = await bcrypt.hash(senha, 10);
-
-    if (!cargo) {
-      return res.status(400).json({ error: "Job Title required" });
-    }
-    if (cargo.length > 100) {
-      return res.status(400).json({ error: "Job Title too long" });
-    }
-    if (cargo.length < 2) {
-      return res
-        .status(400)
-        .json({ error: "Job Tittle must be at least 2 characters" });
-    }
+    
     const stmt = db.prepare(
       "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)",
     );
