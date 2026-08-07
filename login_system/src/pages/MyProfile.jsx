@@ -52,8 +52,7 @@ function MyProfile() {
         setCargo(data.cargo);
       } catch (err) {
         toast.error(
-          err?.message ||
-            "Erro ao carregar dados do perfil. Tente novamente mais tarde.",
+          err?.message || "Error loading profile data. Please try again later.",
         );
         navigate("/");
       }
@@ -87,9 +86,14 @@ function MyProfile() {
     navigate("/help");
   }
   const handleSave = async () => {
-    const result = await updateUserProfile(name, email, cargo, newPassword);
-    localStorage.setItem("userNome", name);
-    setIsEditing(false);
+    try {
+      const result = await updateUserProfile(name, email, cargo, newPassword);
+      localStorage.setItem("userNome", name);
+      toast.success("Saved successfully");
+      setIsEditing(false);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Invalid credentials.");
+    }
   };
 
   return (
