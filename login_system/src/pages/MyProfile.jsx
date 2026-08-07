@@ -49,7 +49,7 @@ function MyProfile() {
 
         setName(data.nome || user);
         setEmail(data.email);
-        setNewPassword(data.senha);
+        setCargo(data.cargo);
       } catch (err) {
         toast.error(
           err?.message ||
