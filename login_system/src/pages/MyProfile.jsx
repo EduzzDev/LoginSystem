@@ -19,6 +19,7 @@ import SideBarMobile from "../components/SideBarMobile";
 import { UserCircle } from "lucide-react";
 import ProfileInput from "../components/ProfileInput";
 import SectionTitle from "../components/SectionTitle";
+import toast from "react-hot-toast";
 
 function MyProfile() {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ function MyProfile() {
 
       setEmail(data.email);
       setCargo(data.cargo);
-      setNewPassword(data.senha)
+      setNewPassword(data.senha);
     }
 
     loadUserData();
@@ -56,10 +57,10 @@ function MyProfile() {
   async function handleLogoutClick() {
     try {
       await logout();
-      alert(`You logged out with success`);
+      toast.success(`You logged out with success`);
       navigate("/");
     } catch (err) {
-      console.log(err);
+      toast.error(err);
     }
   }
   function handleDashboard() {
