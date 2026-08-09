@@ -60,7 +60,7 @@ db.prepare(
     email TEXT NOT NULL UNIQUE,
     senha TEXT NOT NULL,
     cargo TEXT,
-    urlImg TEXT NOT NULL
+    urlImg TEXT
   )
 `,
 ).run();

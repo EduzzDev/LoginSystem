@@ -27,7 +27,7 @@ db.exec(`
     senha TEXT NOT NULL,
     nome TEXT,
     cargo TEXT,
-    urlImg TEXT NOT NULL
+    urlImg TEXT 
   )
 `);
 router.get("/dashboard", verificarAutenticacao, (req, res) => {
