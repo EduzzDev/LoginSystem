@@ -15,6 +15,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
@@ -63,6 +64,8 @@ db.prepare(
   )
 `,
 ).run();
+
+app.use("/uploads", express.static("uploads"));
 
 // criar índice no email
 db.prepare("CREATE INDEX IF NOT EXISTS idx_email ON usuarios(email)").run();

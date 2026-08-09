@@ -72,14 +72,11 @@ export async function getUserProfile() {
   return result;
 }
 
-export async function updateUserProfile(name, email, cargo, newPassword) {
+export async function updateUserProfile(formData) {
   const res = await fetch(`${BASE_URL}/user/update-profile`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
     credentials: "include",
-    body: JSON.stringify({ name, email, cargo, newPassword }),
+    body: formData,
   });
   const result = await res.json();
   if (!res.ok) {

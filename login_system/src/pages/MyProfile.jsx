@@ -34,9 +34,12 @@ function MyProfile() {
     newPassword: "",
     previewImg: userImg,
   });
+  const [imgFile, setImgFile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
   const fileInputRef = useRef(null);
+  const formRef = useRef(null);
+
   useEffect(() => {
     async function verifyUser() {
       try {
@@ -96,20 +99,28 @@ function MyProfile() {
   function handleHelp() {
     navigate("/help");
   }
-
-  async function updateProfile() {
-    const { name, email, cargo, newPassword } = profile;
-    await updateUserProfile(name, email, cargo, newPassword);
-    localStorage.setItem("userNome", name);
+  async function updateProfile(formData) {
+    await updateUserProfile(formData);
+    localStorage.setItem("userNome", profile.name);
     toast.success("Saved successfully");
     setIsEditing(false);
   }
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("name", profile.name);
+    formData.append("email", profile.email);
+    formData.append("cargo", profile.cargo);
+    formData.append("newPassword", profile.newPassword);
+    if (imgFile) {
+      formData.append("foto", imgFile);
+    }
+
     try {
-      await updateProfile();
+      await updateProfile(formData);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Invalid credentials.");
+      toast.error((error && error.message) || "Invalid credentials.");
     }
   };
 
@@ -122,6 +133,7 @@ function MyProfile() {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setProfile((prev) => ({ ...prev, previewImg: imageUrl }));
+      setImgFile(file);
     }
   };
 
@@ -209,98 +221,114 @@ function MyProfile() {
               className="w-[50dvw] h-80 relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl gap-5"
             >
-              <div className="flex flex-col items-center justify-center gap-2">
-                <div className="w-30 ml-4 group relative  overflow-hidden rounded-2xl">
-                  <img
-                    className="w-50 h-30 object-cover transition-transform 
-                    duration-200 group-hover:scale-115"
-                    src={profile.previewImg}
-                    alt="Profile preview"
-                    onClick={() => fileInputRef.current.click()}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current.click()}
-                    className="absolute inset-0 flex items-center justify-center rounded-2xl
-                     bg-black/40 opacity-0 transition-all duration-200 group-hover:opacity-100"
-                  >
-                    <span
-                      className="flex h-12 w-12 items-center justify-center rounded-full
-                     border border-white/20 bg-[#1F2937]/80 text-white shadow-lg"
+              <form
+                ref={formRef}
+                onSubmit={handleSave}
+                encType="multipart/form-data"
+                className="flex justify-center gap-8"
+              >
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <div className="w-30 ml-4 group relative  overflow-hidden rounded-2xl">
+                    <img
+                      className="w-50 h-30 object-cover transition-transform
+                      duration-200 group-hover:scale-115"
+                      src={profile.previewImg}
+                      alt="Profile preview"
+                      onClick={() => fileInputRef.current.click()}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current.click()}
+                      className="absolute inset-0 flex items-center justify-center rounded-2xl
+                       bg-black/40 opacity-0 transition-all duration-200 group-hover:opacity-100"
                     >
-                      <Pencil className="h-5 w-5" />
-                    </span>
+                      <span
+                        className="flex h-12 w-12 items-center justify-center rounded-full
+                       border border-white/20 bg-[#1F2937]/80 text-white shadow-lg"
+                      >
+                        <Pencil className="h-5 w-5" />
+                      </span>
+                    </button>
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
+                </div>
+                <div className=" flex flex-col gap-1">
+                  <SectionTitle className="text-lg text-gray-400">
+                    Name:
+                  </SectionTitle>
+                  <ProfileInput
+                    name="name"
+                    type="text"
+                    value={profile.name}
+                    onChange={(e) =>
+                      handleProfileChange("name", e.target.value)
+                    }
+                    minLength={2}
+                    maxLength={100}
+                  />
+                  <SectionTitle className="text-gray-400 text-lg">
+                    Job Title:
+                  </SectionTitle>
+                  <ProfileInput
+                    name="jobTitle"
+                    value={profile.cargo}
+                    onChange={(e) =>
+                      handleProfileChange("cargo", e.target.value)
+                    }
+                    minLength={2}
+                    maxLength={100}
+                  />
+                  <SectionTitle className="text-lg text-gray-400">
+                    Email:
+                  </SectionTitle>
+                  <ProfileInput
+                    name="email"
+                    type="email"
+                    value={profile.email}
+                    onChange={(e) =>
+                      handleProfileChange("email", e.target.value)
+                    }
+                    minLength={5}
+                    maxLength={254}
+                  />
+                  <SectionTitle className="text-white flex items-center gap-2">
+                    Senha:
+                  </SectionTitle>
+                  <ProfileInput
+                    value={profile.newPassword}
+                    onChange={(e) =>
+                      handleProfileChange("newPassword", e.target.value)
+                    }
+                    minLength={5}
+                    maxLength={72}
+                    required
+                    type="password"
+                    placeholder="••••••••"
+                  />
+                </div>
+                <div className="w-full flex justify-end items-baseline text-white ">
+                  <button
+                    type="submit"
+                    className="w-40 bg-[#6366F1] p-2 rounded-xl
+                relative top-5 right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
+                  >
+                    Save changes
                   </button>
                 </div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                  className="hidden"
-                />
-              </div>
-              <div className=" flex flex-col gap-1">
-                <SectionTitle className="text-lg text-gray-400">
-                  Name:
-                </SectionTitle>
-                <ProfileInput
-                  type="text"
-                  value={profile.name}
-                  onChange={(e) => handleProfileChange("name", e.target.value)}
-                  minLength={2}
-                  maxLength={100}
-                />
-                <SectionTitle className="text-gray-400 text-lg">
-                  Job Title:
-                </SectionTitle>
-                <ProfileInput
-                  value={profile.cargo}
-                  onChange={(e) => handleProfileChange("cargo", e.target.value)}
-                  minLength={2}
-                  maxLength={100}
-                />
-                <SectionTitle className="text-lg text-gray-400">
-                  Email:
-                </SectionTitle>
-                <ProfileInput
-                  type="email"
-                  value={profile.email}
-                  onChange={(e) => handleProfileChange("email", e.target.value)}
-                  minLength={5}
-                  maxLength={254}
-                />
-                <SectionTitle className="text-white flex items-center gap-2">
-                  Senha:
-                </SectionTitle>
-                <ProfileInput
-                  value={profile.newPassword}
-                  onChange={(e) =>
-                    handleProfileChange("newPassword", e.target.value)
-                  }
-                  minLength={5}
-                  maxLength={72}
-                  required
-                  type="password"
-                  placeholder="••••••••"
-                />
-              </div>
-              <div className="w-full flex justify-end items-baseline text-white ">
-                <button
-                  onClick={handleSave}
-                  className="w-40 bg-[#6366F1] p-2 rounded-xl 
-              relative top-2 right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
-                >
-                  Save changes
-                </button>
-              </div>
+              </form>
             </header>
           ) : (
             <header
               className="w-[50dvw] relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl gap-1"
             >
-              <img className="w-30 h-30 mr-5 " src={userImg} />
+              <img className="w-30 h-30 mr-5 rounded-3xl " src={profile.previewImg} />
               <div className=" w-full flex flex-col gap-0.5">
                 <h1 className="text-4xl text-white font-bold">
                   {" "}

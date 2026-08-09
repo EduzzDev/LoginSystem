@@ -1,5 +1,6 @@
 function ProfileInput({
-  type = "text",
+  name,
+  type,
   value,
   onChange,
   placeholder,
@@ -11,6 +12,7 @@ function ProfileInput({
 }) {
   return (
     <input
+      name={name}
       type={type}
       value={value}
       onChange={onChange}
