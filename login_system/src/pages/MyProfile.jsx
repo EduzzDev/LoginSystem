@@ -27,12 +27,14 @@ import toast from "react-hot-toast";
 function MyProfile() {
   const navigate = useNavigate();
   const { user, timeLogged } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [cargo, setCargo] = useState("Developer");
-  const [newPassword, setNewPassword] = useState("");
-  const [previewImg, SetpreviewImg] = useState(userImg);
+  const [profile, setProfile] = useState({
+    name: user,
+    email: "",
+    cargo: "Developer",
+    newPassword: "",
+    previewImg: userImg,
+  });
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(user);
 
   const fileInputRef = useRef(null);
   useEffect(() => {
@@ -52,9 +54,13 @@ function MyProfile() {
       try {
         const data = await getUserProfile();
 
-        setName(data.nome || user);
-        setEmail(data.email);
-        setCargo(data.cargo);
+        setProfile((prev) => ({
+          ...prev,
+          name: data.nome || user,
+          email: data.email || "",
+          cargo: data.cargo || prev.cargo,
+          previewImg: data.urlImg || prev.previewImg,
+        }));
       } catch (err) {
         toast.error(
           err?.message || "Error loading profile data. Please try again later.",
@@ -90,21 +96,32 @@ function MyProfile() {
   function handleHelp() {
     navigate("/help");
   }
+
+  async function updateProfile() {
+    const { name, email, cargo, newPassword } = profile;
+    await updateUserProfile(name, email, cargo, newPassword);
+    localStorage.setItem("userNome", name);
+    toast.success("Saved successfully");
+    setIsEditing(false);
+  }
+
   const handleSave = async () => {
     try {
-      const result = await updateUserProfile(name, email, cargo, newPassword);
-      localStorage.setItem("userNome", name);
-      toast.success("Saved successfully");
-      setIsEditing(false);
+      await updateProfile();
     } catch (error) {
       toast.error(error.response?.data?.message || "Invalid credentials.");
     }
   };
+
+  const handleProfileChange = (field, value) => {
+    setProfile((prev) => ({ ...prev, [field]: value }));
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      SetpreviewImg(imageUrl);
+      setProfile((prev) => ({ ...prev, previewImg: imageUrl }));
     }
   };
 
@@ -197,7 +214,7 @@ function MyProfile() {
                   <img
                     className="w-50 h-30 object-cover transition-transform 
                     duration-200 group-hover:scale-115"
-                    src={previewImg}
+                    src={profile.previewImg}
                     alt="Profile preview"
                     onClick={() => fileInputRef.current.click()}
                   />
@@ -229,8 +246,8 @@ function MyProfile() {
                 </SectionTitle>
                 <ProfileInput
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={profile.name}
+                  onChange={(e) => handleProfileChange("name", e.target.value)}
                   minLength={2}
                   maxLength={100}
                 />
@@ -238,8 +255,8 @@ function MyProfile() {
                   Job Title:
                 </SectionTitle>
                 <ProfileInput
-                  value={cargo}
-                  onChange={(e) => setCargo(e.target.value)}
+                  value={profile.cargo}
+                  onChange={(e) => handleProfileChange("cargo", e.target.value)}
                   minLength={2}
                   maxLength={100}
                 />
@@ -248,8 +265,8 @@ function MyProfile() {
                 </SectionTitle>
                 <ProfileInput
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={profile.email}
+                  onChange={(e) => handleProfileChange("email", e.target.value)}
                   minLength={5}
                   maxLength={254}
                 />
@@ -257,8 +274,10 @@ function MyProfile() {
                   Senha:
                 </SectionTitle>
                 <ProfileInput
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
+                  value={profile.newPassword}
+                  onChange={(e) =>
+                    handleProfileChange("newPassword", e.target.value)
+                  }
                   minLength={5}
                   maxLength={72}
                   required
@@ -283,12 +302,16 @@ function MyProfile() {
             >
               <img className="w-30 h-30 mr-5 " src={userImg} />
               <div className=" w-full flex flex-col gap-0.5">
-                <h1 className="text-4xl text-white font-bold"> {name}</h1>
+                <h1 className="text-4xl text-white font-bold">
+                  {" "}
+                  {profile.name}
+                </h1>
                 <SectionTitle className="text-white text-lg">
-                  Job Title: <span className="text-gray-400">{cargo}</span>
+                  Job Title:{" "}
+                  <span className="text-gray-400">{profile.cargo}</span>
                 </SectionTitle>
                 <SectionTitle className="text-white text-lg">
-                  Email: <span className="text-gray-400">{email}</span>
+                  Email: <span className="text-gray-400">{profile.email}</span>
                 </SectionTitle>
                 <SectionTitle className="text-white flex items-center gap-2">
                   Senha:
