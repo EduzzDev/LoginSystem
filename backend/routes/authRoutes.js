@@ -10,7 +10,8 @@ db.exec(`
     email TEXT UNIQUE NOT NULL,
     senha TEXT NOT NULL,
     nome TEXT,
-    cargo TEXT
+    cargo TEXT,
+    urlImg TEXT NOT NULL
   )
 `);
 router.get("/dashboard", verificarAutenticacao, (req, res) => {

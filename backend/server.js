@@ -58,7 +58,8 @@ db.prepare(
     nome TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     senha TEXT NOT NULL,
-    cargo TEXT
+    cargo TEXT,
+    urlImg TEXT NOT NULL
   )
 `,
 ).run();
@@ -125,7 +126,7 @@ app.post("/register", async (req, res) => {
     }
     // criptografar a senha
     const hashedPassword = await bcrypt.hash(senha, 10);
-    
+
     const stmt = db.prepare(
       "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)",
     );
