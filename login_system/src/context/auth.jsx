@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { registerUser } from "../services/api";
+import { getUserProfile, registerUser } from "../services/api";
 import { AuthContext } from "./authContext";
 import { useEffect } from "react";
 
@@ -51,10 +51,31 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     return localStorage.getItem("userNome") || null;
   });
+  const [imgUser, setImgUser] = useState(() => {
+    return localStorage.getItem("urlImg") || null;
+  });
 
   const SignIn = async (nome) => {
     const response = await registerUser({ nome });
     setUser(response.data);
+  };
+  const UserProfile = async () => {
+    try {
+      const response = await getUserProfile();
+      const imgResponse = response?.urlImg || null;
+
+      setImgUser(imgResponse);
+      if (imgResponse) {
+        localStorage.setItem("urlImg", imgResponse);
+      } else {
+        localStorage.removeItem("urlImg");
+      }
+
+      return response;
+    } catch (error) {
+      console.error("Erro ao buscar perfil:", error);
+      return null;
+    }
   };
 
   const Login = (nome, token) => {
@@ -69,7 +90,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ timeLogged, user, SignIn, Login }}>
+    <AuthContext.Provider
+      value={{ timeLogged, user, SignIn, Login, imgUser, UserProfile }}
+    >
       {children}
     </AuthContext.Provider>
   );
