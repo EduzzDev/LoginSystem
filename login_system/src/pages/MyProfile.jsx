@@ -171,7 +171,11 @@ function MyProfile() {
                 />
               </div>
               <Bell className="text-gray-400" />
-              <img src={userImg} className="w-10" alt="" />
+              <img
+                src={profile.previewImg}
+                className="w-10 h-10 rounded-4xl"
+                alt="preview img"
+              />
               <div className="flex flex-col">
                 <span className="text-white text-[16px]">{user}</span>
                 <span className="text-gray-400 text-[14px]">
@@ -328,7 +332,10 @@ function MyProfile() {
               className="w-[50dvw] relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl gap-1"
             >
-              <img className="w-30 h-30 mr-5 rounded-3xl " src={profile.previewImg} />
+              <img
+                className="w-30 h-30 mr-5 rounded-3xl "
+                src={profile.previewImg}
+              />
               <div className=" w-full flex flex-col gap-0.5">
                 <h1 className="text-4xl text-white font-bold">
                   {" "}

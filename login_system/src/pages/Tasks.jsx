@@ -23,7 +23,7 @@ import { CircleCheckBig } from "lucide-react";
 
 function Tasks() {
   const navigate = useNavigate();
-  const { user, timeLogged } = useContext(AuthContext);
+  const { user, timeLogged, imgUser } = useContext(AuthContext);
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState(() => {
@@ -162,7 +162,7 @@ function Tasks() {
                 />
               </div>
               <Bell className="text-gray-400" />
-              <img src={userImg} className="w-10" alt="" />
+              <img src={imgUser || userImg} className=" w-10 h-10 rounded-4xl" alt="" />
               <div className="flex flex-col">
                 <span className="text-white text-[16px]">{user}</span>
                 <span className="text-gray-400 text-[14px]">

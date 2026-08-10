@@ -38,7 +38,7 @@ function Login() {
     try {
       toast.dismiss(loadingToast);
       const response = await loginUser({ email, senha });
-      Login(response.nome, response.token);
+      await Login(response.nome, response.token);
       setError("");
       navigate("/dashboard");
       toast.success("Login successful!");
