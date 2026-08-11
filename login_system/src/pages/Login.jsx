@@ -43,7 +43,6 @@ function Login() {
       navigate("/dashboard");
       toast.success("Login successful!");
     } catch (error) {
-      toast.dismiss(loadingToast);
       const errorMessage = error?.message || "Login error";
       setError(errorMessage);
       toast.error(error.message);

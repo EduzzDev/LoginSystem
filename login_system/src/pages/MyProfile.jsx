@@ -100,8 +100,13 @@ function MyProfile() {
     navigate("/help");
   }
   async function updateProfile(formData) {
-    await updateUserProfile(formData);
+    const result = await updateUserProfile(formData);
     localStorage.setItem("userNome", profile.name);
+    if (result?.urlImg) {
+      localStorage.setItem("urlImg", result?.urlImg);
+
+      setProfile((prev) => ({ ...prev, previewImg: result?.urlImg }));
+    }
     toast.success("Saved successfully");
     setIsEditing(false);
   }

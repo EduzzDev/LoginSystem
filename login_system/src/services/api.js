@@ -84,4 +84,5 @@ export async function updateUserProfile(formData) {
       result.message || result.error || "Erro ao atualizar perfil.",
     );
   }
+  return result;
 }

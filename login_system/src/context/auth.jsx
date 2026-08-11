@@ -63,8 +63,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await getUserProfile();
       const imgResponse = response?.urlImg || null;
-
       setImgUser(imgResponse);
+      console.log(imgResponse)
       if (imgResponse) {
         localStorage.setItem("urlImg", imgResponse);
       } else {

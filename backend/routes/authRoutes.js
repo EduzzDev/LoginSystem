@@ -135,7 +135,14 @@ router.put(
           message: "Email address is already in use.",
         });
       }
-      const urlImg = req.file ? `/uploads/${req.file.filename}` : user.urlImg;
+      const relativeUrlImg = req.file
+        ? `/uploads/${req.file.filename}`
+        : user.urlImg || "";
+
+      const urlImg = relativeUrlImg
+        ? `${req.protocol}://${req.get("host")}/${relativeUrlImg.replace(/^\/+/, "")}`
+        : "";
+
       const updateStmt = db.prepare(
         `UPDATE usuarios set nome = ?, email = ?, cargo = ?, senha = ?, urlImg = ? WHERE id = ?`,
       );
@@ -144,7 +151,7 @@ router.put(
         emailNormalizado,
         cargo,
         hashedPassword,
-        urlImg,
+        relativeUrlImg,
         userId,
       );
       if (result.changes === 0) {
@@ -154,6 +161,7 @@ router.put(
         message: "Profile successfully updated!",
         name,
         email: emailNormalizado,
+        urlImg,
       });
     } catch (error) {
       console.error(error);
