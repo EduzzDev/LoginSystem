@@ -23,6 +23,8 @@ import {
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 import toast from "react-hot-toast";
+import LockIcon from "@mui/icons-material/Lock";
+
 import {
   Dialog,
   DialogTitle,
@@ -30,6 +32,8 @@ import {
   DialogActions,
   TextField,
   Button,
+  Typography,
+  Box,
 } from "@mui/material";
 
 function MyProfile() {
@@ -236,7 +240,7 @@ function MyProfile() {
             </SideBarItem>
           </div>
         </nav>
-        <main className="w-full flex justify-center  bottom-1/1 relative gao">
+        <main className="w-full flex justify-center  bottom-1/1 relative ">
           {isEditing ? (
             <header
               className="w-[50dvw] h-80 relative top-5 p-2 flex  bg-[#3F434C] 
@@ -333,23 +337,56 @@ function MyProfile() {
                     placeholder="••••••••"
                   />
                 </div>
+
                 <Dialog
                   open={isModalOpen}
                   maxWidth="sm"
                   fullWidth
-                  onClose={() => setIsModalOpen(!isModalOpen)}
-                  PaperProps={{
-                    style: {
-                      backgroundColor: "#2D3035",
-                      color: "#ffffff",
-                      borderRadius: "18px",
+                  onClose={() => setIsModalOpen(false)}
+                  slotProps={{
+                    paper: {
+                      sx: {
+                        backgroundColor: "#000",
+                        color: "#fff",
+                        borderRadius: "18px",
+                        overflow: "visible !important",
+                        position: "relative",
+                        marginTop: "48px",
+                      },
                     },
                   }}
                 >
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "-36px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      bgcolor: "#2D3035",
+                      border: "2px solid #9D00FF",
+                      borderRadius: "12px",
+                      padding: "10px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      boxShadow: "0px 8px 24px rgba(0,0,0,0.5)",
+                      zIndex: 10,
+                    }}
+                  >
+                    <LockIcon
+                      sx={{
+                        fontSize: "2.5rem",
+                        color: "white",
+                      }}
+                    />
+                  </Box>
+
                   <DialogTitle
-                    className="bg-black text-[#9D00FF] font-extrabold"
+                    className="bg-black text-[#9D00FF] flex flex-col justify-center items-center "
                     style={{
-                      fontSize: "24px",
+                      fontSize: "26px",
+                      fontWeight: "700",
+                      paddingTop: "24px",
                     }}
                   >
                     Confirmar Alterações
@@ -361,6 +398,7 @@ function MyProfile() {
                         fontSize: "16px",
                         marginBottom: "16px",
                         fontWeight: "normal",
+                        overflow: "visible",
                       }}
                     >
                       Enter your current password to update your profile
@@ -400,7 +438,7 @@ function MyProfile() {
                         width: " 12dvw",
                         height: "7dvh",
                         borderRadius: "14px",
-                        fontSize: "18px",
+                        fontSize: "16px",
                         fontFamily: "system-ui",
                         "&:hover": { backgroundColor: "#5b4bc4" },
                       }}
@@ -409,6 +447,7 @@ function MyProfile() {
                     </Button>
                   </DialogActions>
                 </Dialog>
+
                 <div className="w-full flex justify-end items-baseline text-white ">
                   <button
                     type="submit"
