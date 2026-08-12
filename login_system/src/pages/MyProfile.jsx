@@ -35,6 +35,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
 
 function MyProfile() {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ function MyProfile() {
   const [imgFile, setImgFile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mostrarSenha, setMostrarSenha] = useState(false);
   const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
@@ -348,10 +350,10 @@ function MyProfile() {
                       sx: {
                         backgroundColor: "#000",
                         color: "#fff",
-                        borderRadius: "18px",
                         overflow: "visible !important",
                         position: "relative",
                         marginTop: "48px",
+                        borderRadius: "14px",
                       },
                     },
                   }}
@@ -371,18 +373,26 @@ function MyProfile() {
                       justifyContent: "center",
                       boxShadow: "0px 8px 24px rgba(0,0,0,0.5)",
                       zIndex: 10,
+                      fontSize: "2.5rem",
+                      color: "white",
                     }}
                   >
-                    <LockIcon
-                      sx={{
-                        fontSize: "2.5rem",
-                        color: "white",
-                      }}
-                    />
+                    {mostrarSenha ? (
+                      <LockOpenIcon
+                        sx={{ fontSize: "2.5rem", color: "white" }}
+                      />
+                    ) : (
+                      <LockIcon
+                        sx={{
+                          fontSize: "2.5rem",
+                          color: "white",
+                        }}
+                      />
+                    )}
                   </Box>
 
                   <DialogTitle
-                    className="bg-black text-[#9D00FF] flex flex-col justify-center items-center "
+                    className="bg-black text-[#7360ec] flex flex-col justify-center items-center "
                     style={{
                       fontSize: "26px",
                       fontWeight: "700",
@@ -391,43 +401,51 @@ function MyProfile() {
                   >
                     Confirmar Alterações
                   </DialogTitle>
-                  <DialogContent className="bg-black text-gray-400">
+                  <DialogContent className="text-gray-400 flex justify-center items-center flex-col">
                     <p
                       className="text-gray-400"
                       style={{
                         fontSize: "16px",
                         marginBottom: "16px",
                         fontWeight: "normal",
-                        overflow: "visible",
                       }}
                     >
                       Enter your current password to update your profile
                     </p>
-                    <TextField
-                      autoFocus
-                      fullWidth
-                      type="password"
-                      label="Current Password"
-                      variant="outlined"
-                      value={profile.currentPassword}
-                      onChange={(e) =>
-                        handleProfileChange("currentPassword", e.target.value)
-                      }
-                      sx={{
-                        "& .MuiOutlinedInput-root": { color: "white" },
-                        "& .MuiInputLabel-root": { color: "gray" },
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "#6c5ce7",
-                          borderRadius: "20px",
-                        },
-                        "&:hover .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "#9D00FF",
-                        },
-                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "#9D00FF ",
-                        },
-                      }}
-                    />
+                    <div className="w-full flex flex-row justify-center items-center">
+                      <TextField
+                        autoFocus
+                        fullWidth
+                        type={mostrarSenha ? "text" : "password"}
+                        label="Current Password"
+                        variant="outlined"
+                        value={profile.currentPassword}
+                        onChange={(e) =>
+                          handleProfileChange("currentPassword", e.target.value)
+                        }
+                        sx={{
+                          "& .MuiOutlinedInput-root": { color: "white" },
+                          "& .MuiInputLabel-root": { color: "gray" },
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#6c5ce7",
+                            borderRadius: "20px",
+                          },
+                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#9D00FF",
+                          },
+                          "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#9D00FF ",
+                          },
+                        }}
+                      />
+                      <button
+                        type="button"
+                        className="-translate-x-12"
+                        onClick={() => setMostrarSenha(!mostrarSenha)}
+                      >
+                        {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
+                      </button>
+                    </div>
                   </DialogContent>
                   <DialogActions className="bg-black" sx={{ padding: "18px" }}>
                     <Button
