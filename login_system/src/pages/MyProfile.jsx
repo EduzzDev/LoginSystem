@@ -1,6 +1,9 @@
 import { checkAuth, getUserProfile, updateUserProfile } from "../services/api";
 import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
+import SideBarMobile from "../components/SideBarMobile";
+import ProfileInput from "../components/ProfileInput";
+import SectionTitle from "../components/SectionTitle";
 import { useEffect, useContext, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,10 +22,15 @@ import {
 } from "lucide-react";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
-import SideBarMobile from "../components/SideBarMobile";
-import ProfileInput from "../components/ProfileInput";
-import SectionTitle from "../components/SectionTitle";
 import toast from "react-hot-toast";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+} from "@mui/material";
 
 function MyProfile() {
   const navigate = useNavigate();
@@ -31,12 +39,13 @@ function MyProfile() {
     name: user,
     email: "",
     cargo: "Developer",
+    currentPassword: "",
     newPassword: "",
     previewImg: userImg,
   });
   const [imgFile, setImgFile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
@@ -56,7 +65,6 @@ function MyProfile() {
     async function loadUserData() {
       try {
         const data = await getUserProfile();
-
         setProfile((prev) => ({
           ...prev,
           name: data.nome || user,
@@ -110,7 +118,10 @@ function MyProfile() {
     toast.success("Saved successfully");
     setIsEditing(false);
   }
-
+  const handleOpenModalClick = async (e) => {
+    e.preventDefault();
+    setIsModalOpen(!isModalOpen);
+  };
   const handleSave = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -118,12 +129,13 @@ function MyProfile() {
     formData.append("email", profile.email);
     formData.append("cargo", profile.cargo);
     formData.append("newPassword", profile.newPassword);
+    formData.append("currentPassword", profile.currentPassword);
     if (imgFile) {
       formData.append("foto", imgFile);
     }
-
     try {
       await updateProfile(formData);
+      setIsModalOpen(false);
     } catch (error) {
       toast.error((error && error.message) || "Invalid credentials.");
     }
@@ -321,9 +333,86 @@ function MyProfile() {
                     placeholder="••••••••"
                   />
                 </div>
+                <Dialog
+                  open={isModalOpen}
+                  maxWidth="sm"
+                  fullWidth
+                  onClose={() => setIsModalOpen(!isModalOpen)}
+                  PaperProps={{
+                    style: {
+                      backgroundColor: "#2D3035",
+                      color: "#ffffff",
+                      borderRadius: "18px",
+                    },
+                  }}
+                >
+                  <DialogTitle
+                    className="bg-black text-[#9D00FF] font-extrabold"
+                    style={{
+                      fontSize: "24px",
+                    }}
+                  >
+                    Confirmar Alterações
+                  </DialogTitle>
+                  <DialogContent className="bg-black text-gray-400">
+                    <p
+                      className="text-gray-400"
+                      style={{
+                        fontSize: "16px",
+                        marginBottom: "16px",
+                        fontWeight: "normal",
+                      }}
+                    >
+                      Enter your current password to update your profile
+                    </p>
+                    <TextField
+                      autoFocus
+                      fullWidth
+                      type="password"
+                      label="Current Password"
+                      variant="outlined"
+                      value={profile.currentPassword}
+                      onChange={(e) =>
+                        handleProfileChange("currentPassword", e.target.value)
+                      }
+                      sx={{
+                        "& .MuiOutlinedInput-root": { color: "white" },
+                        "& .MuiInputLabel-root": { color: "gray" },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#6c5ce7",
+                          borderRadius: "20px",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#9D00FF",
+                        },
+                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#9D00FF ",
+                        },
+                      }}
+                    />
+                  </DialogContent>
+                  <DialogActions className="bg-black" sx={{ padding: "18px" }}>
+                    <Button
+                      onClick={handleSave}
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "#6c5ce7",
+                        width: " 12dvw",
+                        height: "7dvh",
+                        borderRadius: "14px",
+                        fontSize: "18px",
+                        fontFamily: "system-ui",
+                        "&:hover": { backgroundColor: "#5b4bc4" },
+                      }}
+                    >
+                      Confirm
+                    </Button>
+                  </DialogActions>
+                </Dialog>
                 <div className="w-full flex justify-end items-baseline text-white ">
                   <button
                     type="submit"
+                    onClick={handleOpenModalClick}
                     className="w-40 bg-[#6366F1] p-2 rounded-xl
                 relative top-5 right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
                   >

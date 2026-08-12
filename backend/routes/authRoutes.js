@@ -65,13 +65,13 @@ router.put(
   verificarAutenticacao,
   upload.single("foto"),
   async (req, res) => {
-    console.log(
+    /*console.log(
       "O QUE CHEGOU NO BACKEND:",
       req.headers["content-type"],
       req.body,
       req.file,
-    );
-    const { name, email, cargo, newPassword } = req.body || {};
+    );*/
+    const { name, email, cargo, newPassword, currentPassword } = req.body || {};
     const userId = req.userId;
     if (!name) {
       return res.status(400).json({ error: "Name required" });
@@ -135,6 +135,22 @@ router.put(
           message: "Email address is already in use.",
         });
       }
+
+      const user = db
+        .prepare("SELECT * FROM usuarios WHERE id = ?")
+        .get(userId);
+
+      if (!user) {
+        res.status(404).json({ error: "user not found" });
+      }
+
+      const isPasswordValid = await bcrypt.compare(currentPassword, user.senha);
+
+      if (!isPasswordValid) {
+        return res
+          .status(401)
+          .json({ error: "The current password is incorrect." });
+      }
       const relativeUrlImg = req.file
         ? `/uploads/${req.file.filename}`
         : user.urlImg || "";
@@ -162,6 +178,7 @@ router.put(
         name,
         email: emailNormalizado,
         urlImg,
+        isPasswordValid,
       });
     } catch (error) {
       console.error(error);
