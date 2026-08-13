@@ -9,6 +9,7 @@ import MyProfile from "./pages/MyProfile";
 import { AuthProvider } from "./context/auth";
 import Security from "./pages/Security";
 import Help from "./pages/HelpPage";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot" element={<ForgotPassword />}></Route>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/myProfile" element={<MyProfile />} />

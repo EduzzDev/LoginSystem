@@ -38,11 +38,11 @@ function Login() {
       return;
     }
     try {
-      toast.dismiss(loadingToast);
       const response = await loginUser({ email, senha });
       await Login(response.nome, response.token);
       setError("");
       navigate("/dashboard");
+      toast.dismiss(loadingToast);
       toast.success("Login successful!");
     } catch (error) {
       const errorMessage = error?.message || "Login error";
@@ -98,6 +98,9 @@ function Login() {
                 {mostrarSenha ? <LockOpen /> : <LockKeyhole />}
               </button>
             </BoxInputLogin>
+            <span className="relative translate-x-8 left-6 ml-6 top-3.5 ">
+              <AuthSwitchLink variant="C">Forgot password?</AuthSwitchLink>
+            </span>
             <Wrapper variant="A">
               <SubmitButton>Sign In</SubmitButton>
             </Wrapper>
