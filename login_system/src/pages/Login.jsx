@@ -25,7 +25,9 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const loadingToast = toast.loading("Logging into your account...");
+    const loadingToast = toast.loading("Logging into your account...", {
+      duration: 4000,
+    });
     // Validação básica
     if (!email.trim()) {
       setError("Please enter your Email address");
