@@ -98,7 +98,7 @@ function Login() {
                 {mostrarSenha ? <LockOpen /> : <LockKeyhole />}
               </button>
             </BoxInputLogin>
-            <span className="relative translate-x-8 left-6 ml-6 top-3.5 ">
+            <span className="relative left-8 min-[500px]:translate-x-8  min-[500px]:left-6 min-[500px]:ml-6 top-3.5  ">
               <AuthSwitchLink variant="C">Forgot password?</AuthSwitchLink>
             </span>
             <Wrapper variant="A">
