@@ -3,7 +3,7 @@ import BoxInputLogin from "../components/BoxInputLogin";
 import Wrapper from "../components/Wrapper";
 import AuthSwitchLink from "../components/AuthSwitchLink";
 import SubmitButton from "../components/SubmitButton";
-import { CircleUserRound } from "lucide-react";
+import { CircleUserRound, LockIcon } from "lucide-react";
 import { Mail } from "lucide-react";
 import { LockKeyhole } from "lucide-react";
 import { LockOpen } from "lucide-react";
@@ -13,12 +13,22 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import toast from "react-hot-toast";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  Box,
+} from "@mui/material";
 
 function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const navigate = useNavigate();
   const { Login } = useContext(AuthContext);
@@ -98,9 +108,144 @@ function Login() {
                 {mostrarSenha ? <LockOpen /> : <LockKeyhole />}
               </button>
             </BoxInputLogin>
-            <span className="relative left-8 min-[500px]:translate-x-8  min-[500px]:left-6 min-[500px]:ml-6 top-3.5  ">
-              <AuthSwitchLink variant="C">Forgot password?</AuthSwitchLink>
+            <span className="relative left-8 min-[500px]:translate-x-8  
+            min-[500px]:left-6 min-[500px]:ml-6 top-3.5">
+              <button type="button" className="text-blue-800 cursor-pointer underline font-semibold"
+                onClick={() => setIsModalOpen(true)}>Forgot password?</button>
             </span>
+            <Dialog
+              open={isModalOpen}
+              maxWidth="sm"
+              fullWidth
+              slotProps={{
+                paper: {
+                  sx: {
+                    backgroundColor: "#0D0D11",
+                    overflow: "visible !important",
+                    position: "relative",
+                    marginTop: "48px",
+                    borderRadius: "20px",
+                    border: "1px solid #27272A",
+                    boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.8)",
+                  },
+                },
+              }}
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "-36px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  bgcolor: "#181820",
+                  border: "2px solid #7C3AED",
+                  borderRadius: "16px",
+                  padding: "12px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0px 0px 20px rgba(124, 58, 237, 0.4)",
+                  zIndex: 10,
+                  fontSize: "2.5rem",
+                  color: "white",
+                }}
+              >
+                <LockIcon />
+              </Box>
+
+              <DialogTitle
+                className="text-[#A78BFA] flex flex-col justify-center items-center"
+                style={{
+                  fontSize: "26px",
+                  fontWeight: "700",
+                  paddingTop: "32px",
+                }}
+              >
+                Forgot Your Password?
+              </DialogTitle>
+
+              <DialogContent className="text-gray-400 flex justify-center items-center flex-col">
+                <p
+                  className="text-[#A1A1AA] text-center"
+                  style={{
+                    fontSize: "16px",
+                    marginBottom: "24px",
+                    fontWeight: "normal",
+                  }}
+                >
+                  Don't worry! Enter your account's associated email address, and we'll
+                  send you a link to reset your password.
+                </p>
+                <div className="w-full flex flex-row justify-center items-center">
+                  <TextField
+                    autoFocus
+                    fullWidth
+                    type="text"
+                    label="E-mail"
+                    variant="outlined"
+                    sx={{
+                      "& .MuiInputBase-input": { color: "white" },
+                      "& .MuiInputLabel-root": { color: "gray" },
+                      "& .MuiOutlinedInput-root": {
+                        backgroundColor: "#181820",
+                        borderRadius: "12px",
+                        "& fieldset": {
+                          borderColor: "#27272A",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "#7C3AED",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#7C3AED",
+                        },
+                      },
+                    }}
+                  />
+                  <button
+                    type="button"
+                    className="-translate-x-12"
+                  ></button>
+                </div>
+              </DialogContent>
+              <DialogActions sx={{ padding: "0px 24px 14px 24px" }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#7C3AED",
+                    width: "100%",
+                    height: "7dvh",
+                    minHeight: "48px",
+                    borderRadius: "12px",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    textTransform: "none",
+                    fontFamily: "system-ui",
+                    boxShadow: "0 4px 14px 0 rgba(124, 58, 237, 0.39)",
+                    "&:hover": { backgroundColor: "#6D28D9" },
+                  }}
+                >
+                  Send Reset Link
+                </Button>
+              </DialogActions>
+              <DialogActions sx={{ padding: "0px 24px 24px 24px", justifyContent: "center" }}>
+                <Button
+                  onClick={() => setIsModalOpen(false)}
+                  variant="text"
+                  sx={{
+                    color: "#A78BFA",
+                    width: "100%",
+                    height: "auto",
+                    borderRadius: "14px",
+                    fontSize: "15px",
+                    textTransform: "none",
+                    fontFamily: "system-ui",
+                    "&:hover": { color: "#FFF", backgroundColor: "transparent" },
+                  }}
+                >
+                  Back to login
+                </Button>
+              </DialogActions>
+            </Dialog>
             <Wrapper variant="A">
               <SubmitButton>Sign In</SubmitButton>
             </Wrapper>
