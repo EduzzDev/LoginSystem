@@ -14,7 +14,9 @@ function AuthSwitchLink({ variant, children }) {
 
   return (
     <a href={href}>
-      <button type="button" className="text-blue-800 cursor-pointer underline font-semibold">
+      <button type="button"
+        className="text-blue-800 cursor-pointer 
+       underline font-semibold">
         {children}
       </button>
     </a>
