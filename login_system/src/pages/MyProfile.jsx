@@ -285,7 +285,7 @@ function MyProfile() {
                   />
                 </div>
                 <div className=" flex flex-col gap-1">
-                  <SectionTitle className="text-lg text-gray-400">
+                  <SectionTitle>
                     Name:
                   </SectionTitle>
                   <ProfileInput
@@ -298,7 +298,7 @@ function MyProfile() {
                     minLength={2}
                     maxLength={100}
                   />
-                  <SectionTitle className="text-gray-400 text-lg">
+                  <SectionTitle>
                     Job Title:
                   </SectionTitle>
                   <ProfileInput
@@ -310,7 +310,7 @@ function MyProfile() {
                     minLength={2}
                     maxLength={100}
                   />
-                  <SectionTitle className="text-lg text-gray-400">
+                  <SectionTitle>
                     Email:
                   </SectionTitle>
                   <ProfileInput
@@ -323,20 +323,29 @@ function MyProfile() {
                     minLength={5}
                     maxLength={254}
                   />
-                  <SectionTitle className="text-white flex items-center gap-2">
+                  <SectionTitle className=" flex items-center gap-2">
                     Senha:
                   </SectionTitle>
-                  <ProfileInput
-                    value={profile.newPassword}
-                    onChange={(e) =>
-                      handleProfileChange("newPassword", e.target.value)
-                    }
-                    minLength={5}
-                    maxLength={72}
-                    required
-                    type="password"
-                    placeholder="••••••••"
-                  />
+                  <div className="w-full flex flex-row justify-center items-center">
+                    <ProfileInput
+                      type={mostrarSenha ? "text" : "password"}
+                      value={profile.newPassword}
+                      onChange={(e) =>
+                        handleProfileChange("newPassword", e.target.value)
+                      }
+                      minLength={5}
+                      maxLength={72}
+                      required
+                      placeholder="••••••••"
+                    />
+                    <button
+                      type="button"
+                      className="-translate-x-12 text-amber-50"
+                      onClick={() => setMostrarSenha(!mostrarSenha)}
+                    >
+                      {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
+                    </button>
+                  </div>
                 </div>
 
                 <Dialog
