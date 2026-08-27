@@ -3,8 +3,12 @@ import bcrypt from "bcrypt";
 import fs from "node:fs";
 import multer from "multer";
 const router = express.Router();
+import dotenv from "dotenv";
 import verificarAutenticacao from "./verificarAuth.js";
 import Database from "better-sqlite3";
+import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
+
 const db = new Database("LoginSystem.db");
 
 fs.mkdirSync("uploads", { recursive: true });
@@ -20,6 +24,19 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+dotenv.config();
+
+
+const transporter = nodemailer.createTransport({
+  host: process.env.MAILTRAP_HOST || 'sandbox.smtp.mailtrap.io',
+  port: Number(process.env.MAILTRAP_PORT) || 2525,
+  auth: {
+    user: process.env.MAILTRAP_USER,
+    pass: process.env.MAILTRAP_PASS,
+  },
+});
+
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS usuarios (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,6 +47,7 @@ db.exec(`
     urlImg TEXT 
   )
 `);
+
 router.get("/dashboard", verificarAutenticacao, (req, res) => {
   res.json({
     message: "authorized acess",
@@ -188,6 +206,57 @@ router.put(
     }
   },
 );
+
+router.post("/user/send-link", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+    const emailNormalizado = email.toLowerCase().trim();
+    const stmt = db.prepare('SELECT * FROM usuarios WHERE email = ?');
+
+    const user = stmt.get(emailNormalizado);
+
+    if (!user) {
+      return res.status(404).json({ error: 'Email not found!' });
+    }
+    const isDevelopment = process.env.NODE_ENV !== "production";
+    const urlFront = isDevelopment ?
+      "http://localhost:5173"
+      : "https://login-system-eta-rose.vercel.app";
+
+    const resetToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '30min' })
+    const linkRestore = `${urlFront}/forgot?token=${resetToken}`
+    console.log("Link gerado:", linkRestore);
+    transporter.sendMail({
+      from: '"Suporte" <eduzzfelipe21@gmail.com>',
+      to: emailNormalizado,
+      subject: `Olá, ${user.nome}! Aqui está o seu link para redefinição de senha`,
+      html: `
+        <h2> Redefinição de senha</h2>
+           <p>Clique no botão abaixo para redefinir sua senha:</p>
+           <a href="${linkRestore} href="${linkRestore}" style="background-color: #4F46E5; color: #ffffff; 
+           padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;"">
+              Redefinir minha senha
+             </a>
+           <p><small>Este link é válido por apenas 30 minutos.</small></p>
+`,
+    }, (error, info) => {
+      if (error) {
+        return console.log(error);
+      }
+      console.log("Message sent: %s", info.messageId);
+    });
+
+    return res.status(200).json({
+      message: "Recovery link sent successfully."
+    });
+  } catch (err) {
+    return res.status(500).json({ err: 'server error' })
+  }
+})
 
 // Logout
 router.post("/logout", (req, res) => {

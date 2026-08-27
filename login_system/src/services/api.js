@@ -86,3 +86,20 @@ export async function updateUserProfile(formData) {
   }
   return result;
 }
+
+export async function sendLinkEmail(data) {
+  const res = await fetch(`${BASE_URL}/user/send-link`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(data),
+  })
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw result;
+  }
+  return result;
+}

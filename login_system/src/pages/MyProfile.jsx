@@ -387,7 +387,9 @@ function MyProfile() {
                   >
                     {mostrarSenha ? (
                       <LockOpenIcon
-                        sx={{ fontSize: "2.5rem", color: "white" }}
+                        sx={{
+                          fontSize: "2.5rem", color: "white"
+                        }}
                       />
                     ) : (
                       <LockIcon

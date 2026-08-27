@@ -8,7 +8,7 @@ import { Mail } from "lucide-react";
 import { LockKeyhole } from "lucide-react";
 import { LockOpen } from "lucide-react";
 import { useState } from "react";
-import { loginUser } from "../services/api";
+import { loginUser, sendLinkEmail } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
@@ -26,6 +26,7 @@ import {
 function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [email, setEmail] = useState("");
+  const [CurrentEmail, setCurrentEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -60,6 +61,18 @@ function Login() {
       toast.error(error.message);
     }
   };
+  const sendLink = async (e) => {
+    if (!CurrentEmail.trim()) {
+      setError("Please enter your Email address");
+      return;
+    }
+    try {
+      const result = await sendLinkEmail({ email: CurrentEmail });
+      toast.success(result.message || "Link enviado com sucesso!");
+    } catch (err) {
+      toast.error(err.error || err.message || "Error sending email");
+    }
+  }
 
   return (
     <>
@@ -180,7 +193,9 @@ function Login() {
                   <TextField
                     autoFocus
                     fullWidth
-                    type="text"
+                    type="email"
+                    value={CurrentEmail}
+                    onChange={(e) => setCurrentEmail(e.target.value)}
                     label="E-mail"
                     variant="outlined"
                     sx={{
@@ -201,14 +216,11 @@ function Login() {
                       },
                     }}
                   />
-                  <button
-                    type="button"
-                    className="-translate-x-12"
-                  ></button>
                 </div>
               </DialogContent>
               <DialogActions sx={{ padding: "0px 24px 14px 24px" }}>
                 <Button
+                  onClick={sendLink}
                   variant="contained"
                   sx={{
                     backgroundColor: "#7C3AED",

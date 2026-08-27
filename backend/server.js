@@ -182,6 +182,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
+
 // rota teste
 app.get("/", (req, res) => {
   res.send("Backend funcionando 🚀");
