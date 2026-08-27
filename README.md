@@ -17,7 +17,7 @@
 
 <br/>
 
-> Sistema moderno de autenticação com interface elegante, rotas protegidas e uma experiência de usuário em evolução.
+> Sistema moderno de autenticação com interface elegante, rotas protegidas, gerenciamento de perfil e uma experiência de usuário em evolução.
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-green.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento%20Ativo-blue.svg)](#-status-do-projeto)
@@ -28,15 +28,18 @@
 
 ## ✨ Visão geral
 
-Este projeto nasceu como uma aplicação completa de autenticação, mas está evoluindo para algo mais completo: uma experiência com dashboard, páginas internas e um fluxo mais organizado para o usuário.
+Este projeto nasceu como uma aplicação completa de autenticação e está evoluindo para algo mais completo: uma experiência com dashboard, gerenciamento de perfil, páginas internas e recursos de segurança.
 
 ### 🌟 Destaques do projeto
 
-- Autenticação segura com JWT e cookies HTTP-only
+- Autenticação com JWT e cookies HTTP-only
 - Interface moderna com React e Vite
 - Estrutura organizada em frontend e backend
 - Dashboard como ponto central do sistema
-- Páginas em desenvolvimento com foco em usabilidade e evolução
+- Gerenciamento de perfil e imagem do usuário
+- Verificação de senha para alterações sensíveis
+- Sistema de notificações com toast
+- Fluxo de recuperação de senha em desenvolvimento
 
 ---
 
@@ -49,17 +52,23 @@ Este projeto nasceu como uma aplicação completa de autenticação, mas está e
 - Cadastro e login de usuários
 - Criptografia de senha com bcrypt
 - Autenticação protegida com JWT
-- Estrutura inicial da dashboard
+- Cookies HTTP-only para autenticação
+- Estrutura da dashboard
 - Navegação por sidebar e páginas internas
 - Validação de formulário e tratamento de erros
+- Notificações de login, registro e logout
+- Gerenciamento de perfil
+- Upload e exibição de imagem de perfil
+- Verificação da senha atual antes de alterações sensíveis no perfil
 
 ### 🛠️ O que está sendo trabalhado
 
-- Página Tasks quase concluída, com ajuste final na expiration date
-- Página MyProfile sendo organizada para o fluxo do usuário
+- Página Tasks com refinamentos finais
+- Página MyProfile sendo refinada
 - Página Security em desenvolvimento
-- Página Help sendo refinada
-- Dashboard geral sendo transformada em uma visão central do sistema
+- Página Help sendo desenvolvimento
+- Dashboard geral sendo transformada em uma visão central do sistema (desenvolvimento)
+- Fluxo de recuperação de senha por e-mail em desenvolvimento
 
 ### 🧭 Guia de etapas
 
@@ -76,9 +85,34 @@ Este projeto nasceu como uma aplicação completa de autenticação, mas está e
 
 - Security — foco em organização e acesso seguro
 - Help — conteúdo e experiência de suporte
-- Tasks — quase pronta, com detalhe de expiration date sendo ajustado
-- MyProfile — visão do perfil do usuário
+- Tasks — gerenciamento e organização de tarefas
+- MyProfile — gerenciamento do perfil e imagem do usuário
 - Dashboard — painel geral como centro da aplicação
+
+---
+
+## 🔐 Autenticação e segurança
+
+O sistema utiliza diferentes recursos para proteger as contas e operações dos usuários:
+
+- JWT para autenticação
+- Cookies HTTP-only
+- Hash de senhas com bcrypt
+- Rotas protegidas
+- Verificação da senha atual para alterações sensíveis no perfil
+- Variáveis de ambiente para informações sensíveis
+
+### 📧 Recuperação de senha
+
+O fluxo de recuperação de senha está sendo desenvolvido e atualmente conta com:
+
+- Link "Forgot password?" na tela de login
+- Modal para solicitar recuperação
+- Rota dedicada para redefinição de senha
+- Tokens JWT com expiração
+- Integração de envio de e-mail via Nodemailer/SMTP
+
+> 🚧 O fluxo ainda não está 100% finalizado.
 
 ---
 
@@ -116,23 +150,36 @@ Acesse o app em http://localhost:5173 e a API em http://localhost:3000.
 | Frontend | Vite          | Ambiente de desenvolvimento |
 | Frontend | Tailwind CSS  | Estilização                 |
 | Frontend | React Router  | Navegação                   |
+| Frontend | Axios         | Comunicação com a API       |
+| Frontend | React Hot Toast | Notificações               |
+| Frontend | Lucide React  | Ícones da interface         |
+| Frontend | Material UI   | Componentes de interface    |
 | Backend  | Node.js       | Runtime do servidor         |
 | Backend  | Express       | API REST                    |
 | Backend  | SQLite        | Banco de dados local        |
 | Backend  | bcrypt        | Hash de senhas              |
-| Backend  | jsonwebtoken  | Autenticação JWT            |
+| Backend  | jsonwebtoken  | Autenticação e tokens       |
 | Backend  | cookie-parser | Gerenciamento de cookies    |
+| Backend  | multer        | Upload de arquivos          |
+| Backend  | dotenv        | Variáveis de ambiente      |
+| Backend  | Nodemailer    | Envio de e-mails            |
 
 ---
 
 ## 🌈 Funcionalidades principais
 
 - Login e cadastro com fluxo fluido
-- Armazenamento seguro de usuários no banco SQLite
+- Armazenamento de usuários no banco SQLite
+- Hash de senhas com bcrypt
 - Sessões protegidas com JWT
+- Cookies HTTP-only
 - Dashboard geral como visão central do sistema
-- Páginas internas em desenvolvimento para uma experiência mais completa
-- Navegação moderna e layout limpo
+- Gerenciamento de perfil
+- Upload e atualização de imagem de perfil
+- Verificação de senha para alterações sensíveis
+- Notificações de sucesso e erro
+- Interface responsiva
+- Fluxo de recuperação de senha em desenvolvimento
 
 ---
 
@@ -151,7 +198,8 @@ LoginSystem/
 ## 🛣️ Próximos passos
 
 - Finalizar a lógica da expiration date em Tasks
-- Completar MyProfile e refiná-lo visualmente
+- Completar e refinar MyProfile
+- Finalizar o fluxo de recuperação de senha
 - Melhorar a dashboard como painel geral
 - Fortalecer a segurança com melhorias adicionais
 - Evoluir a experiência para um produto mais completo
