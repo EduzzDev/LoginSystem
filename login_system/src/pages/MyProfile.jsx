@@ -340,7 +340,7 @@ function MyProfile() {
                     />
                     <button
                       type="button"
-                      className="-translate-x-12 text-amber-50"
+                      className="-translate-x-12 text-amber-50 cursor-pointer"
                       onClick={() => setMostrarSenha(!mostrarSenha)}
                     >
                       {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
@@ -388,7 +388,8 @@ function MyProfile() {
                     {mostrarSenha ? (
                       <LockOpenIcon
                         sx={{
-                          fontSize: "2.5rem", color: "white"
+                          fontSize: "2.5rem",
+                          color: "white",
                         }}
                       />
                     ) : (
@@ -450,7 +451,7 @@ function MyProfile() {
                       />
                       <button
                         type="button"
-                        className="-translate-x-12"
+                        className="-translate-x-12 cursor-pointer"
                         onClick={() => setMostrarSenha(!mostrarSenha)}
                       >
                         {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
