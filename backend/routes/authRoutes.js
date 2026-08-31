@@ -31,6 +31,7 @@ const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: Number(process.env.EMAIL_PORT),
   secure: true,
+  family: 4,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -224,8 +225,8 @@ router.post("/user/send-link", async (req, res) => {
       return res.status(404).json({ error: 'Email not found!' });
     }
     const isDevelopment = process.env.NODE_ENV !== "production";
-    const urlFront = isDevelopment ?
-      "http://localhost:5173"
+    const urlFront = isDevelopment
+      ? "http://localhost:5173"
       : "https://login-system-eta-rose.vercel.app";
 
     const resetToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '30min' })
