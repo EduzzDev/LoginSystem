@@ -6,8 +6,9 @@ const router = express.Router();
 import dotenv from "dotenv";
 import verificarAutenticacao from "./verificarAuth.js";
 import Database from "better-sqlite3";
-import { google } from "googleapis";
+import emailjs from "@emailjs/nodejs";
 import jwt from "jsonwebtoken";
+import verificarResetToken from "./verificarResetToken.js";
 
 const db = new Database("LoginSystem.db");
 
@@ -26,15 +27,10 @@ const upload = multer({ storage });
 
 dotenv.config();
 
-
-const oAuth2Client = new google.auth.OAuth2(
-  process.env.GMAIL_CLIENT_ID,
-  process.env.GMAIL_CLIENT_SECRET,
-  "https://developers.google.com/oauthplayground"
-);
-oAuth2Client.setCredentials({ refresh_token: process.env.GMAIL_REFRESH_TOKEN });
-const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
-
+emailjs.init({
+  publicKey: process.env.EMAILJS_PUBLIC_KEY,
+  privateKey: process.env.EMAILJS_PRIVATE_KEY
+});
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS usuarios (
@@ -77,10 +73,7 @@ router.get("/user/me", verificarAutenticacao, (req, res) => {
   });
 });
 
-router.put(
-  "/user/update-profile",
-  verificarAutenticacao,
-  upload.single("foto"),
+router.put("/user/update-profile", verificarAutenticacao, upload.single("foto"),
   async (req, res) => {
     /*console.log(
       "O QUE CHEGOU NO BACKEND:",
@@ -226,39 +219,20 @@ router.post("/user/send-link", async (req, res) => {
       ? "http://localhost:5173"
       : "https://login-system-eta-rose.vercel.app";
 
-    const resetToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '30min' })
+    const resetToken = jwt.sign({ id: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '30min' })
     const linkRestore = `${urlFront}/forgot?token=${resetToken}`
     console.log("Link gerado:", linkRestore);
-    const subject = `Hello, ${user.nome}! Here is your password reset link`;
-    const htmlContent = `
-          <h2>Reset Password</h2>
-          <p>Click the button below to reset your password:</p>
-          <a href="${linkRestore}" style="background-color: #4F46E5; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
-            Reset My Password
-          </a>
-          <p><small>If you did not request this email, please ignore it.</small></p>
-          <p><small>This link is valid for only 30 minutes.</small></p>
-        `;
-    const emailLines = [
-      `From: "Suporte" <${process.env.EMAIL_USER}>`,
-      `To: ${emailNormalizado}`,
-      "Content-type: text/html;charset=utf-8",
-      "MIME-Version: 1.0",
-      `Subject: ${subject}`,
-      "",
-      htmlContent,
-    ];
-    const raw = Buffer.from(emailLines.join("\r\n"))
-      .toString("base64")
-      .replace(/\+/g, "-")
-      .replace(/\//g, "_")
-      .replace(/=+$/, "");
     try {
-      const res = await gmail.users.messages.send({
-        userId: "me",
-        requestBody: { raw },
-      });
-      console.log("Message sent via HTTP API, Id:", res.data.id);
+      const res = await emailjs.send(
+        process.env.EMAILJS_SERVICE_ID,
+        process.env.EMAILJS_TEMPLATE_ID,
+        {
+          name: user.nome,
+          email: emailNormalizado,
+          link: linkRestore,
+        }
+      );
+      console.log("Message sent via HTTP API, Id:", res.status);
     } catch (error) {
       console.log("Erro ao enviar pela API:", error);
     }
@@ -267,6 +241,46 @@ router.post("/user/send-link", async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({ err: 'server error' })
+  }
+})
+
+router.put("/user/forgot", verificarResetToken, async (req, res) => {
+  const { token, newPassword } = req.body
+  const userId = req.userId;
+  if (!token || !novaSenha) {
+    return res.status(400).json({ error: "A token and a new password are required." });
+  }
+  // validação da senha
+  if (!newPassword) {
+    return res.status(400).json({ error: "Password required" });
+  }
+  if (newPassword.length > 72) {
+    return res.status(400).json({
+      error: "PASSWORD_TOO_LONG",
+      message: "Password must be at most 72 characters",
+    });
+  }
+  if (newPassword.length < 5) {
+    return res.status(400).json({
+      error: "PASSWORD_TOO_SHORT",
+      message: "Password must be at learst 4 characters",
+    });
+  }
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  try {
+    const updateStmt = db.prepare(
+      `UPDATE usuarios set senha = ? WHERE id = ?`,
+    );
+    const result = updateStmt.run(hashedPassword, userId)
+    if (result.changes === 0) {
+      return res.status(404).json({ error: "User not found and password not changed" });
+    }
+    return res.status(200).json({ message: "Password successfully changed!" });
+  } catch (error) {
+    onsole.error("Error updating password:", error);
+    return res
+      .status(500)
+      .json({ error: "Error updating the profile in the database." });
   }
 })
 
