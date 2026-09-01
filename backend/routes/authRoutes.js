@@ -237,9 +237,9 @@ router.post("/user/send-link", async (req, res) => {
       to: emailNormalizado,
       subject: `Hello, ${user.nome}! Here is your password reset link`,
       html: `
-        <h2> Reset Password</h2>
+        <h2>Reset Password</h2>
            <p>Click the button below to reset your password:</p>
-           <a href="${linkRestore} href="${linkRestore}" style="background-color: #4F46E5; color: #ffffff; 
+           <a href="${linkRestore} "style="background-color: #4F46E5; color: #ffffff; 
            padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;"">
               Redefinir minha senha
              </a>
