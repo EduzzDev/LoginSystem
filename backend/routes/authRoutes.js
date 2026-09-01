@@ -6,7 +6,7 @@ const router = express.Router();
 import dotenv from "dotenv";
 import verificarAutenticacao from "./verificarAuth.js";
 import Database from "better-sqlite3";
-import nodemailer from "nodemailer";
+import { google } from "googleapis";
 import jwt from "jsonwebtoken";
 
 const db = new Database("LoginSystem.db");
@@ -27,16 +27,13 @@ const upload = multer({ storage });
 dotenv.config();
 
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    type: "OAuth2",
-    user: process.env.EMAIL_USER,
-    clientId: process.env.GMAIL_CLIENT_ID,
-    clientSecret: process.env.GMAIL_CLIENT_SECRET,
-    refreshToken: process.env.GMAIL_REFRESH_TOKEN,
-  },
-});
+const oAuth2Client = new google.auth.OAuth2(
+  process.env.GMAIL_CLIENT_ID,
+  process.env.GMAIL_CLIENT_SECRET,
+  "https://developers.google.com/oauthplayground"
+);
+oAuth2Client.setCredentials({ refresh_token: process.env.GMAIL_REFRESH_TOKEN });
+const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
 
 
 db.exec(`
@@ -232,27 +229,39 @@ router.post("/user/send-link", async (req, res) => {
     const resetToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '30min' })
     const linkRestore = `${urlFront}/forgot?token=${resetToken}`
     console.log("Link gerado:", linkRestore);
-    transporter.sendMail({
-      from: '"Suporte" <eduzzfelipe21@gmail.com>',
-      to: emailNormalizado,
-      subject: `Hello, ${user.nome}! Here is your password reset link`,
-      html: `
-        <h2> Reset Password</h2>
-           <p>Click the button below to reset your password:</p>
-           <a href="${linkRestore}" style="background-color: #4F46E5; color: #ffffff; 
-           padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;"">
-              Reset My Password
-             </a>
-             <p><small>If you did not request this email, please ignore it.</small></p>
-           <p><small>This link is valid for only 30 minutes.</small></p>
-`,
-    }, (error, info) => {
-      if (error) {
-        return console.log(error);
-      }
-      console.log("Message sent: %s", info.messageId);
-    });
-
+    const subject = `Hello, ${user.nome}! Here is your password reset link`;
+    const htmlContent = `
+          <h2>Reset Password</h2>
+          <p>Click the button below to reset your password:</p>
+          <a href="${linkRestore}" style="background-color: #4F46E5; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+            Reset My Password
+          </a>
+          <p><small>If you did not request this email, please ignore it.</small></p>
+          <p><small>This link is valid for only 30 minutes.</small></p>
+        `;
+    const emailLines = [
+      `From: "Suporte" <${process.env.EMAIL_USER}>`,
+      `To: ${emailNormalizado}`,
+      "Content-type: text/html;charset=utf-8",
+      "MIME-Version: 1.0",
+      `Subject: ${subject}`,
+      "",
+      htmlContent,
+    ];
+    const raw = Buffer.from(emailLines.join("\r\n"))
+      .toString("base64")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
+    try {
+      const res = await gmail.users.messages.send({
+        userId: "me",
+        requestBody: { raw },
+      });
+      console.log("Message sent via HTTP API, Id:", res.data.id);
+    } catch (error) {
+      console.log("Erro ao enviar pela API:", error);
+    }
     return res.status(200).json({
       message: "Recovery link sent successfully."
     });
