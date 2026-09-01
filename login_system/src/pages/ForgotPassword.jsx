@@ -1,17 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BoxInputLogin from "../components/BoxInputLogin";
 import Wrapper from "../components/Wrapper";
 import SubmitButton from "../components/SubmitButton";
 import { UserKey, Eye, EyeOff } from "lucide-react";
 import Input from "../components/Input";
 import AuthSwitchLink from "../components/AuthSwitchLink";
-
+import { useSearchParams } from 'react-router-dom';
+import { forgotPassword } from "../services/api"
+import toast from "react-hot-toast";
 
 function ForgotPassword() {
   const [newPassword, setnewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
+
+  const UpdatePassword = async (e) => {
+    e.preventDefault()
+    if (newPassword === confirmPassword) {
+      try {
+        await forgotPassword({ newPassword, token })
+        toast.success("Password successfully changed!");
+      } catch (error) {
+        toast.error(error.response?.data?.error || error.message || "An error occurred");
+      }
+    } else {
+      toast.error("Passwords do not match")
+    }
+  }
+
 
   return (
     <>
@@ -38,7 +57,7 @@ function ForgotPassword() {
             Your new password must be different
             from previously used passwords.
           </p>
-          <form className="flex flex-col items-center  rounded-2xl relative bottom-2" action="">
+          <form onSubmit={UpdatePassword} className="flex flex-col items-center  rounded-2xl relative bottom-2" action="">
             <BoxInputLogin>
               <UserKey className=" w-10 relative " />
               <Input
@@ -75,8 +94,8 @@ function ForgotPassword() {
                 {showConfirmPassword ? <EyeOff /> : <Eye />}
               </button>
             </BoxInputLogin>
-            <Wrapper variant="A">
-              <SubmitButton>Send Link</SubmitButton>
+            <Wrapper>
+              <SubmitButton>Confirm</SubmitButton>
             </Wrapper>
             <span>
               <AuthSwitchLink variant="B">Remember password?</AuthSwitchLink>

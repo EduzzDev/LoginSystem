@@ -103,3 +103,17 @@ export async function sendLinkEmail(data) {
   }
   return result;
 }
+
+export async function forgotPassword(data) {
+  const res = await fetch(`${BASE_URL}/user/forgot`, {
+    method: "PUT",
+    credentials: "include",
+    body: JSON.stringify(data),
+  })
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw result;
+  }
+  return result;
+}

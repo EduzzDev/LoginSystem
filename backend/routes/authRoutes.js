@@ -230,9 +230,9 @@ router.post("/user/send-link", async (req, res) => {
           name: user.nome,
           email: emailNormalizado,
           link: linkRestore,
-        }
+        }  
       );
-      console.log("Message sent via HTTP API, Id:", res.status);
+     console.log("Message sent via HTTP API, Id:", res.status);
     } catch (error) {
       console.log("Erro ao enviar pela API:", error);
     }
