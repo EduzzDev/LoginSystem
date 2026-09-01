@@ -219,7 +219,7 @@ router.post("/user/send-link", async (req, res) => {
       ? "http://localhost:5173"
       : "https://login-system-eta-rose.vercel.app";
 
-    const resetToken = jwt.sign({ id: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '30min' })
+    const resetToken = jwt.sign({ id: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '1h' })
     const linkRestore = `${urlFront}/forgot?token=${resetToken}`
     console.log("Link gerado:", linkRestore);
     try {
@@ -230,9 +230,9 @@ router.post("/user/send-link", async (req, res) => {
           name: user.nome,
           email: emailNormalizado,
           link: linkRestore,
-        }  
+        }
       );
-     console.log("Message sent via HTTP API, Id:", res.status);
+      console.log("Message sent via HTTP API, Id:", res.status);
     } catch (error) {
       console.log("Erro ao enviar pela API:", error);
     }
@@ -246,8 +246,13 @@ router.post("/user/send-link", async (req, res) => {
 
 router.put("/user/forgot", verificarResetToken, async (req, res) => {
   const { token, newPassword } = req.body
-  const userId = req.userId;
-  if (!token || !novaSenha) {
+ // console.log("-> req.userId vindo do middleware:", req.userId, typeof req.userId);
+
+  const userId = Number(req.userId);
+
+ // console.log("-> userId convertido para Number:", userId);
+ 
+  if (!token || !newPassword) {
     return res.status(400).json({ error: "A token and a new password are required." });
   }
   // validação da senha
@@ -277,7 +282,7 @@ router.put("/user/forgot", verificarResetToken, async (req, res) => {
     }
     return res.status(200).json({ message: "Password successfully changed!" });
   } catch (error) {
-    onsole.error("Error updating password:", error);
+    console.error("Error updating password:", error);
     return res
       .status(500)
       .json({ error: "Error updating the profile in the database." });
