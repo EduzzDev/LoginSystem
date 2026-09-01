@@ -233,17 +233,18 @@ router.post("/user/send-link", async (req, res) => {
     const linkRestore = `${urlFront}/forgot?token=${resetToken}`
     console.log("Link gerado:", linkRestore);
     transporter.sendMail({
-      from: '"Suporte" <eduzzfelipe21@gmail.com>',
+      from: `Suporte <${process.env.EMAIL_USER}>`,
       to: emailNormalizado,
-      subject: `Olá, ${user.nome}! Aqui está o seu link para redefinição de senha`,
+      subject: `Hello, ${user.nome}! Here is your password reset link`,
       html: `
-        <h2> Redefinição de senha</h2>
-           <p>Clique no botão abaixo para redefinir sua senha:</p>
+        <h2> Reset Password</h2>
+           <p>Click the button below to reset your password:</p>
            <a href="${linkRestore} href="${linkRestore}" style="background-color: #4F46E5; color: #ffffff; 
            padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;"">
               Redefinir minha senha
              </a>
-           <p><small>Este link é válido por apenas 30 minutos.</small></p>
+             <p><small>Se você não solicitou este e-mail, ignore-o.</small></p>
+           <p><small>This link is valid for only 30 minutes.</small></p>
 `,
     }, (error, info) => {
       if (error) {
