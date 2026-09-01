@@ -219,7 +219,7 @@ router.post("/user/send-link", async (req, res) => {
       ? "http://localhost:5173"
       : "https://login-system-eta-rose.vercel.app";
 
-    const resetToken = jwt.sign({ id: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '1h' })
+    const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '1h' })
     const linkRestore = `${urlFront}/forgot?token=${resetToken}`
     console.log("Link gerado:", linkRestore);
     try {
@@ -246,12 +246,9 @@ router.post("/user/send-link", async (req, res) => {
 
 router.put("/user/forgot", verificarResetToken, async (req, res) => {
   const { token, newPassword } = req.body
- // console.log("-> req.userId vindo do middleware:", req.userId, typeof req.userId);
-
+  /// console.log("-> req.userId vindo do middleware:", req.userId, typeof req.userId);
   const userId = Number(req.userId);
-
- // console.log("-> userId convertido para Number:", userId);
- 
+  
   if (!token || !newPassword) {
     return res.status(400).json({ error: "A token and a new password are required." });
   }
