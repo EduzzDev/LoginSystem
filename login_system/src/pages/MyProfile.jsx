@@ -19,11 +19,14 @@ import {
   LayoutDashboard,
   ChevronDown,
   Search,
+  MoreHorizontal,
+  CircleHelp
 } from "lucide-react";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 import toast from "react-hot-toast";
 import LockIcon from "@mui/icons-material/Lock";
+import Drawer from "@mui/material/Drawer";
 
 import {
   Dialog,
@@ -51,6 +54,7 @@ function MyProfile() {
   const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false)
   const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
@@ -547,38 +551,72 @@ function MyProfile() {
             </div>
           </div>
         </nav>
-        <footer
-          className=" fixed right-0 left-0 bottom-0 p-2
-         border-[#31353a] text-gray-200 border-t-2"
-        >
+        <footer className="fixed right-0 left-0 bottom-0 p-2 border-t-[#31353a]
+         text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur">
           <ul
-            className=" w-full flex flex-row items-center 
-          justify-between py-1 max-[350px]:-ml-2 relative  max-[350px]:text-[16px]
-          text-lg min-[600px]:text-2xl min-[600px]:px-[5.5dvw]"
+            className="
+              w-full
+               flex flex-row items-center justify-between
+               text-lg
+               min-[600px]:text-2xl"
           >
             <SideBarMobile onClick={() => handleDashboard()}>
               <LayoutDashboard />
-              <SectionTitle>General</SectionTitle>
+              <h2>General</h2>
             </SideBarMobile>
             <SideBarMobile onClick={() => handleTasks()}>
               <ClipboardList />
-              <SectionTitle>Tasks</SectionTitle>
+              <h2>Tasks</h2>
             </SideBarMobile>
             <SideBarMobile onClick={() => handleSecurity()}>
               <Shield />
-              <SectionTitle>Security</SectionTitle>
+              <h2>Security</h2>
             </SideBarMobile>
             <SideBarMobile onClick={() => handleMyProfile()}>
               <User />
-              <SectionTitle>User</SectionTitle>
+              <h2>User</h2>
             </SideBarMobile>
-            <SideBarMobile onClick={() => handleLogoutClick()}>
-              <LogOut />
-              <SectionTitle>Exit</SectionTitle>
+            <SideBarMobile onClick={() => setMoreOpen(true)}>
+              <MoreHorizontal />
+              <h2>More</h2>
             </SideBarMobile>
           </ul>
+          <Drawer anchor="bottom"
+            open={moreOpen}
+            onClose={() => setMoreOpen(false)}
+            ModalProps={{
+              keepMounted: true,
+            }}
+            slotProps={{
+              paper: {
+                sx: {
+                  bottom: "6rem",
+                  height: "150px",
+                  borderRadius: "16px 16px 0 0",
+                  backgroundColor: "#1b1e22",
+                  border: "1px solid #31353a",
+                  color: "#fff",
+                  padding: "10px 20px",
+                },
+              },
+            }}
+          >
+            <div className="flex flex-col items-baseline  ">
+              <button className=" w-full flex flex-row p-1.5 mt-4 gap-5 cursor-pointer hover:text-green-400 hover:rounded-2xl"
+                onClick={() => handleHelp()}>
+                <CircleHelp />
+                <h2>Help</h2>
+              </button>
+              <div className="h-px w-full bg-gray-700 my-4" />
+              <button className="w-full p-1.5 flex flex-row gap-5 text-amber-50  cursor-pointer hover:text-red-700 hover:rounded-2xl"
+                onClick={() => handleLogoutClick()}>
+                <LogOut className="translate-x-0.5" />
+                <h2>Exit</h2>
+              </button>
+            </div>
+          </Drawer>
         </footer>
-      </div>
+      </div >
     </>
   );
 }

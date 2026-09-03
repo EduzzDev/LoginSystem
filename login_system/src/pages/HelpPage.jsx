@@ -1,26 +1,32 @@
 import { checkAuth } from "../services/api";
 import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bell } from "lucide-react";
-import { Search } from "lucide-react";
-import { ChevronDown } from "lucide-react";
-import { LayoutDashboard } from "lucide-react";
-import { User } from "lucide-react";
-import { ClipboardList } from "lucide-react";
-import { Shield } from "lucide-react";
-import { ShieldQuestionMark } from "lucide-react";
-import { LogOut } from "lucide-react";
-import { Zap } from "lucide-react";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 import SideBarMobile from "../components/SideBarMobile";
-import { UserCircle } from "lucide-react";
+import {
+  Bell,
+  UserCircle,
+  Zap,
+  LogOut,
+  ShieldQuestionMark,
+  Shield,
+  ClipboardList,
+  User,
+  LayoutDashboard,
+  ChevronDown,
+  Search,
+  MoreHorizontal,
+  CircleHelp
+} from "lucide-react";
+import Drawer from "@mui/material/Drawer";
 
 function HelpPage() {
   const navigate = useNavigate();
   const { user, timeLogged, imgUser } = useContext(AuthContext);
+  const [moreOpen, setMoreOpen] = useState(false)
 
   useEffect(() => {
     async function verifyUser() {
@@ -156,14 +162,13 @@ function HelpPage() {
             </div>
           </div>
         </nav>
-        <footer
-          className=" fixed right-0 left-0 bottom-0 p-2
-         border-[#31353a] text-gray-200 border-t-2"
-        >
+        <footer className="fixed right-0 left-0 bottom-0 p-2 border-t-[#31353a] text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur">
           <ul
-            className=" w-full flex flex-row items-center 
-          justify-between py-1 max-[350px]:-ml-2 relative  max-[350px]:text-[16px]
-          text-lg min-[600px]:text-2xl min-[600px]:px-[5.5dvw]"
+            className="
+               w-full
+               flex flex-row items-center justify-between
+                text-lg
+               min-[600px]:text-2xl"
           >
             <SideBarMobile onClick={() => handleDashboard()}>
               <LayoutDashboard />
@@ -181,11 +186,45 @@ function HelpPage() {
               <User />
               <h2>User</h2>
             </SideBarMobile>
-            <SideBarMobile onClick={() => handleLogoutClick()}>
-              <LogOut />
-              <h2>Exit</h2>
+            <SideBarMobile onClick={() => setMoreOpen(true)}>
+              <MoreHorizontal />
+              <h2>More</h2>
             </SideBarMobile>
           </ul>
+          <Drawer anchor="bottom"
+            open={moreOpen}
+            onClose={() => setMoreOpen(false)}
+            ModalProps={{
+              keepMounted: true,
+            }}
+            slotProps={{
+              paper: {
+                sx: {
+                  bottom: "15dvh",
+                  height: "150px",
+                  borderRadius: "16px 16px 0 0",
+                  backgroundColor: "#1b1e22",
+                  border: "1px solid #31353a",
+                  color: "#fff",
+                  padding: "10px 20px",
+                },
+              },
+            }}
+          >
+            <div className="flex flex-col items-baseline  ">
+              <button className=" w-full flex flex-row p-1.5 mt-4 gap-5 cursor-pointer hover:text-green-400 hover:rounded-2xl"
+                onClick={() => handleHelp()}>
+                <CircleHelp />
+                <h2>Help</h2>
+              </button>
+              <div className="h-px w-full bg-gray-700 my-4" />
+              <button className="w-full p-1.5 flex flex-row gap-5 text-amber-50  cursor-pointer hover:text-red-700 hover:rounded-2xl"
+                onClick={() => handleLogoutClick()}>
+                <LogOut className="translate-x-0.5" />
+                <h2>Exit</h2>
+              </button>
+            </div>
+          </Drawer>
         </footer>
       </div>
     </>
