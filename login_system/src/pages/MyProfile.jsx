@@ -248,8 +248,8 @@ function MyProfile() {
         <main className="w-full flex justify-center  bottom-1/1 relative ">
           {isEditing ? (
             <header
-              className="w-[50dvw] h-80 relative top-5 p-2 flex  bg-[#3F434C] 
-          rounded-2xl gap-5"
+              className="w-[56dvw] 2xl:w-[38dvw] h-80 relative top-5 p-2 flex  bg-[#3F434C] 
+          rounded-2xl translate-x-8"
             >
               <form
                 ref={formRef}
@@ -330,7 +330,7 @@ function MyProfile() {
                   <SectionTitle className=" flex items-center gap-2">
                     Senha:
                   </SectionTitle>
-                  <div className="w-full flex flex-row justify-center items-center">
+                  <div className="w-full flex flex-row justify-end items-center">
                     <ProfileInput
                       type={mostrarSenha ? "text" : "password"}
                       value={profile.newPassword}
@@ -485,8 +485,8 @@ function MyProfile() {
                   <button
                     type="submit"
                     onClick={handleOpenModalClick}
-                    className="w-40 bg-[#6366F1] p-2 rounded-xl
-                relative top-5 right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
+                    className="w-32 xl:w-40 bg-[#6366F1] p-2 rounded-xl
+                relative top-5 -translate-x-10 xl:translate-x-5 xl:right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
                   >
                     Save changes
                   </button>
@@ -495,7 +495,7 @@ function MyProfile() {
             </header>
           ) : (
             <header
-              className="w-[50dvw] relative top-5 p-2 flex  bg-[#3F434C] 
+              className="w-[50dvw] 2xl:w-[32dvw]  relative top-5 p-2 flex  bg-[#3F434C] 
           rounded-2xl gap-1"
             >
               <img
@@ -522,8 +522,8 @@ function MyProfile() {
               <div className="w-full flex justify-end items-baseline text-white ">
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="w-40 bg-[#6366F1] p-2 rounded-xl 
-              relative top-2 right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
+                  className="w-30 bg-[#6366F1] p-2 rounded-xl 
+              relative top-2 xl:right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
                 >
                   Edit Profile
                 </button>
@@ -547,10 +547,295 @@ function MyProfile() {
             </div>
             <div className=" flex justify-center items-center mr-2 gap-3.5 p-1.5">
               <Search />
-              <UserCircle />
+              <img className="w-10 h-11 rounded-4xl" src={profile.previewImg} alt="previewImg" />
             </div>
           </div>
         </nav>
+        <main className="w-full flex justify-center relative ">
+          {isEditing ? (
+            <header
+              className="w-75 h-95 min-[400px]:w-90 relative top-5 p-2 flex flex-col  bg-[#3F434C] 
+          rounded-2xl g">
+              <form
+                ref={formRef}
+                onSubmit={handleSave}
+                encType="multipart/form-data"
+              >
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <div className="w-30 ml-4 group relative  overflow-hidden rounded-2xl bottom-3.5">
+                    <img
+                      className="w-50 h-30 object-cover transition-transform
+                      duration-200 group-hover:scale-115"
+                      src={profile.previewImg}
+                      alt="Profile preview"
+                      onClick={() => fileInputRef.current.click()}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current.click()}
+                      className="absolute inset-0 flex items-center justify-center rounded-2xl
+                       bg-black/40 opacity-0 transition-all duration-200 group-hover:opacity-100"
+                    >
+                      <span
+                        className="flex h-12 w-12 items-center justify-center rounded-full
+                       border border-white/20 bg-[#1F2937]/80 text-white shadow-lg"
+                      >
+                        <Pencil className="h-5 w-5" />
+                      </span>
+                    </button>
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
+                </div>
+
+                <div className=" w-40 ml-2 grid grid-cols-2 gap-2 ">
+                  <SectionTitle>
+                    Name:
+                  </SectionTitle>
+                  <ProfileInput
+                    name="name"
+                    type="text"
+                    value={profile.name}
+                    onChange={(e) =>
+                      handleProfileChange("name", e.target.value)
+                    }
+                    minLength={2}
+                    maxLength={100}
+                  />
+                  <SectionTitle>
+                    Job Title:
+                  </SectionTitle>
+                  <ProfileInput
+                    name="jobTitle"
+                    value={profile.cargo}
+                    onChange={(e) =>
+                      handleProfileChange("cargo", e.target.value)
+                    }
+                    minLength={2}
+                    maxLength={100}
+                  />
+                  <SectionTitle>
+                    Email:
+                  </SectionTitle>
+                  <ProfileInput
+                    name="email"
+                    type="email"
+                    value={profile.email}
+                    onChange={(e) =>
+                      handleProfileChange("email", e.target.value)
+                    }
+                    minLength={5}
+                    maxLength={254}
+                  />
+                  <SectionTitle className=" flex items-center ">
+                    Senha:
+                  </SectionTitle>
+                  <div className=" flex flex-row justify-baseline items-center ">
+                    <ProfileInput
+                      type={mostrarSenha ? "text" : "password"}
+                      value={profile.newPassword}
+                      onChange={(e) =>
+                        handleProfileChange("newPassword", e.target.value)
+                      }
+                      minLength={5}
+                      maxLength={72}
+                      required
+                      placeholder="••••••••"
+                    />
+                    <button
+                      type="button"
+                      className="-translate-x-10 text-amber-50 cursor-pointer"
+                      onClick={() => setMostrarSenha(!mostrarSenha)}
+                    >
+                      {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
+                    </button>
+                  </div>
+                </div>
+
+                <Dialog
+                  open={isModalOpen}
+                  maxWidth="sm"
+                  fullWidth
+                  onClose={() => setIsModalOpen(false)}
+                  slotProps={{
+                    paper: {
+                      sx: {
+                        backgroundColor: "#000",
+                        color: "#fff",
+                        overflow: "visible !important",
+                        position: "relative",
+                        marginTop: "48px",
+                        borderRadius: "14px",
+                      },
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "-36px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      bgcolor: "#2D3035",
+                      border: "2px solid #9D00FF",
+                      borderRadius: "12px",
+                      padding: "10px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      boxShadow: "0px 8px 24px rgba(0,0,0,0.5)",
+                      zIndex: 10,
+                      fontSize: "2.5rem",
+                      color: "white",
+                    }}
+                  >
+                    {mostrarSenha ? (
+                      <LockOpenIcon
+                        sx={{
+                          fontSize: "2.5rem",
+                          color: "white",
+                        }}
+                      />
+                    ) : (
+                      <LockIcon
+                        sx={{
+                          fontSize: "2.5rem",
+                          color: "white",
+                        }}
+                      />
+                    )}
+                  </Box>
+
+                  <DialogTitle
+                    className="bg-black text-[#7360ec] flex flex-col justify-center items-center "
+                    style={{
+                      fontSize: "26px",
+                      fontWeight: "700",
+                      paddingTop: "24px",
+                    }}
+                  >
+                    Confirmar Alterações
+                  </DialogTitle>
+                  <DialogContent className="text-gray-400 flex justify-center items-center flex-col">
+                    <p
+                      className="text-gray-400"
+                      style={{
+                        fontSize: "16px",
+                        marginBottom: "16px",
+                        fontWeight: "normal",
+                      }}
+                    >
+                      Enter your current password to update your profile
+                    </p>
+                    <div className="w-full flex flex-row justify-center items-center">
+                      <TextField
+                        autoFocus
+                        fullWidth
+                        type={mostrarSenha ? "text" : "password"}
+                        label="Current Password"
+                        variant="outlined"
+                        value={profile.currentPassword}
+                        onChange={(e) =>
+                          handleProfileChange("currentPassword", e.target.value)
+                        }
+                        sx={{
+                          "& .MuiOutlinedInput-root": { color: "white" },
+                          "& .MuiInputLabel-root": { color: "gray" },
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#6c5ce7",
+                            borderRadius: "20px",
+                          },
+                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#9D00FF",
+                          },
+                          "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#9D00FF ",
+                          },
+                        }}
+                      />
+                      <button
+                        type="button"
+                        className="-translate-x-12 cursor-pointer"
+                        onClick={() => setMostrarSenha(!mostrarSenha)}
+                      >
+                        {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
+                      </button>
+                    </div>
+                  </DialogContent>
+                  <DialogActions className="bg-black" sx={{ padding: "18px" }}>
+                    <Button
+                      onClick={handleSave}
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "#6c5ce7",
+                        width: " 12dvw",
+                        height: "7dvh",
+                        borderRadius: "14px",
+                        fontSize: "16px",
+                        fontFamily: "system-ui",
+                        "&:hover": { backgroundColor: "#5b4bc4" },
+                      }}
+                    >
+                      Confirm
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+
+                <div className="w-full flex justify-center items-center text-white ">
+                  <button
+                    type="submit"
+                    onClick={handleOpenModalClick}
+                    className="w-62 xl:w-40 bg-[#6366F1] p-2 rounded-xl
+                relative top-5 xl:translate-x-5 xl:right-6 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
+                  >
+                    Save changes
+                  </button>
+                </div>
+              </form>
+            </header>
+          ) : (
+            <header
+              className="w-75 h-95 min-[400px]:w-90 relative top-5 p-2 flex flex-col justify-center items-center bg-[#3F434C] 
+          rounded-2xl gap-1"
+            >
+              <img
+                className="w-40 h-35 mr-5 rounded-3xl translate-x-2.5 "
+                src={profile.previewImg}
+              />
+              <div className=" w-full flex flex-col items-center gap-0.5 ">
+                <h1 className="text-4xl text-white font-bold">
+                  {" "}
+                  {profile.name}
+                </h1>
+                <SectionTitle className="text-white">
+                  Job Title:{" "}
+                  <span className="text-gray-400">{profile.cargo}</span>
+                </SectionTitle>
+                <SectionTitle className="text-white">
+                  Email: <span className="text-gray-400">{profile.email}</span>
+                </SectionTitle>
+                <SectionTitle className="text-white flex items-center gap-2">
+                  Senha:
+                  <span className=" tracking-[0.3rem] text-xl">••••••••</span>
+                </SectionTitle>
+              </div>
+              <div className="w-full flex justify-center items-baseline text-white ">
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="w-60  min-[400px]:w-70 bg-[#6366F1] p-2 rounded-xl 
+              relative top-2  hover:bg-[#1F2937] hover:text-white border cursor-pointer"
+                >
+                  Edit Profile
+                </button>
+              </div>
+            </header>
+          )}
+        </main>
         <footer className="fixed right-0 left-0 bottom-0 p-2 border-t-[#31353a]
          text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur">
           <ul
