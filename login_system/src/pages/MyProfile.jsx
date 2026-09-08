@@ -248,7 +248,7 @@ function MyProfile() {
         <main className="w-full flex justify-center  bottom-1/1 relative ">
           {isEditing ? (
             <header
-              className="w-[56dvw] 2xl:w-[38dvw] h-80 relative top-5 p-2 flex  bg-[#3F434C] 
+              className="w-[58dvw] max-[1100px]:w-2xl 2xl:w-[38dvw] h-80 relative top-5 p-2 flex lg:left-10 bg-[#3F434C] 
           rounded-2xl translate-x-8"
             >
               <form
@@ -554,8 +554,9 @@ function MyProfile() {
         <main className="w-full flex justify-center relative ">
           {isEditing ? (
             <header
-              className="w-75 h-95 min-[400px]:w-90 relative top-5 p-2 flex flex-col  bg-[#3F434C] 
-          rounded-2xl g">
+              className="w-80 h-95 min-[400px]:w-100 min-[600px]:w-120 
+               relative top-5 p-2 flex flex-col  bg-[#3F434C] 
+          rounded-2xl">
               <form
                 ref={formRef}
                 onSubmit={handleSave}
@@ -593,7 +594,7 @@ function MyProfile() {
                   />
                 </div>
 
-                <div className=" w-40 ml-2 grid grid-cols-2 gap-2 ">
+                <div className=" w-40 min-[600px]:w-50 ml-5 grid grid-cols-2 gap-2 ">
                   <SectionTitle>
                     Name:
                   </SectionTitle>
@@ -632,10 +633,10 @@ function MyProfile() {
                     minLength={5}
                     maxLength={254}
                   />
-                  <SectionTitle className=" flex items-center ">
+                  <SectionTitle className="  flex items-center ">
                     Senha:
                   </SectionTitle>
-                  <div className=" flex flex-row justify-baseline items-center ">
+                  <div className=" flex flex-row justify-baseline items-center  ">
                     <ProfileInput
                       type={mostrarSenha ? "text" : "password"}
                       value={profile.newPassword}
@@ -790,7 +791,7 @@ function MyProfile() {
                   <button
                     type="submit"
                     onClick={handleOpenModalClick}
-                    className="w-62 xl:w-40 bg-[#6366F1] p-2 rounded-xl
+                    className="w-70  min-[400px]:w-88 min-[600px]:min-w-105 xl:w-40 bg-[#6366F1] p-2 rounded-xl
                 relative top-5 xl:translate-x-5 xl:right-6 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
                   >
                     Save changes
@@ -800,7 +801,8 @@ function MyProfile() {
             </header>
           ) : (
             <header
-              className="w-75 h-95 min-[400px]:w-90 relative top-5 p-2 flex flex-col justify-center items-center bg-[#3F434C] 
+              className="w-80 h-95 min-[400px]:w-100 min-[600px]:w-120 
+              relative top-5 p-2 flex flex-col justify-center items-center bg-[#3F434C] 
           rounded-2xl gap-1"
             >
               <img
@@ -887,13 +889,15 @@ function MyProfile() {
             }}
           >
             <div className="flex flex-col items-baseline  ">
-              <button className=" w-full flex flex-row p-1.5 mt-4 gap-5 cursor-pointer hover:text-green-400 hover:rounded-2xl"
+              <button className=" w-full flex flex-row p-1.5 mt-4 gap-5 
+              cursor-pointer hover:text-green-400 hover:rounded-2xl"
                 onClick={() => handleHelp()}>
                 <CircleHelp />
                 <h2>Help</h2>
               </button>
               <div className="h-px w-full bg-gray-700 my-4" />
-              <button className="w-full p-1.5 flex flex-row gap-5 text-amber-50  cursor-pointer hover:text-red-700 hover:rounded-2xl"
+              <button className="w-full p-1.5 flex flex-row gap-5 text-amber-50 
+               cursor-pointer hover:text-red-700 hover:rounded-2xl"
                 onClick={() => handleLogoutClick()}>
                 <LogOut className="translate-x-0.5" />
                 <h2>Exit</h2>

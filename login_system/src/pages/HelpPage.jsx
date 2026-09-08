@@ -200,7 +200,7 @@ function HelpPage() {
             slotProps={{
               paper: {
                 sx: {
-                  bottom: "15dvh",
+                  bottom: "6rem",
                   height: "150px",
                   borderRadius: "16px 16px 0 0",
                   backgroundColor: "#1b1e22",
