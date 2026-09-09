@@ -662,7 +662,7 @@ function MyProfile() {
                   open={isModalOpen}
                   maxWidth="sm"
                   fullWidth
-                  onClose={() => setIsModalOpen(false)}
+                  onClose={() => setIsModalOpen(true)}
                   slotProps={{
                     paper: {
                       sx: {
@@ -768,7 +768,24 @@ function MyProfile() {
                       </button>
                     </div>
                   </DialogContent>
-                  <DialogActions className="bg-black" sx={{ padding: "18px" }}>
+                  <DialogActions className="bg-black flex" sx={{
+                    padding: "18px", display: "flex",
+                    justifyContent: "space-between",
+                  }}>
+                    <Button
+                      onClick={() => setIsModalOpen(false)}
+                      sx={{
+                        backgroundColor: "transparent",
+                        color: "white",
+                        border: "2px solid #5b4bc4",
+                        width: " 12dvw",
+                        height: "7dvh",
+                        borderRadius: "14px",
+                        fontSize: "16px",
+                        fontFamily: "system-ui",
+                        display: "flex",
+                        "&:hover": { backgroundColor: "#5b4bc4" },
+                      }}>Back</Button>
                     <Button
                       onClick={handleSave}
                       variant="contained"
@@ -777,6 +794,7 @@ function MyProfile() {
                         width: " 12dvw",
                         height: "7dvh",
                         borderRadius: "14px",
+
                         fontSize: "16px",
                         fontFamily: "system-ui",
                         "&:hover": { backgroundColor: "#5b4bc4" },
