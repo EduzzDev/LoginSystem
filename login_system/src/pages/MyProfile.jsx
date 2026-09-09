@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import {
   Bell,
   Pencil,
-  UserCircle,
   Zap,
   LogOut,
   ShieldQuestionMark,
@@ -20,14 +19,15 @@ import {
   ChevronDown,
   Search,
   MoreHorizontal,
-  CircleHelp
+  CircleHelp,
 } from "lucide-react";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 import toast from "react-hot-toast";
 import LockIcon from "@mui/icons-material/Lock";
 import Drawer from "@mui/material/Drawer";
-
+import PersonIcon from "@mui/icons-material/Person";
+import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import {
   Dialog,
   DialogTitle,
@@ -37,7 +37,9 @@ import {
   Button,
   Box,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
 function MyProfile() {
   const navigate = useNavigate();
@@ -166,23 +168,24 @@ function MyProfile() {
   return (
     <>
       {/* Menu PC */}
-      <div className="relative w-screen h-screen hidden lg:block bg-[#2D3035] overflow-x-hidden overflow-y-hidden ">
+      <div className="relative w-screen h-screen  hidden lg:block bg-[#2D3035] 
+      overflow-x-hidden overflow-y-hidden ">
         <nav className="w-screen hidden  lg:flex justify-end">
           <div
             className="bg-[#1A1C20] w-full flex justify-between
              h-18 items-center rounded-t-lg   border-b  border-gray-700 "
           >
-            <h1 className="flex  relative text-3xl  items-center text-gray-200">
+            <h1 className="flex  relative text-3xl  items-center text-gray-200 2xl:translate-x-4">
               <Zap className="relative mr-1 ml-1 " />
-              <span className="font-extrabold">Login</span>System
+              <span className="font-extrabold ">Login</span>System
             </h1>
-            <div className=" flex  absolute left-1/5 ml-2 right-0">
-              <span className="text-gray-500 flex-col  text-[18px]">
+            <div className=" flex  absolute left-1/5 2xl:left-1/8 ml-2 right-0">
+              <span className="text-gray-500 flex-col text-[18px] ">
                 Dashboard {">"}{" "}
                 <span className="text-white text-[18px]">My Profile</span>
               </span>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 max-2xl:gap-8  min-[3840px]:gap-12">
               <div className="flex items-center relative">
                 <Search
                   className="text-[#9CA3AF] w-5 left-8
@@ -191,7 +194,7 @@ function MyProfile() {
                 <input
                   type="text"
                   placeholder="Buscar"
-                  className=" w-60 h-10  pl-10 relative
+                  className=" w-60 2xl:w-120  h-10  pl-10 relative
                    border-[#3d4044] border rounded-lg
                    bg-[#2D3035] outline-0 text-gray-100"
                 />
@@ -203,8 +206,8 @@ function MyProfile() {
                 alt="preview img"
               />
               <div className="flex flex-col">
-                <span className="text-white text-[16px]">{user}</span>
-                <span className="text-gray-400 text-[14px]">
+                <span className="text-white text-[16px] 2xl:text-2xl">{user}</span>
+                <span className="text-gray-400 text-[14px] 2xl:text-md">
                   Logado há {timeLogged}{" "}
                 </span>
               </div>
@@ -213,7 +216,7 @@ function MyProfile() {
           </div>
         </nav>
         <nav
-          className="  w-[22%] xl:w-[18%] h-full  flex flex-col justify-center
+          className="  w-[22%] xl:w-[18%] 2xl:w-[12%]  h-full  flex flex-col justify-center
            pl-5 border-r 
          border-gray-600  relative  text-white bg-[#1A1C20] 
            "
@@ -248,20 +251,52 @@ function MyProfile() {
         <main className="w-full flex justify-center  bottom-1/1 relative ">
           {isEditing ? (
             <header
-              className="w-[58dvw] max-[1100px]:w-2xl 2xl:w-[38dvw] h-80 relative top-5 p-2 flex lg:left-10 bg-[#3F434C] 
-          rounded-2xl translate-x-8"
+              className="w-[50dvw] max-[1100px]:w-[58dvw] 
+              2xl:max-w-[30dvw] min-[3840px]:w-[22dvw] h-auto min-h-100
+                relative top-5 flex flex-col lg:left-10 bg-[#3F434C] 
+                 rounded-2xl translate-x-5 pb-8  justify-center mx-px "
             >
+              <div className="w-full flex justify-between items-center px-6 py-4">
+                <Button
+                  startIcon={<ArrowBackIcon />}
+                  onClick={() => setIsEditing(false)}
+                  sx={{
+                    color: "#818CF8",
+                    backgroundColor: "rgba(99, 102, 241, 0.1)",
+                    textTransform: "none",
+                    fontSize: "15px",
+                    padding: "6px 16px",
+                    borderRadius: "8px",
+                    "&:hover": { backgroundColor: "rgba(99, 102, 241, 0.2)" },
+                  }}
+                >
+                  Back
+                </Button>
+
+                <button
+                  type="button"
+                  onClick={handleOpenModalClick}
+                  className="bg-[#6366F1] px-6 py-2 rounded-xl text-white font-medium
+                   hover:bg-[#4F46E5] transition-colors cursor-pointer shadow-md"
+                >
+                  Save changes
+                </button>
+              </div>
+
+              <hr className="w-full border-t border-gray-500/30 mb-8" />
+
               <form
                 ref={formRef}
                 onSubmit={handleSave}
                 encType="multipart/form-data"
-                className="flex justify-center gap-8"
+                className="w-full h-full flex  mx-auto justify-center "
               >
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <div className="w-30 ml-4 group relative  overflow-hidden rounded-2xl">
+                <div className="flex flex-col items-center justify-baseline gap-2">
+                  <div className="w-30 group relative overflow-hidden
+                   rounded-2xl right-4 mr-2 -translate-x-4 mx-auto">
                     <img
                       className="w-50 h-30 object-cover transition-transform
-                      duration-200 group-hover:scale-115"
+                       duration-200 group-hover:scale-115"
                       src={profile.previewImg}
                       alt="Profile preview"
                       onClick={() => fileInputRef.current.click()}
@@ -274,7 +309,7 @@ function MyProfile() {
                     >
                       <span
                         className="flex h-12 w-12 items-center justify-center rounded-full
-                       border border-white/20 bg-[#1F2937]/80 text-white shadow-lg"
+                         border border-white/20 bg-[#1F2937]/80 text-white shadow-lg"
                       >
                         <Pencil className="h-5 w-5" />
                       </span>
@@ -288,42 +323,33 @@ function MyProfile() {
                     className="hidden"
                   />
                 </div>
-                <div className=" flex flex-col gap-1">
-                  <SectionTitle>
-                    Name:
-                  </SectionTitle>
+                <div className=" flex flex-col gap-1 relative justify-center">
+                  <SectionTitle>Name:</SectionTitle>
                   <ProfileInput
                     name="name"
                     type="text"
+                    icon={<PersonIcon fontSize="small" />}
                     value={profile.name}
-                    onChange={(e) =>
-                      handleProfileChange("name", e.target.value)
-                    }
+                    onChange={(e) => handleProfileChange("name", e.target.value)}
                     minLength={2}
                     maxLength={100}
                   />
-                  <SectionTitle>
-                    Job Title:
-                  </SectionTitle>
+                  <SectionTitle>Job Title:</SectionTitle>
                   <ProfileInput
                     name="jobTitle"
+                    icon={<WorkOutlineOutlinedIcon fontSize="small" />}
                     value={profile.cargo}
-                    onChange={(e) =>
-                      handleProfileChange("cargo", e.target.value)
-                    }
+                    onChange={(e) => handleProfileChange("cargo", e.target.value)}
                     minLength={2}
                     maxLength={100}
                   />
-                  <SectionTitle>
-                    Email:
-                  </SectionTitle>
+                  <SectionTitle>Email:</SectionTitle>
                   <ProfileInput
                     name="email"
                     type="email"
+                    icon={<EmailOutlinedIcon fontSize="small" />}
                     value={profile.email}
-                    onChange={(e) =>
-                      handleProfileChange("email", e.target.value)
-                    }
+                    onChange={(e) => handleProfileChange("email", e.target.value)}
                     minLength={5}
                     maxLength={254}
                   />
@@ -334,17 +360,18 @@ function MyProfile() {
                     <ProfileInput
                       type={mostrarSenha ? "text" : "password"}
                       value={profile.newPassword}
+                      icon={<LockIcon fontSize="small" />}
                       onChange={(e) =>
                         handleProfileChange("newPassword", e.target.value)
                       }
                       minLength={5}
                       maxLength={72}
                       required
-                      placeholder="••••••••"
+                      placeholder="•••••••••••"
                     />
                     <button
                       type="button"
-                      className="-translate-x-12 text-amber-50 cursor-pointer"
+                      className=" absolute right-3 text-amber-50 cursor-pointer"
                       onClick={() => setMostrarSenha(!mostrarSenha)}
                     >
                       {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
@@ -480,17 +507,6 @@ function MyProfile() {
                     </Button>
                   </DialogActions>
                 </Dialog>
-
-                <div className="w-full flex justify-end items-baseline text-white ">
-                  <button
-                    type="submit"
-                    onClick={handleOpenModalClick}
-                    className="w-32 xl:w-40 bg-[#6366F1] p-2 rounded-xl
-                relative top-5 -translate-x-10 xl:translate-x-5 xl:right-2 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
-                  >
-                    Save changes
-                  </button>
-                </div>
               </form>
             </header>
           ) : (
@@ -776,15 +792,15 @@ function MyProfile() {
                       onClick={() => setIsModalOpen(false)}
                       sx={{
                         backgroundColor: "transparent",
-                        color: "white",
-                        border: "2px solid #5b4bc4",
+                        color: "#7360ec",
+                        border: "2px solid #7360ec",
                         width: " 12dvw",
                         height: "7dvh",
                         borderRadius: "14px",
                         fontSize: "16px",
                         fontFamily: "system-ui",
                         display: "flex",
-                        "&:hover": { backgroundColor: "#5b4bc4" },
+                        "&:hover": { backgroundColor: "#5b4bc4", color: "white" },
                       }}>Back</Button>
                     <Button
                       onClick={handleSave}
