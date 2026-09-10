@@ -119,8 +119,8 @@ export async function forgotPassword(data) {
   try {
     result = JSON.parse(text)
   } catch (e) {
-    console.error("O servidor retornou HTML em vez de JSON:", text)
-    throw new Error("O servidor encontrou um erro interno ou a rota não foi encontrada.")
+    console.error("The server returned HTML instead of JSON:", text)
+    throw new Error("The server encountered an internal error, or the route could not be found.")
   }
 
   if (!res.ok) {

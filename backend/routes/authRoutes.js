@@ -221,14 +221,10 @@ router.post("/user/send-link", async (req, res) => {
       : "https://login-system-eta-rose.vercel.app";
 
     const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '1h' })
-    const fingerprint = createHash("sha256")
-      .update(process.env.JWT_RESET_SECRET || "")
-      .digest("hex")
-      .slice(0, 12);
-    console.log("Token gerado:", resetToken);
-    console.log("RESET SIGN fingerprint:", fingerprint);
+
     const linkRestore = `${urlFront}/forgot?token=${resetToken}`
-    console.log("Link gerado:", linkRestore);
+
+   // console.log("Link gerado:", linkRestore);
     try {
       const res = await emailjs.send(
         process.env.EMAILJS_SERVICE_ID,
@@ -253,7 +249,6 @@ router.post("/user/send-link", async (req, res) => {
 
 router.put("/user/forgot", verificarResetToken, async (req, res) => {
   const { token, newPassword } = req.body
-  //console.log("-> req.userId vindo do middleware:", req.userId, typeof req.userId);
   const userId = Number(req.userId);
 
   if (!token || !newPassword) {
