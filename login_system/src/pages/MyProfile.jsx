@@ -251,8 +251,8 @@ function MyProfile() {
         <main className="w-full flex justify-center  bottom-1/1 relative ">
           {isEditing ? (
             <header
-              className="w-[50dvw] max-[1100px]:w-[58dvw] 
-              2xl:max-w-[30dvw] min-[3840px]:w-[22dvw] h-auto min-h-100
+              className="w-[50dvw] max-[1100px]:w-[58dvw]
+              2xl:max-w-[40dvw] min-[2040px]:w-[32dvw] min-[3840px]:w-[22dvw] h-auto min-h-100
                 relative top-5 flex flex-col lg:left-10 bg-[#3F434C] 
                  rounded-2xl translate-x-5 pb-8  justify-center mx-px "
             >
@@ -610,6 +610,7 @@ function MyProfile() {
                     name="name"
                     type="text"
                     value={profile.name}
+                    icon={<PersonIcon fontSize="small" />}
                     onChange={(e) =>
                       handleProfileChange("name", e.target.value)
                     }
@@ -622,6 +623,7 @@ function MyProfile() {
                   <ProfileInput
                     name="jobTitle"
                     value={profile.cargo}
+                    icon={<WorkOutlineOutlinedIcon fontSize="small" />}
                     onChange={(e) =>
                       handleProfileChange("cargo", e.target.value)
                     }
@@ -635,6 +637,7 @@ function MyProfile() {
                     name="email"
                     type="email"
                     value={profile.email}
+                    icon={<EmailOutlinedIcon fontSize="small" />}
                     onChange={(e) =>
                       handleProfileChange("email", e.target.value)
                     }
@@ -648,6 +651,7 @@ function MyProfile() {
                     <ProfileInput
                       type={mostrarSenha ? "text" : "password"}
                       value={profile.newPassword}
+                      icon={<LockIcon fontSize="small" />}
                       onChange={(e) =>
                         handleProfileChange("newPassword", e.target.value)
                       }

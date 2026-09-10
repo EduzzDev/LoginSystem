@@ -27,7 +27,7 @@ function ProfileInput({
         minLength={minLength}
         maxLength={maxLength}
         required={required}
-        className={`w-50 min-[400px]:min-w-68 min-[600px]:min-w-80 pt-1  pb-1 scroll-pl-1.5 pl-1.5
+        className={`w-50 min-[400px]:min-w-68 min-[600px]:min-w-80 lg:min-w-90 2xl:min-w-100  pt-1  pb-1 scroll-pl-1.5 pl-8.5
           min-[400px]:pl-10 pr-2 text-xl
           border relative
           rounded-lg hover:bg-[#6366F1] hover:border-white border-[#4F46E5]
