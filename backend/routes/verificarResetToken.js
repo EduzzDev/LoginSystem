@@ -11,7 +11,6 @@ function verificarResetToken(req, res, next) {
         return res.status(401).json({ error: "Unauthorized" })
     }
     try {
-        const decoded = verify(token, process.env.JWT_RESET_SECRET);
         const fingerprint = crypto
             .createHash("sha256")
             .update(process.env.JWT_SECRET || "")
@@ -19,6 +18,7 @@ function verificarResetToken(req, res, next) {
             .slice(0, 12);
 
         console.log("JWT fingerprint:", fingerprint);
+        const decoded = verify(token, process.env.JWT_RESET_SECRET);
         req.userId = decoded.userId;
         next();
     } catch (error) {

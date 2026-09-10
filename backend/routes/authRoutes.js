@@ -224,7 +224,7 @@ router.post("/user/send-link", async (req, res) => {
     const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '1h' })
     const fingerprint = crypto
       .createHash("sha256")
-      .update(process.env.JWT_SECRET || "")
+      .update(process.env.JWT_RESET_SECRET || "")
       .digest("hex")
       .slice(0, 12);
 
