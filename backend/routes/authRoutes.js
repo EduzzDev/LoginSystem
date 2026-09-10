@@ -9,8 +9,7 @@ import Database from "better-sqlite3";
 import emailjs from "@emailjs/nodejs";
 import jwt from "jsonwebtoken";
 import verificarResetToken from "./verificarResetToken.js";
-import crypto from "crypto";
-
+import { createHash } from "node:crypto";
 
 const db = new Database("LoginSystem.db");
 
@@ -222,13 +221,12 @@ router.post("/user/send-link", async (req, res) => {
       : "https://login-system-eta-rose.vercel.app";
 
     const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '1h' })
-    const fingerprint = crypto
-      .createHash("sha256")
+    const fingerprint = createHash("sha256")
       .update(process.env.JWT_RESET_SECRET || "")
       .digest("hex")
       .slice(0, 12);
 
-    console.log("JWT fingerprint:", fingerprint);
+    console.log("RESET SIGN fingerprint:", fingerprint);
     const linkRestore = `${urlFront}/forgot?token=${resetToken}`
     console.log("Link gerado:", linkRestore);
     try {

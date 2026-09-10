@@ -1,5 +1,6 @@
 import pkg from "jsonwebtoken"
 const { verify } = pkg;
+import { createHash } from "node:crypto";
 
 function verificarResetToken(req, res, next) {
     console.log("COOKIES:", req.cookies);
@@ -11,11 +12,12 @@ function verificarResetToken(req, res, next) {
         return res.status(401).json({ error: "Unauthorized" })
     }
     try {
-        const fingerprint = crypto
-            .createHash("sha256")
-            .update(process.env.JWT_SECRET || "")
+        const fingerprint = createHash("sha256")
+            .update(process.env.JWT_RESET_SECRET || "")
             .digest("hex")
             .slice(0, 12);
+
+        console.log("RESET VERIFY fingerprint:", fingerprint);
 
         console.log("JWT fingerprint:", fingerprint);
         const decoded = verify(token, process.env.JWT_RESET_SECRET);
