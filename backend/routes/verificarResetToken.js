@@ -2,6 +2,9 @@ import pkg from "jsonwebtoken"
 const { verify } = pkg;
 
 function verificarResetToken(req, res, next) {
+    console.log("COOKIES:", req.cookies);
+    console.log("BODY:", req.body);
+    console.log("QUERY:", req.query);
     const token = req.cookies?.token || req?.body.token || req.query?.token;
 
     if (!token) {
