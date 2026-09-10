@@ -35,7 +35,7 @@ import {
   DialogActions,
   TextField,
   Button,
-  Box,
+  Box, InputAdornment, IconButton
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -393,56 +393,12 @@ function MyProfile() {
                         position: "relative",
                         marginTop: "48px",
                         borderRadius: "14px",
+                        m: { xs: 2, sm: 4 },
+                        width: { xs: "calc(100% - 32px)", sm: "100%" }
                       },
                     },
                   }}
                 >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: "-36px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      bgcolor: "#2D3035",
-                      border: "2px solid #9D00FF",
-                      borderRadius: "12px",
-                      padding: "10px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      boxShadow: "0px 8px 24px rgba(0,0,0,0.5)",
-                      zIndex: 10,
-                      fontSize: "2.5rem",
-                      color: "white",
-                    }}
-                  >
-                    {mostrarSenha ? (
-                      <LockOpenIcon
-                        sx={{
-                          fontSize: "2.5rem",
-                          color: "white",
-                        }}
-                      />
-                    ) : (
-                      <LockIcon
-                        sx={{
-                          fontSize: "2.5rem",
-                          color: "white",
-                        }}
-                      />
-                    )}
-                  </Box>
-
-                  <DialogTitle
-                    className="bg-black text-[#7360ec] flex flex-col justify-center items-center "
-                    style={{
-                      fontSize: "26px",
-                      fontWeight: "700",
-                      paddingTop: "24px",
-                    }}
-                  >
-                    Confirmar Alterações
-                  </DialogTitle>
                   <DialogContent className="text-gray-400 flex justify-center items-center flex-col">
                     <p
                       className="text-gray-400"
@@ -462,9 +418,22 @@ function MyProfile() {
                         label="Current Password"
                         variant="outlined"
                         value={profile.currentPassword}
-                        onChange={(e) =>
-                          handleProfileChange("currentPassword", e.target.value)
-                        }
+                        onChange={(e) => handleProfileChange("currentPassword", e.target.value)}
+                        slotProps={{
+                          input: {
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton
+                                  onClick={() => setMostrarSenha(!mostrarSenha)}
+                                  edge="end"
+                                  sx={{ color: "#6c5ce7" }}
+                                >
+                                  {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          },
+                        }}
                         sx={{
                           "& .MuiOutlinedInput-root": { color: "white" },
                           "& .MuiInputLabel-root": { color: "gray" },
@@ -472,21 +441,15 @@ function MyProfile() {
                             borderColor: "#6c5ce7",
                             borderRadius: "20px",
                           },
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                          "& :hover .MuiOutlinedInput-notchedOutline": {
                             borderColor: "#9D00FF",
                           },
                           "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#9D00FF ",
+                            borderColor: "#9D00FF",
                           },
                         }}
                       />
-                      <button
-                        type="button"
-                        className="-translate-x-12 cursor-pointer"
-                        onClick={() => setMostrarSenha(!mostrarSenha)}
-                      >
-                        {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
-                      </button>
+
                     </div>
                   </DialogContent>
                   <DialogActions className="bg-black" sx={{ padding: "18px" }}>
@@ -731,12 +694,12 @@ function MyProfile() {
                   <DialogTitle
                     className="bg-black text-[#7360ec] flex flex-col justify-center items-center "
                     style={{
-                      fontSize: "26px",
+                      fontSize: "calc(1rem + 8.5px)",
                       fontWeight: "700",
-                      paddingTop: "24px",
+                      paddingTop: "38px",
                     }}
                   >
-                    Confirmar Alterações
+                    Confirm Changes
                   </DialogTitle>
                   <DialogContent className="text-gray-400 flex justify-center items-center flex-col">
                     <p
@@ -757,9 +720,22 @@ function MyProfile() {
                         label="Current Password"
                         variant="outlined"
                         value={profile.currentPassword}
-                        onChange={(e) =>
-                          handleProfileChange("currentPassword", e.target.value)
-                        }
+                        onChange={(e) => handleProfileChange("currentPassword", e.target.value)}
+                        slotProps={{
+                          input: {
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton
+                                  onClick={() => setMostrarSenha(!mostrarSenha)}
+                                  edge="end"
+                                  sx={{ color: "#6c5ce7" }}
+                                >
+                                  {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          },
+                        }}
                         sx={{
                           "& .MuiOutlinedInput-root": { color: "white" },
                           "& .MuiInputLabel-root": { color: "gray" },
@@ -767,21 +743,14 @@ function MyProfile() {
                             borderColor: "#6c5ce7",
                             borderRadius: "20px",
                           },
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                          "& :hover .MuiOutlinedInput-notchedOutline": {
                             borderColor: "#9D00FF",
                           },
                           "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#9D00FF ",
+                            borderColor: "#9D00FF",
                           },
                         }}
                       />
-                      <button
-                        type="button"
-                        className="-translate-x-12 cursor-pointer"
-                        onClick={() => setMostrarSenha(!mostrarSenha)}
-                      >
-                        {mostrarSenha ? <LockOpenIcon /> : <LockIcon />}
-                      </button>
                     </div>
                   </DialogContent>
                   <DialogActions className="bg-black flex" sx={{
@@ -794,8 +763,8 @@ function MyProfile() {
                         backgroundColor: "transparent",
                         color: "#7360ec",
                         border: "2px solid #7360ec",
-                        width: " 12dvw",
-                        height: "7dvh",
+                        minWidth: { xs: "5rem", sm: "12dvw", xl: "20px" },
+                        minHeight: { xs: "50%", sm: "5dvh", xl: "30px" },
                         borderRadius: "14px",
                         fontSize: "16px",
                         fontFamily: "system-ui",
@@ -807,10 +776,7 @@ function MyProfile() {
                       variant="contained"
                       sx={{
                         backgroundColor: "#6c5ce7",
-                        width: " 12dvw",
-                        height: "7dvh",
                         borderRadius: "14px",
-
                         fontSize: "16px",
                         fontFamily: "system-ui",
                         "&:hover": { backgroundColor: "#5b4bc4" },
