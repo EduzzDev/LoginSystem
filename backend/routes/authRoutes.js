@@ -225,7 +225,7 @@ router.post("/user/send-link", async (req, res) => {
       .update(process.env.JWT_RESET_SECRET || "")
       .digest("hex")
       .slice(0, 12);
-
+    console.log("Token gerado:", resetToken);
     console.log("RESET SIGN fingerprint:", fingerprint);
     const linkRestore = `${urlFront}/forgot?token=${resetToken}`
     console.log("Link gerado:", linkRestore);
