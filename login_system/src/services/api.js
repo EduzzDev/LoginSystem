@@ -113,10 +113,18 @@ export async function forgotPassword(data) {
     },
     body: JSON.stringify(data),
   })
-  const result = await res.json();
+
+  const text = await res.text()
+  let result
+  try {
+    result = JSON.parse(text)
+  } catch (e) {
+    console.error("O servidor retornou HTML em vez de JSON:", text)
+    throw new Error("O servidor encontrou um erro interno ou a rota não foi encontrada.")
+  }
 
   if (!res.ok) {
-    throw result;
+    throw result
   }
-  return result;
+  return result
 }
