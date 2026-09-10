@@ -533,9 +533,38 @@ function MyProfile() {
         <main className="w-full flex justify-center relative ">
           {isEditing ? (
             <header
-              className="w-80 h-95 min-[400px]:w-100 min-[600px]:w-120 
-               relative top-5 p-2 flex flex-col  bg-[#3F434C] 
+              className="w-80 h-102 min-[400px]:w-100 min-[600px]:w-120 
+               relative top-2 p-2 flex flex-col  bg-[#3F434C] 
           rounded-2xl">
+              <div className="w-full flex justify-between items-center px-2 py-2">
+                <Button
+                  startIcon={<ArrowBackIcon />}
+                  onClick={() => setIsEditing(false)}
+                  sx={{
+                    color: "#818CF8",
+                    backgroundColor: "rgba(99, 102, 241, 0.1)",
+                    textTransform: "none",
+                    fontSize: "15px",
+                    padding: "6px 16px",
+                    borderRadius: "8px",
+                    "&:hover": { backgroundColor: "rgba(99, 102, 241, 0.2)" },
+                  }}
+                >
+                  Back
+                </Button>
+
+                <button
+                  type="button"
+                  onClick={handleOpenModalClick}
+                  className="bg-[#6366F1] px-4 py-2 rounded-xl text-white font-medium
+                   hover:bg-[#4F46E5] transition-colors cursor-pointer shadow-md"
+                >
+                  Save changes
+                </button>
+              </div>
+
+              <hr className="w-full border-t border-gray-500/30 mb-5" />
+
               <form
                 ref={formRef}
                 onSubmit={handleSave}
@@ -786,17 +815,6 @@ function MyProfile() {
                     </Button>
                   </DialogActions>
                 </Dialog>
-
-                <div className="w-full flex justify-center items-center text-white ">
-                  <button
-                    type="submit"
-                    onClick={handleOpenModalClick}
-                    className="w-70  min-[400px]:w-88 min-[600px]:min-w-105 xl:w-40 bg-[#6366F1] p-2 rounded-xl
-                relative top-5 xl:translate-x-5 xl:right-6 hover:bg-[#1F2937] hover:text-white border cursor-pointer"
-                  >
-                    Save changes
-                  </button>
-                </div>
               </form>
             </header>
           ) : (
