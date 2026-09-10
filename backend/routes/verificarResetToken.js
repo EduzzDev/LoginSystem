@@ -14,7 +14,7 @@ function verificarResetToken(req, res, next) {
         const decoded = verify(token, process.env.JWT_RESET_SECRET);
         req.userId = decoded.userId;
         next();
-    } catch {
+    } catch (error) {
         console.log("Erro detalhado do JWT:", error.message);
         return res.status(401).json({ error: "Invalid token" });
     }
