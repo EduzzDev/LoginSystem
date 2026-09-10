@@ -7,7 +7,7 @@ function verificarResetToken(req, res, next) {
     console.log("BODY:", req.body);
     console.log("QUERY:", req.query);
     const token = req.cookies?.token || req?.body.token || req.query?.token;
-
+    console.log("Token recebido:", token);
     if (!token) {
         return res.status(401).json({ error: "Unauthorized" })
     }
