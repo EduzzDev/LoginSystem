@@ -12,6 +12,13 @@ function verificarResetToken(req, res, next) {
     }
     try {
         const decoded = verify(token, process.env.JWT_RESET_SECRET);
+        const fingerprint = crypto
+            .createHash("sha256")
+            .update(process.env.JWT_SECRET || "")
+            .digest("hex")
+            .slice(0, 12);
+
+        console.log("JWT fingerprint:", fingerprint);
         req.userId = decoded.userId;
         next();
     } catch (error) {
