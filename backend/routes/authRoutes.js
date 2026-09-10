@@ -246,7 +246,7 @@ router.post("/user/send-link", async (req, res) => {
 
 router.put("/user/forgot", verificarResetToken, async (req, res) => {
   const { token, newPassword } = req.body
-  console.log("-> req.userId vindo do middleware:", req.userId, typeof req.userId);
+  //console.log("-> req.userId vindo do middleware:", req.userId, typeof req.userId);
   const userId = Number(req.userId);
   
   if (!token || !newPassword) {
