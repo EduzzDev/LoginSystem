@@ -39,7 +39,9 @@ Este projeto nasceu como uma aplicação completa de autenticação e está evol
 - Gerenciamento de perfil e imagem do usuário
 - Verificação de senha para alterações sensíveis
 - Sistema de notificações com toast
-- Fluxo de recuperação de senha em desenvolvimento
+- Fluxo de recuperação de senha com envio de link e redefinição
+- Página de segurança com painel de sessões e histórico de atividades
+- Melhorias de layout responsivo e drawer mobile para navegação
 
 ---
 
@@ -60,15 +62,27 @@ Este projeto nasceu como uma aplicação completa de autenticação e está evol
 - Gerenciamento de perfil
 - Upload e exibição de imagem de perfil
 - Verificação da senha atual antes de alterações sensíveis no perfil
+- Página Security com painel de segurança da conta e histórico de atividades
+- Fluxo de recuperação de senha com envio de link, reset e validação de token
+- Layout responsivo com drawer inferior para mobile e refinamento de UX
 
 ### 🛠️ O que está sendo trabalhado
 
-- Página Tasks com refinamentos finais
-- Página MyProfile sendo refinada
-- Página Security em desenvolvimento
-- Página Help sendo desenvolvimento
-- Dashboard geral sendo transformada em uma visão central do sistema (desenvolvimento)
-- Fluxo de recuperação de senha por e-mail em desenvolvimento
+- Finalização visual e funcional da página Tasks
+- Refinamento final do MyProfile e dos componentes de entrada
+- Evolução da página Security para incluir gestão real de sessões e ações de conta
+- Página Help em desenvolvimento com conteúdo e suporte mais completo
+- Dashboard sendo transformada em painel central do sistema
+- Ajustes finais de segurança e UX no fluxo de recuperação de senha
+
+### 🔄 Melhorias recentes adicionadas desde o último README
+
+- Painel de segurança da conta com blocos de proteção, sessões ativas e histórico de atividades
+- Redefinição de senha via link enviado por e-mail e validação de token JWT
+- Melhorias de responsividade em MyProfile, Tasks, Dashboard e páginas internas
+- Drawer mobile inferior para navegação rápida em telas menores
+- Botões de voltar e refinamento visual em modais e fluxos de edição
+- Ícones e componentes de input mais consistentes em formulários de perfil
 
 ### 🧭 Guia de etapas
 
@@ -100,19 +114,22 @@ O sistema utiliza diferentes recursos para proteger as contas e operações dos 
 - Hash de senhas com bcrypt
 - Rotas protegidas
 - Verificação da senha atual para alterações sensíveis no perfil
+- Validação e expiração de tokens para redefinição de senha
+- Painel de segurança da conta com visão geral de proteção e sessões ativas
 - Variáveis de ambiente para informações sensíveis
 
 ### 📧 Recuperação de senha
 
-O fluxo de recuperação de senha está sendo desenvolvido e atualmente conta com:
+O fluxo de recuperação de senha já está funcional em boa parte do processo e atualmente conta com:
 
 - Link "Forgot password?" na tela de login
-- Modal para solicitar recuperação
+- Modal e rota para solicitar recuperação
 - Rota dedicada para redefinição de senha
-- Tokens JWT com expiração
-- Integração de envio de e-mail via Nodemailer/SMTP
+- Tokens JWT com expiração e validação de segurança
+- Envio de link por e-mail via EmailJS / SMTP
+- Processo de atualização de senha com confirmação de nova senha
 
-> 🚧 O fluxo ainda não está 100% finalizado.
+> 🚧 O fluxo continua em refinamento, mas a base de autenticação e reset já foi implementada e integrada ao app.
 
 ---
 
@@ -177,9 +194,11 @@ Acesse o app em http://localhost:5173 e a API em http://localhost:3000.
 - Gerenciamento de perfil
 - Upload e atualização de imagem de perfil
 - Verificação de senha para alterações sensíveis
+- Página Security com gestão de segurança e histórico de atividades
+- Recuperação de senha por email com token e redefinição
 - Notificações de sucesso e erro
-- Interface responsiva
-- Fluxo de recuperação de senha em desenvolvimento
+- Interface responsiva com melhorias mobile e drawer inferior
+- Fluxo de navegação mais refinado em páginas internas
 
 ---
 
