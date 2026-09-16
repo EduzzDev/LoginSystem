@@ -189,11 +189,11 @@ app.post("/login", async (req, res) => {
     const jti = crypto.randomUUID();
 
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
-
+    const dataGlobal = new Date().toISOString();
     db.prepare(`
-      INSERT INTO sessions (user_id, jti, device_info, ip_address, expires_at)
-      VALUES (?, ?, ?, ?, ?)
-      `).run(user.id, jti, deviceInfo, ipAddress, expiresAt);
+      INSERT INTO sessions (user_id, jti, device_info, ip_address, created_at, expires_at)
+      VALUES (?, ?, ?, ?,?, ?)
+      `).run(user.id, jti, deviceInfo, ipAddress, dataGlobal, expiresAt);
 
 
     // gerar o token jwt

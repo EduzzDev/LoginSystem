@@ -85,7 +85,7 @@ function Security() {
   }, []);
   if (loading) {
     return (
-      <div className="flex justify-center items-center p-8 bg-[#1e1f29] rounded-xl">
+      <div className="w-full h-full flex justify-center items-center p-8 bg-[#1e1f29] rounded-xl">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
       </div>
     );
@@ -237,13 +237,17 @@ function Security() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-800 text-gray-300">
-                  {userInfo?.session?.map((item, index) => (
-                    <tr key={item.id || index}>
-                      <td className="py-3">Login successfully</td>
-                      <td className="py-3 text-gray-400">{item.created_at}</td>
-                      <td className="py-3 text-gray-400">{item.device_info || item.ip_address}</td>
-                    </tr>
-                  ))}
+                  {userInfo?.session?.map((item, index) => {
+                    const dataFormatada = new Date(item.created_at).toLocaleString('en-US', {
+                      hour12: false
+                    }); return (
+                      <tr key={item.id || index}>
+                        <td className="py-3">Login successfully</td>
+                        <td className="py-3 text-gray-400">{dataFormatada}</td>
+                        <td className="py-3 text-gray-400">{item.device_info || item.ip_address}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
