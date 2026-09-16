@@ -85,7 +85,7 @@ function Security() {
   }, []);
   if (loading) {
     return (
-      <div className="w-full h-full flex justify-center items-center p-8 bg-[#1e1f29] rounded-xl">
+      <div className="w-full h-screen flex justify-center items-center p-8 bg-[#1e1f29] rounded-xs">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
       </div>
     );
@@ -205,9 +205,8 @@ function Security() {
               {userInfo?.session?.map((sessao) => (
                 <div key={sessao.jti} className="flex items-center justify-between p-3 bg-[#252630] rounded-lg">
                   <div>
-                    {/* Exibe as informações tratadas da sessão */}
                     <p className="font-medium text-sm">
-                      {sessao.device_info} – <span className="text-xs text-gray-400">{sessao.ip_address}</span>
+                      {sessao.device_info} <span className="text-xs text-gray-400">{sessao.ip_address}</span>
                     </p>
                     <span className="text-xs text-green-400">● Active Now</span>
                   </div>
