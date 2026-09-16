@@ -23,10 +23,15 @@ import {
 } from "lucide-react";
 import Drawer from "@mui/material/Drawer";
 import DoneIcon from '@mui/icons-material/Done';
+import { getUserProfile } from "../services/api";
+
 
 function Security() {
   const navigate = useNavigate();
   const { user, timeLogged, imgUser } = useContext(AuthContext);
+  const [userInfo, setUserInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const [moreOpen, setMoreOpen] = useState(false)
   useEffect(() => {
     async function verifyUser() {
@@ -64,6 +69,28 @@ function Security() {
   function handleHelp() {
     navigate("/help");
   }
+  useEffect(() => {
+    async function loadUserData() {
+      try {
+        const response = await getUserProfile();
+        setUserInfo(response);
+      } catch (err) {
+        console.error("Erro ao carregar dados de segurança:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadUserData();
+  }, []);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center p-8 bg-[#1e1f29] rounded-xl">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
+
   return (
     <>
       {/* Menu PC */}
@@ -171,19 +198,29 @@ function Security() {
             </div>
           </div>
           <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4 ">
-            <h2 className="text-lg font-semibold">Active Sessions </h2>
-            <p className="text-[14px] font-normal">Manage devices currently signed in: </p>
+            <h2 className="text-lg font-semibold">Active Sessions</h2>
+            <p className="text-[14px] font-normal">Manage devices currently signed in:</p>
 
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-[#252630] rounded-lg">
-                <div>
-                  <p className="font-medium text-sm">MacBook Pro - São Paulo, Brasil</p>
-                  <span className="text-xs text-green-400">● Active Now</span>
+              {userInfo?.session?.map((sessao) => (
+                <div key={sessao.jti} className="flex items-center justify-between p-3 bg-[#252630] rounded-lg">
+                  <div>
+                    {/* Exibe as informações tratadas da sessão */}
+                    <p className="font-medium text-sm">
+                      {sessao.device_info} – <span className="text-xs text-gray-400">{sessao.ip_address}</span>
+                    </p>
+                    <span className="text-xs text-green-400">● Active Now</span>
+                  </div>
+
+                  <button
+                    onClick={() => handleRevoke(sessao.jti)}
+                    className="text-xs text-red-400 hover:text-red-300 border
+                     border-red-500/30 px-3 py-1.5 rounded-md transition cursor-pointer"
+                  >
+                    Revoke Access
+                  </button>
                 </div>
-                <button className="text-xs text-red-400 hover:text-red-300 border border-red-500/30 px-3 py-1.5 rounded-md transition">
-                  Revoke Access
-                </button>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -200,11 +237,13 @@ function Security() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-800 text-gray-300">
-                  <tr>
-                    <td className="py-3">Login Successful</td>
-                    <td className="py-3 text-gray-400">16/05/2026 - 10:30</td>
-                    <td className="py-3 text-gray-400">Chrome (189.12.34.56)</td>
-                  </tr>
+                  {userInfo?.session?.map((item, index) => (
+                    <tr key={item.id || index}>
+                      <td className="py-3">Login successfully</td>
+                      <td className="py-3 text-gray-400">{item.created_at}</td>
+                      <td className="py-3 text-gray-400">{item.device_info || item.ip_address}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

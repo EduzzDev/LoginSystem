@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import authRoutes from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
+import { UAParser } from 'ua-parser-js';
+import crypto from 'crypto';
 
 dotenv.config();
 
@@ -13,9 +15,11 @@ dotenv.config();
 
 const isProduction = process.env.NODE_ENV === "production";
 const app = express();
+app.set('trust proxy', true);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 app.use(cookieParser());
 
@@ -25,11 +29,11 @@ app.use(
       const isDevelopment = process.env.NODE_ENV !== "production";
       const allowedOrigins = isDevelopment
         ? [
-            undefined,
-            "http://localhost:5173",
-            "http://127.0.0.1:5173",
-            "http://localhost:3000",
-          ]
+          undefined,
+          "http://localhost:5173",
+          "http://127.0.0.1:5173",
+          "http://localhost:3000",
+        ]
         : ["https://login-system-eta-rose.vercel.app"];
 
       if (
@@ -64,6 +68,20 @@ db.prepare(
   )
 `,
 ).run();
+
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS sessions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    jti TEXT UNIQUE NOT NULL,
+    device_info TEXT,
+    ip_address TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    expires_at DATETIME NOT NULL,
+    is_revoked INTEGER DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES usuarios(id) ON DELETE CASCADE
+  )
+`).run();
 
 app.use("/uploads", express.static("uploads"));
 
@@ -159,8 +177,29 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
+    const ipAddress = req.headers['x-forwarded-for'] ||
+      req.socket?.remoteAddress ||
+      req.ip ||
+      'Desconhecido';
+
+    const parser = new UAParser(req.headers['user-agent']);
+    const result = parser.getResult();
+    const deviceInfo = `${result.browser.name || 'Desconhecido'} - ${result.os.name || 'Desconhecido'}`;
+
+    const jti = crypto.randomUUID();
+
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+
+    db.prepare(`
+      INSERT INTO sessions (user_id, jti, device_info, ip_address, expires_at)
+      VALUES (?, ?, ?, ?, ?)
+      `).run(user.id, jti, deviceInfo, ipAddress, expiresAt);
+
+
     // gerar o token jwt
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign(
+      { userId: user.id, jti: jti },
+      process.env.JWT_SECRET, {
       expiresIn: "5h",
     });
 
@@ -168,6 +207,7 @@ app.post("/login", async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
+      maxAge: 7 * 24 * 60 * 60 * 1000
     });
     res.json({
       success: true,

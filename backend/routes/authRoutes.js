@@ -12,6 +12,7 @@ import verificarResetToken from "./verificarResetToken.js";
 import { createHash } from "node:crypto";
 
 const db = new Database("LoginSystem.db");
+db.pragma("foreign_keys = ON");
 
 fs.mkdirSync("uploads", { recursive: true });
 
@@ -60,7 +61,8 @@ router.get("/user/me", verificarAutenticacao, (req, res) => {
   if (!user) {
     return res.status(404).json({ error: "Usuário não encontrado." });
   }
-
+  const stmtSessions = db.prepare("SELECT jti, created_at, device_info, ip_address FROM sessions WHERE user_id = ?")
+  const activeSessions = stmtSessions.all(req.userId);
   const urlImg = user.urlImg
     ? `${req.protocol}://${req.get("host")}${user.urlImg}`
     : "";
@@ -71,17 +73,12 @@ router.get("/user/me", verificarAutenticacao, (req, res) => {
     cargo: user.cargo,
     senha: user.senha,
     urlImg,
+    session: activeSessions,
   });
 });
 
 router.put("/user/update-profile", verificarAutenticacao, upload.single("foto"),
   async (req, res) => {
-    /*console.log(
-      "O QUE CHEGOU NO BACKEND:",
-      req.headers["content-type"],
-      req.body,
-      req.file,
-    );*/
     const { name, email, cargo, newPassword, currentPassword } = req.body || {};
     const userId = req.userId;
     if (!name) {
@@ -224,7 +221,7 @@ router.post("/user/send-link", async (req, res) => {
 
     const linkRestore = `${urlFront}/forgot?token=${resetToken}`
 
-   // console.log("Link gerado:", linkRestore);
+    // console.log("Link gerado:", linkRestore);
     try {
       const res = await emailjs.send(
         process.env.EMAILJS_SERVICE_ID,
@@ -288,10 +285,27 @@ router.put("/user/forgot", verificarResetToken, async (req, res) => {
   }
 })
 
+
 // Logout
-router.post("/logout", (req, res) => {
-  res.clearCookie("token");
-  res.json({ success: true });
+router.post("/logout", verificarAutenticacao, (req, res) => {
+  try {
+    // id do jti
+    const jti = req.jti;
+
+    if (jti) {
+      // Quando usuario desloga
+      const resultado = db.prepare("DELETE FROM sessions WHERE jti = ?").run(jti);
+      console.log("Linhas afetadas no banco:", resultado.changes);
+    }
+
+    // Limpa o cookie do navegador
+    res.clearCookie("token");
+    return res.json({ success: true, message: "Logout realizado com sucesso!" });
+
+  } catch (err) {
+    console.error("Erro detalhado no logout:", err);
+    return res.status(500).json({ error: "Erro ao realizar logout" });
+  }
 });
 
 export default router;
