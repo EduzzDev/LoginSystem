@@ -177,10 +177,10 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
-    const ipAddress = req.headers['x-forwarded-for'] ||
-      req.socket?.remoteAddress ||
+    const ipAddress =
+      req.headers['x-forwarded-for']?.split(',')[0].trim() ||
       req.ip ||
-      'Desconhecido';
+      req.socket.remoteAddress;
 
     const parser = new UAParser(req.headers['user-agent']);
     const result = parser.getResult();
