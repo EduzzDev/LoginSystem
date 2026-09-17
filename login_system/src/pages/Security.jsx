@@ -76,7 +76,7 @@ function Security() {
         const response = await getUserProfile();
         setUserInfo(response);
       } catch (err) {
-        console.error("Erro ao carregar dados de segurança:", err);
+        console.error("Error loading security data:", err);
       } finally {
         setLoading(false);
       }
@@ -86,7 +86,7 @@ function Security() {
   }, []);
 
   async function handleRevoke(jti) {
-    const loadingToast = toast.loading("revogando o acesso...");
+    const loadingToast = toast.loading("Revoking access...");
     try {
       await revokeUser(jti);
       setUserInfo(prev => ({
@@ -192,6 +192,7 @@ function Security() {
             </SideBarItem>
           </div>
         </nav>
+        {/* PC */}
         <div className=" w-205 max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6 p-6 
          text-gray-100 mx-auto space-y-4 z-10 relative bottom-1/1 translate-y-2   rounded-2xl left-10 md:left-18 md:translate-x-10 ">
           <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4">
