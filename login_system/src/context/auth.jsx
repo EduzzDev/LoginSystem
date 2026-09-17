@@ -2,9 +2,16 @@ import { useState } from "react";
 import { getUserProfile, registerUser } from "../services/api";
 import { AuthContext } from "./authContext";
 import { useEffect } from "react";
+import { socket } from "../services/socket";
 
 export const AuthProvider = ({ children }) => {
   const [timeLogged, setTimeLogged] = useState("");
+  const [user, setUser] = useState(() => {
+    return localStorage.getItem("userNome") || null;
+  });
+  const [imgUser, setImgUser] = useState(() => {
+    return localStorage.getItem("urlImg") || null;
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -48,13 +55,42 @@ export const AuthProvider = ({ children }) => {
 
     return () => clearInterval(interval);
   }, []);
-  const [user, setUser] = useState(() => {
-    return localStorage.getItem("userNome") || null;
-  });
-  const [imgUser, setImgUser] = useState(() => {
-    return localStorage.getItem("urlImg") || null;
-  });
 
+  useEffect(() => {
+    if (!localStorage.getItem("token")) return undefined;
+
+    const handleSessionRevoked = ({ jti }) => {
+      const token = localStorage.getItem("token");
+      const currentJti = token ? JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))).jti : null;
+
+      if (jti === currentJti) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userNome");
+        localStorage.removeItem("urlImg");
+        socket.disconnect();
+        window.location.assign("/");
+      }
+    };
+
+    socket.on("session_revoked", handleSessionRevoked);
+    const handleSocketError = (error) => {
+      if (!error.message?.toLowerCase().includes("session")) return;
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("userNome");
+      localStorage.removeItem("urlImg");
+      socket.disconnect();
+      window.location.assign("/");
+    };
+    socket.on("connect_error", handleSocketError);
+    socket.connect();
+
+    return () => {
+      socket.off("session_revoked", handleSessionRevoked);
+      socket.off("connect_error", handleSocketError);
+      socket.disconnect();
+    };
+  }, [user]);
   const SignIn = async (nome) => {
     const response = await registerUser({ nome });
     setUser(response.data);

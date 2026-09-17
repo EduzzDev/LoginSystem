@@ -8,6 +8,8 @@ import authRoutes from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
 import { UAParser } from 'ua-parser-js';
 import crypto from 'crypto';
+import { createServer } from 'http';
+import { initSocket } from './socket.js';
 
 dotenv.config();
 
@@ -51,6 +53,9 @@ app.use(
   }),
 );
 
+const httpServer = createServer(app);
+
+
 const db = new Database(process.env.DATABASE_PATH || "LoginSystem.db");
 db.pragma("journal_mode = WAL");
 db.pragma("busy_timeout = 5000");
@@ -87,6 +92,24 @@ app.use("/uploads", express.static("uploads"));
 
 // criar índice no email
 db.prepare("CREATE INDEX IF NOT EXISTS idx_email ON usuarios(email)").run();
+
+initSocket(httpServer, {
+  cors: {
+    origin: (origin, callback) => {
+      const isDevelopment = process.env.NODE_ENV !== "production";
+      const allowedOrigins = isDevelopment
+        ? [undefined, "http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"]
+        : ["https://login-system-eta-rose.vercel.app"];
+
+      if (!origin || allowedOrigins.includes(origin) || (!isDevelopment && origin?.startsWith("https://login-system-eta-rose.vercel.app"))) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  }
+}, db);
 
 app.post("/register", async (req, res) => {
   try {
@@ -233,6 +256,6 @@ const HOST = process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost";
 
 app.use("/", authRoutes);
 
-app.listen(PORT, HOST, () => {
+httpServer.listen(PORT, HOST, () => {
   console.log(`Servidor rodando em http://${HOST}:${PORT}`);
 });

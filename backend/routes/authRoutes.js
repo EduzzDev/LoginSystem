@@ -10,11 +10,13 @@ import emailjs from "@emailjs/nodejs";
 import jwt from "jsonwebtoken";
 import verificarResetToken from "./verificarResetToken.js";
 import { createHash } from "node:crypto";
+import { getIO } from '../socket.js';
 
 const db = new Database("LoginSystem.db");
 db.pragma("foreign_keys = ON");
 
 fs.mkdirSync("uploads", { recursive: true });
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads"),
@@ -68,11 +70,13 @@ router.get("/user/me", verificarAutenticacao, (req, res) => {
     : "";
 
   res.json({
+    id: req.userId,
     email: user.email,
     nome: user.nome,
     cargo: user.cargo,
     senha: user.senha,
     urlImg,
+    currentJti: req.jti,
     session: activeSessions,
   });
 });
@@ -287,14 +291,19 @@ router.put("/user/forgot", verificarResetToken, async (req, res) => {
 
 router.delete('/sessions/:jti', verificarAutenticacao, async (req, res) => {
   try {
-    const sessionId = req.params.jti;
-    const query = db.prepare(`DELETE FROM sessions WHERE jti = ? AND user_id = ?`).run(sessionId, req.userId);
+    const { jti } = req.params;
+    const query = db.prepare(`DELETE FROM sessions WHERE jti = ? AND user_id = ?`).run(jti, req.userId);
 
     if (query.changes === 0) {
       return res.status(404).json({ error: "Session not found." });
     }
-    // Limpa o cookie do navegador
-    res.clearCookie("token");
+
+    const io = getIO();
+    io.to(`user_${req.userId}`).emit("session_revoked", { jti })
+
+    if (jti === req.jti) {
+      res.clearCookie("token", { httpOnly: true, secure: true, sameSite: "none" });
+    }
     return res.json({ success: true, message: "Session successfully deleted!", });
   } catch (err) {
     console.error("Detailed error when deleting the session:", err);
