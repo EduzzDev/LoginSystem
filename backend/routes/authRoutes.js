@@ -285,6 +285,22 @@ router.put("/user/forgot", verificarResetToken, async (req, res) => {
   }
 })
 
+router.delete('/sessions/:jti', verificarAutenticacao, async (req, res) => {
+  try {
+    const sessionId = req.params.jti;
+    const query = db.prepare(`DELETE FROM sessions WHERE jti = ? AND user_id = ?`).run(sessionId, req.userId);
+
+    if (query.changes === 0) {
+      return res.status(404).json({ error: "Session not found." });
+    }
+    // Limpa o cookie do navegador
+    res.clearCookie("token");
+    return res.json({ success: true, message: "Session successfully deleted!", });
+  } catch (err) {
+    console.error("Detailed error when deleting the session:", err);
+    return res.status(500).json({ error: "Error whilst deleting the session" });
+  }
+})
 
 // Logout
 router.post("/logout", verificarAutenticacao, (req, res) => {
@@ -295,16 +311,15 @@ router.post("/logout", verificarAutenticacao, (req, res) => {
     if (jti) {
       // Quando usuario desloga
       const resultado = db.prepare("DELETE FROM sessions WHERE jti = ?").run(jti);
-      console.log("Linhas afetadas no banco:", resultado.changes);
     }
 
     // Limpa o cookie do navegador
     res.clearCookie("token");
-    return res.json({ success: true, message: "Logout realizado com sucesso!" });
+    return res.json({ success: true, message: "You have successfully logged out!" });
 
   } catch (err) {
-    console.error("Erro detalhado no logout:", err);
-    return res.status(500).json({ error: "Erro ao realizar logout" });
+    console.error("Detailed error on logout:", err);
+    return res.status(500).json({ error: "Error whilst logging out" });
   }
 });
 

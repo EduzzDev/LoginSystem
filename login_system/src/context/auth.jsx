@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
       const response = await getUserProfile();
       const imgResponse = response?.urlImg || null;
       setImgUser(imgResponse);
-      console.log(imgResponse)
+
       if (imgResponse) {
         localStorage.setItem("urlImg", imgResponse);
       } else {
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
 
       return response;
     } catch (error) {
-      console.error("Erro ao buscar perfil:", error);
+      console.error("Error retrieving profile:", error);
       return null;
     }
   };
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", token);
     } else {
       localStorage.removeItem("token");
-      console.warn("Login chamado sem a chave token; token não salvo!");
+      console.warn("Login attempted without the token key; token not saved!");
     }
   };
 

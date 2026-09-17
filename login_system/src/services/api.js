@@ -41,7 +41,6 @@ export async function checkAuth() {
   if (!response.ok) {
     throw new Error("Não autorizado");
   }
-
   return await response.json();
 }
 export async function logout() {
@@ -128,3 +127,20 @@ export async function forgotPassword(data) {
   }
   return result
 }
+
+export const revokeUser = async (jti) => {
+  const res = await fetch(`${BASE_URL}/sessions/${jti}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw result;
+  }
+  return result;
+};
+

@@ -12,6 +12,7 @@ function verificarAutenticacao(req, res, next) {
     const decoded = verify(token, process.env.JWT_SECRET);
     req.userId = decoded.userId;
     req.jti = decoded.jti
+
     next();
   } catch {
     return res.status(401).json({ error: "Invalid token" });

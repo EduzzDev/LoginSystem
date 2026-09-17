@@ -23,8 +23,8 @@ import {
 } from "lucide-react";
 import Drawer from "@mui/material/Drawer";
 import DoneIcon from '@mui/icons-material/Done';
-import { getUserProfile } from "../services/api";
-
+import { getUserProfile, revokeUser } from "../services/api";
+import toast from 'react-hot-toast';
 
 function Security() {
   const navigate = useNavigate();
@@ -69,6 +69,7 @@ function Security() {
   function handleHelp() {
     navigate("/help");
   }
+  //get dos dados de segurança
   useEffect(() => {
     async function loadUserData() {
       try {
@@ -83,6 +84,24 @@ function Security() {
 
     loadUserData();
   }, []);
+
+  async function handleRevoke(jti) {
+    const loadingToast = toast.loading("revogando o acesso...");
+    try {
+      await revokeUser(jti);
+      setUserInfo(prev => ({
+        ...prev,
+        session: prev.session.filter(s => s.jti !== jti)
+      }));
+      toast.dismiss(loadingToast);
+      toast.success("Access successfully revoked");
+    } catch (err) {
+      console.error("Error whilst revoking access:", err);
+      toast.dismiss(loadingToast);
+      toast.error("Erro ao revogar acesso.");
+    }
+  }
+
   if (loading) {
     return (
       <div className="w-full h-screen flex justify-center items-center p-8 bg-[#1e1f29] rounded-xs">

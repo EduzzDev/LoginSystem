@@ -10,7 +10,7 @@ function verificarResetToken(req, res, next) {
         req.userId = decoded.userId;
         next();
     } catch (error) {
-        console.log("Erro detalhado do JWT:", error.message);
+        console.log("Detailed JWT error:", error.message);
         return res.status(401).json({ error: "Invalid token" });
     }
 }
