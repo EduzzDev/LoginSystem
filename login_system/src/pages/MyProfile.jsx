@@ -40,6 +40,8 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
 function MyProfile() {
   const navigate = useNavigate();
@@ -57,6 +59,7 @@ function MyProfile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false)
+  const [showEmail, SetShowEmail] = useState(true)
   const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
@@ -474,14 +477,14 @@ function MyProfile() {
             </header>
           ) : (
             <header
-              className="w-[50dvw] 2xl:w-[32dvw]  relative top-5 p-2 flex  bg-[#3F434C] 
-          rounded-2xl gap-1"
+              className="w-175 2xl:w-[32dvw]  relative top-5 p-2 flex  bg-[#3F434C] 
+          rounded-2xl gap-2 translate-x-1/6 xl:translate-0"
             >
               <img
-                className="w-30 h-30 mr-5 rounded-3xl "
+                className="w-30 h-30 mr-5 ml-2.5 rounded-3xl "
                 src={profile.previewImg}
               />
-              <div className=" w-full flex flex-col gap-0.5">
+              <div className=" w-280 flex flex-col gap-0.5">
                 <h1 className="text-4xl text-white font-bold">
                   {" "}
                   {profile.name}
@@ -490,12 +493,20 @@ function MyProfile() {
                   Job Title:{" "}
                   <span className="text-gray-400">{profile.cargo}</span>
                 </SectionTitle>
-                <SectionTitle className="text-white text-lg">
-                  Email: <span className="text-gray-400">{profile.email}</span>
+                <SectionTitle className=" text-white text-lg">
+                  Email: <span className="text-gray-400 text-lg pr-1">
+                    {showEmail ? <span className="-tracking-tighter">••••••••••••••••••••••••</span> : profile.email}</span>
+                  <span
+                    onClick={() => SetShowEmail(!showEmail)}
+                    className="text-gray-400 cursor-pointer">
+                    {showEmail ? <VisibilityOffOutlinedIcon /> :
+                      <VisibilityOutlinedIcon
+                      />}
+                  </span>
                 </SectionTitle>
                 <SectionTitle className="text-white flex items-center gap-2">
                   Senha:
-                  <span className=" tracking-[0.3rem] text-xl">••••••••</span>
+                  <span className=" text-gray-400 -tracking-tighter text-xl">••••••••</span>
                 </SectionTitle>
               </div>
               <div className="w-full flex justify-end items-baseline text-white ">
@@ -823,7 +834,7 @@ function MyProfile() {
             </header>
           ) : (
             <header
-              className="w-80 h-95 min-[400px]:w-100 min-[600px]:w-120 
+              className="w-88 h-95 min-[400px]:w-100 min-[600px]:w-100 
               relative top-5 p-2 flex flex-col justify-center items-center bg-[#3F434C] 
           rounded-2xl gap-1"
             >
@@ -841,11 +852,19 @@ function MyProfile() {
                   <span className="text-gray-400">{profile.cargo}</span>
                 </SectionTitle>
                 <SectionTitle className="text-white">
-                  Email: <span className="text-gray-400">{profile.email}</span>
+                  Email: <span className="text-gray-400 text-lg pr-1">
+                    {showEmail ? <span className="-tracking-tighter">••••••••••••••••••••••••</span> : profile.email}</span>
+                  <span
+                    onClick={() => SetShowEmail(!showEmail)}
+                    className="text-gray-400 cursor-pointer">
+                    {showEmail ? <VisibilityOffOutlinedIcon /> :
+                      <VisibilityOutlinedIcon
+                      />}
+                  </span>
                 </SectionTitle>
                 <SectionTitle className="text-white flex items-center gap-2">
                   Senha:
-                  <span className=" tracking-[0.3rem] text-xl">••••••••</span>
+                  <span className=" text-gray-400 -tracking-tighter text-xl">••••••••</span>
                 </SectionTitle>
               </div>
               <div className="w-full flex justify-center items-baseline text-white ">
@@ -856,6 +875,7 @@ function MyProfile() {
                 >
                   Edit Profile
                 </button>
+
               </div>
             </header>
           )}
