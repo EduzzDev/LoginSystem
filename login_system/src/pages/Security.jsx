@@ -113,7 +113,7 @@ function Security() {
   return (
     <>
       {/* Menu PC */}
-      <div className="relative w-screen h-screen hidden lg:block bg-[#2D3035] overflow-x-hidden overflow-y-hidden ">
+      <div className="relative w-screen h-screen  hidden lg:block bg-[#2D3035] overflow-x-hidden overflow-y-hidden ">
         <nav className="w-screen hidden  lg:flex justify-end">
           <div
             className="bg-[#1A1C20] w-full flex justify-between
@@ -123,13 +123,13 @@ function Security() {
               <Zap className="relative mr-1 ml-1 " />
               <span className="font-extrabold">Login</span>System
             </h1>
-            <div className=" flex  absolute left-1/5 ml-2 right-0">
+            <div className=" flex  absolute left-1/5 2xl:left-1/8 ml-2 right-0">
               <span className="text-gray-500 flex-col  text-[18px]">
                 Dashboard {">"}{" "}
                 <span className="text-white text-[18px]">Security</span>
               </span>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 max-2xl:gap-8  min-[3840px]:gap-12">
               <div className="flex items-center relative">
                 <Search
                   className="text-[#9CA3AF] w-5 left-8
@@ -138,7 +138,7 @@ function Security() {
                 <input
                   type="text"
                   placeholder="Buscar"
-                  className=" w-60 h-10  pl-10 relative
+                  className=" w-60 2xl:w-120 h-10  pl-10 relative
                    border-[#3d4044] border rounded-lg
                    bg-[#2D3035] outline-0 text-gray-100"
                 />
@@ -160,7 +160,7 @@ function Security() {
           </div>
         </nav>
         <nav
-          className="  w-[22%] xl:w-[18%] h-full  flex flex-col justify-center
+          className="  w-[22%] xl:w-[18%] 2xl:w-[12%] h-full  flex flex-col justify-center
            pl-5 border-r 
          border-gray-600  relative  text-white bg-[#1A1C20] 
            "
@@ -274,8 +274,8 @@ function Security() {
         </div>
       </div>
       {/* Menu Mobile*/}
-      <div className="w-screen h-screen lg:hidden bg-[#2D3035]">
-        <nav className="w-screen lg:hidden  flex justify-center">
+      <div className="w-full  min-h-screen lg:hidden bg-[#2D3035]">
+        <nav className="w-full lg:hidden  flex justify-center">
           <div
             className="bg-[#1A1C20] w-full flex justify-between
              h-18 items-center rounded-t-lg -translate-x-0.5  border-b  border-gray-700 text-gray-200 "
@@ -293,6 +293,85 @@ function Security() {
           </div>
         </nav>
 
+        <div className="w-full mb-5 pt-6 min-[430px]:w-100 md:w-180 md:grid md:grid-cols-2 
+        flex flex-col gap-5 p-4 text-gray-100 mx-auto pb-25">
+          <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-5 space-y-4">
+            <div>
+              <h1 className="text-xl font-bold">Account Security</h1>
+              <p className="text-xs text-gray-400 mt-1">Manage your account security and active sessions.</p>
+            </div>
+
+            <p className="text-xs font-normal text-gray-300">Your account is protected</p>
+
+            <div className="p-3 bg-[#252630] rounded-lg">
+              <div className="flex flex-row items-center gap-4 text-xs font-medium">
+                <span className="flex items-center gap-1.5">
+                  <DoneIcon className="text-green-500 text-sm" /> Password
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <DoneIcon className="text-green-500 text-sm" /> Sessions
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-5 space-y-4">
+            <h2 className="text-base font-semibold">Active Sessions</h2>
+            <p className="text-xs text-gray-400">Manage devices currently signed in:</p>
+
+            <div className="space-y-3">
+              {userInfo?.session?.map((sessao) => (
+                <div key={sessao.jti} className="flex items-center justify-between gap-2 p-3
+                 bg-[#252630] rounded-lg">
+                  <div className="min-w-0">
+                    <p className="font-medium text-xs text-gray-200 truncate">
+                      {sessao.device_info} <span className="text-[10px] text-gray-400 block">{sessao.ip_address}</span>
+                    </p>
+                    <span className="text-[10px] text-green-400 font-medium">● Active Now</span>
+                  </div>
+
+                  <button
+                    onClick={() => handleRevoke(sessao.jti)}
+                    className="shrink-0 text-[11px] text-red-400 hover:text-red-300 border border-red-500/30 px-2.5 py-1.5 rounded-md transition cursor-pointer"
+                  >
+                    Revoke Access
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-5 space-y-4 md:min-w-full">
+            <h2 className="text-base font-semibold text-center">Activity History</h2>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs min-w-[320px] md:min-w-85">
+                <thead className="text-gray-400 border-b border-gray-800">
+                  <tr>
+                    <th className="pb-2 font-medium">Action</th>
+                    <th className="pb-2 font-medium">Date and Time</th>
+                    <th className="pb-2 font-medium">Device / IP</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-800 text-gray-300">
+                  {userInfo?.session?.map((item, index) => {
+                    const dataFormatada = new Date(item.created_at).toLocaleString('en-US', {
+                      hour12: false
+                    });
+                    return (
+                      <tr key={item.id || index}>
+                        <td className="py-2.5 pr-2">Login successfully</td>
+                        <td className="py-2.5 pr-2 text-gray-400 whitespace-nowrap">{dataFormatada}</td>
+                        <td className="py-2.5 text-gray-400">{item.device_info || item.ip_address}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
         <footer className="fixed right-0 left-0 bottom-0 p-2 border-t-[#31353a] text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur">
           <ul
             className="
