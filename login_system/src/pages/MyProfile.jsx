@@ -357,7 +357,7 @@ function MyProfile() {
                     maxLength={254}
                   />
                   <SectionTitle className=" flex items-center gap-2">
-                    Senha:
+                    Password:
                   </SectionTitle>
                   <div className="w-full flex flex-row justify-end items-center">
                     <ProfileInput
@@ -505,7 +505,7 @@ function MyProfile() {
                   </span>
                 </SectionTitle>
                 <SectionTitle className="text-white flex items-center gap-2">
-                  Senha:
+                  Password:
                   <span className=" text-gray-400 -tracking-tighter text-xl">••••••••</span>
                 </SectionTitle>
               </div>
@@ -656,7 +656,7 @@ function MyProfile() {
                     maxLength={254}
                   />
                   <SectionTitle className="  flex items-center ">
-                    Senha:
+                    Password:
                   </SectionTitle>
                   <div className=" flex flex-row justify-baseline items-center  ">
                     <ProfileInput
@@ -863,7 +863,7 @@ function MyProfile() {
                   </span>
                 </SectionTitle>
                 <SectionTitle className="text-white flex items-center gap-2">
-                  Senha:
+                  Password:
                   <span className=" text-gray-400 -tracking-tighter text-xl">••••••••</span>
                 </SectionTitle>
               </div>
