@@ -23,22 +23,24 @@ function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
-    const loadingToast = toast.loading("registering the account");
     e.preventDefault();
+    const loadingToast = toast.loading("registering the account");
     setError("");
     try {
-      toast.dismiss(loadingToast);
       await registerUser({ nome, email, senha });
+      toast.dismiss(loadingToast);
       navigate("/");
       toast.success("successfully registered");
     } catch (err) {
-      if (err.error === "EMAIL_ALREADY_REGISTERED") {
+      const message = err?.message || err?.error || "Unexpected error!";
+
+      toast.dismiss(loadingToast);
+      if (err?.error === "EMAIL_ALREADY_REGISTERED") {
         setError("Email address is already in use");
       } else {
-        setError(err.message || err.error || "Unexpected error!");
+        setError(message);
       }
-      toast.error(err.message)
-
+      toast.error(message);
     }
   };
 

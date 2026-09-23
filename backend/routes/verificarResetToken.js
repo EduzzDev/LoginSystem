@@ -2,6 +2,8 @@ import pkg from "jsonwebtoken"
 const { verify } = pkg;
 
 function verificarResetToken(req, res, next) {
+    const token = req.body?.token || req.query?.token;
+
     if (!token) {
         return res.status(401).json({ error: "Unauthorized" })
     }

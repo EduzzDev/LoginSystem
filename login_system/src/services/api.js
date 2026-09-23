@@ -9,7 +9,15 @@ export const registerUser = async (data) => {
     },
     body: JSON.stringify(data),
   });
-  const result = await res.json();
+  const text = await res.text();
+  let result;
+
+  try {
+    result = JSON.parse(text);
+  } catch {
+    throw new Error("The server returned an invalid response.");
+  }
+
   if (!res.ok) {
     throw result;
   }
@@ -117,7 +125,7 @@ export async function forgotPassword(data) {
   let result
   try {
     result = JSON.parse(text)
-  } catch (e) {
+  } catch {
     console.error("The server returned HTML instead of JSON:", text)
     throw new Error("The server encountered an internal error, or the route could not be found.")
   }

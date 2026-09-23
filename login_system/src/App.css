@@ -7,8 +7,8 @@
 	justify-items: center;
 	gap: 1rem;
 	color: #334155;
-	background: #3F434C;
-}
+	background-color: #3F434C;
+} 
 
 .loading-spinner {
 	width: 2.5rem;
