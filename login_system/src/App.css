@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+.loading-screen {
+	min-height: 100vh;
+	display: grid;
+	place-content: center;
+	justify-items: center;
+	gap: 1rem;
+	color: #334155;
+	background: #3F434C;
+}
+
+.loading-spinner {
+	width: 2.5rem;
+	height: 2.5rem;
+	border: 3px solid #cbd5e1;
+	border-top-color: #2563eb;
+	border-radius: 50%;
+	animation: loading-spin 0.8s linear infinite;
+}
+
+.loading-message {
+	margin: 0;
+	font-size: 0.95rem;
+	font-weight: 600;
+}
+
+@keyframes loading-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
