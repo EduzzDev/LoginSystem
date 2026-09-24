@@ -19,9 +19,11 @@ import {
   ChevronDown,
   Search,
   MoreHorizontal,
-  CircleHelp
+  CircleHelp,
 } from "lucide-react";
 import Drawer from "@mui/material/Drawer";
+import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
+import QuestionImg from "../assets/questionImg.png"
 
 function HelpPage() {
   const navigate = useNavigate();
@@ -143,7 +145,30 @@ function HelpPage() {
             </SideBarItem>
           </div>
         </nav>
+        <div className="w-full  max-w-2xl p-2 text-gray-100 mx-auto
+         z-10 relative bottom-1/1 translate-y-4 lg:translate-1/8 xl:-translate-x-1/10 2xl:-translate-x-1/5 rounded-2xl bg-[#141925]">
+          <div className="w-full bg-[#1F223B] p-2 rounded-xl flex flex-col justify-center h-40">
+            <div className="flex flex-row items-center justify-between w-full ">
+              <div className="flex flex-row items-center">
+                <div className="flex flex-row h-12 w-12 items-center justify-center rounded-3xl bg-[#5855e2] m-2">
+                  <QuestionMarkOutlinedIcon
+                    sx={{ fontSize: 32 }}
+                    className="text-white"
+                  />
+                </div>
+                <h1 className="text-2xl ml-2">Frequently asked questions (FAQ)</h1>
+              </div>
+              <img className="w-40 translate-5" src={QuestionImg} alt="FAQ Image" />
+            </div>
+            <h2 className="ml-14 translate-x-2 -translate-y-4 mb-4 bottom-4 p-2 relative text-left">
+              Find quick answers to the most common questions about <br />
+              your account and the system.
+            </h2>
+          </div>
+        </div>
       </div>
+
+      {/* Menu mobile */}
       <div className="w-screen h-screen lg:hidden bg-[#2D3035]">
         <nav className="w-screen lg:hidden  flex justify-center">
           <div
