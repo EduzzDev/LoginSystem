@@ -115,9 +115,9 @@ function Dashboard() {
           </div>
         </nav>
         <nav
-          className=" w-[22%] xl:w-[18%] h-full  flex flex-col justify-center
+          className="absolute left-0 top-18 w-[22%] xl:w-[18%] h-[calc(100vh-4.5rem)] flex flex-col justify-center
            pl-5 border-r 
-         border-gray-600  relative  text-white bg-[#1A1C20] 
+         border-gray-600 text-white bg-[#1A1C20] 
            "
         >
           <div className=" flex flex-col items-center   relative ">

@@ -160,9 +160,9 @@ function Security() {
           </div>
         </nav>
         <nav
-          className="  w-[22%] xl:w-[18%] 2xl:w-[12%] h-full  flex flex-col justify-center
+          className="absolute left-0 top-18 w-[22%] xl:w-[18%] 2xl:w-[12%] h-[calc(100vh-4.5rem)] flex flex-col justify-center
            pl-5 border-r 
-         border-gray-600  relative  text-white bg-[#1A1C20] 
+         border-gray-600 text-white bg-[#1A1C20] 
            "
         >
           <div className=" flex flex-col items-center   relative ">
@@ -194,7 +194,7 @@ function Security() {
         </nav>
         {/* PC */}
         <div className=" w-205 max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6 p-6 
-         text-gray-100 mx-auto space-y-4 z-10 relative bottom-1/1 translate-y-2   rounded-2xl left-10 md:left-18 md:translate-x-10 ">
+         text-gray-100 mx-auto space-y-4 z-10 relative translate-y-2   rounded-2xl left-10 md:left-18 md:translate-x-10 ">
           <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4">
             <div>
               <h1 className="text-2xl font-bold">Account Security</h1>
