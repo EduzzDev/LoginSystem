@@ -171,7 +171,7 @@ function HelpPage() {
            open:bg-gray-900 open:border-purple-500/50 mb-2">
             <summary className="flex cursor-pointer items-center
              justify-between list-none select-none">
-              <div className="flex items-center gap-4">
+              <div className="flex  items-center gap-4">
                 <div className="flex h-10 w-10 shrink-0 items-center
                  justify-center rounded-lg bg-purple-950/60
                  text-purple-400 border border-purple-800/40">
@@ -189,11 +189,11 @@ function HelpPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </summary>
-            <div className="mt-4 pt-3 border-t border-gray-800 text-xs text-gray-300 leading-relaxed">
-              <p>1. Go to the My Profile page.<br />
-                2. Click to edit your profile <br />
-                3. Enter your new password in the Enter passwordfield. <br />
-                4. Click on Save changes and then enter your current password</p>
+            <div className=" mt-4 pt-3 border-t border-gray-800 text-xs text-gray-300 leading-relaxed">
+              <p><strong>Step 1:</strong> Go to the My Profile page.<br /> </p>
+              <p><strong>Step 2:</strong> Click to edit your profile <br /></p>
+              <p><strong>Step 3:</strong> Enter your new password in the Enter passwordfield. <br /></p>
+              <p><strong>Step 4:</strong></p><p> Click on Save changes and then enter your current password</p>
             </div>
           </details>
           <details className="group rounded-xl border border-gray-800
@@ -305,11 +305,44 @@ function HelpPage() {
                 check your connection or contact support for help.</p>
             </div>
           </details>
-        </div>
-      </div>
+          <details className="group rounded-xl border border-gray-800
+           bg-[#1F223B] p-4 transition-all duration-200
+           open:bg-gray-900 open:border-purple-500/50 mb-2">
+            <summary className="flex cursor-pointer items-center
+             justify-between list-none select-none">
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center 
+                justify-center rounded-lg bg-purple-950/60
+                 text-purple-400 border border-purple-800/40">
+                  <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium text-gray-200"
+                  >
+                    How do I update my account information?
+                  </h3>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    Find out how to change your name, email, profile picture and other account details.
+                  </p>
+                </div>
+              </div>
+              <svg className="h-4 w-4 text-gray-400 transition-transform duration-200 group-open:rotate-180 shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div className="mt-4 pt-3 border-t border-gray-800 text-xs text-gray-300 leading-relaxed">
+              <p><strong>Step 1:</strong> Go to your profile and click the "Edit Profile" button.</p>
+              <p><strong>Step 2:</strong> Change the relevant details (name, job title, email address or password) and click "Save changes".</p>
+              <p><strong>Step 3:</strong> Enter your current password in the confirmation window and click "Confirm" to save the changes.</p>
+            </div>
+          </details>
+        </div >
+      </div >
 
       {/* Menu mobile */}
-      <div className="w-screen h-screen lg:hidden bg-[#2D3035]">
+      < div className="w-screen h-screen lg:hidden bg-[#2D3035]" >
         <nav className="w-screen lg:hidden  flex justify-center">
           <div
             className="bg-[#1A1C20] w-full flex justify-between
@@ -391,7 +424,7 @@ function HelpPage() {
             </div>
           </Drawer>
         </footer>
-      </div>
+      </div >
     </>
   );
 }
