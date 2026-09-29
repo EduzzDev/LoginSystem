@@ -188,7 +188,7 @@ function MyProfile() {
                 <span className="text-white text-[18px]">My Profile</span>
               </span>
             </div>
-            <div className="flex items-center gap-4 max-2xl:gap-8  min-[3840px]:gap-12">
+            <div className="flex items-center gap-4 2xl:gap-8  min-[3840px]:gap-12">
               <div className="flex items-center relative">
                 <Search
                   className="text-[#9CA3AF] w-5 left-8

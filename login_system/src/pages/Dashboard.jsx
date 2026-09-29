@@ -78,13 +78,13 @@ function Dashboard() {
               <Zap className="relative mr-1 ml-1 " />
               <span className="font-extrabold">Login</span>System
             </h1>
-            <div className=" flex  absolute left-1/5 ml-2 right-0">
+            <div className=" flex  absolute left-1/5 2xl:left-1/8 ml-2 right-0">
               <span className="text-gray-500 flex-col  text-[18px]">
                 Dashboard {">"}{" "}
                 <span className="text-white text-[18px]">General</span>
               </span>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 2xl:gap-8  min-[3840px]:gap-12">
               <div className="flex items-center relative">
                 <Search
                   className="text-[#9CA3AF] w-5 left-8
@@ -93,7 +93,7 @@ function Dashboard() {
                 <input
                   type="text"
                   placeholder="Buscar"
-                  className=" w-60 h-10  pl-10 relative
+                  className=" w-60  2xl:w-120 h-10  pl-10 relative
                    border-[#3d4044] border rounded-lg
                    bg-[#2D3035] outline-0 text-gray-100"
                 />
@@ -115,7 +115,7 @@ function Dashboard() {
           </div>
         </nav>
         <nav
-          className="absolute left-0 top-18 w-[22%] xl:w-[18%] h-[calc(100dvh-4.5rem)] flex flex-col justify-center
+          className="absolute left-0 top-18 w-[22%] xl:w-[18%] 2xl:w-[12%] h-[calc(100dvh-4.5rem)] flex flex-col justify-center
            pl-5 border-r 
          border-gray-600 text-white bg-[#1A1C20] 
            "
