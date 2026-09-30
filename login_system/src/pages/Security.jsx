@@ -221,9 +221,9 @@ function Security() {
               <h2 className="text-lg font-semibold">Active Sessions</h2>
               <p className="text-[14px] font-normal">Manage devices currently signed in:</p>
 
-              <div className="">
+              <div className="flex flex-col gap-2.5">
                 {userInfo?.session?.map((sessao) => (
-                  <div key={sessao.jti} className="flex items-center justify-between p-3 bg-[#252630] rounded-lg">
+                  <div key={sessao.jti} className="flex items-center  justify-between p-3 bg-[#252630] rounded-lg">
                     <div>
                       <p className="font-medium text-sm">
                         {sessao.device_info} <span className="text-xs text-gray-400">{sessao.ip_address}</span>
