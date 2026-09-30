@@ -193,9 +193,10 @@ function Security() {
           </div>
         </nav>
         {/* PC */}
-        <main className=" ml-62 2xl:ml-65 mt-18 flex min-h-[calc(100dvh-4.5rem)] min-w-0 flex-1 justify-center px-6 py-6">
+        <main className=" ml-62 2xl:ml-65 mt-18 flex min-h-[calc(100dvh-4.5rem)] min-w-0
+         flex-1 justify-center px-6 py-6">
           <div className="grid w-full max-w-3xl grid-cols-1 gap-6 self-start p-6 text-gray-100 md:grid-cols-2">
-            <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4">
+            <div className="max-h-60 bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4">
               <div>
                 <h1 className="text-2xl font-bold">Account Security</h1>
                 <p className="text-sm text-gray-400">Manage your account security and active sessions.</p>
@@ -223,7 +224,7 @@ function Security() {
 
               <div className="flex flex-col gap-2.5">
                 {userInfo?.session?.map((sessao) => (
-                  <div key={sessao.jti} className="flex items-center  justify-between p-3 bg-[#252630] rounded-lg">
+                  <div key={sessao.jti} className="flex items-center justify-between p-3.5 bg-[#252630] rounded-lg">
                     <div>
                       <p className="font-medium text-sm">
                         {sessao.device_info} <span className="text-xs text-gray-400">{sessao.ip_address}</span>
