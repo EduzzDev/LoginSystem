@@ -219,9 +219,9 @@ function MyProfile() {
           </div>
         </nav>
         <nav
-          className="absolute left-0 top-18 w-[22%] xl:w-[18%] 2xl:w-[12%] h-[calc(100dvh-4.5rem)] flex flex-col justify-center
+          className="absolute left-0 top-18 min-w-65 2xl:w-90 h-[calc(100dvh-4.5rem)] flex flex-col justify-center
            pl-5 border-r 
-         border-gray-600 text-white bg-[#1A1C20] 
+         border-gray-600 text-white bg-[#1A1C20] z-10
            "
         >
           <div className=" flex flex-col items-center   relative ">
@@ -251,13 +251,14 @@ function MyProfile() {
             </SideBarItem>
           </div>
         </nav>
-        <main className="w-full flex justify-center relative ">
+        <main className="w-full lg:left-10 translate-x-5 flex justify-center relative ">
           {isEditing ? (
             <header
               className="w-[50dvw] max-[1100px]:w-[58dvw]
-              2xl:max-w-[40dvw] min-[2040px]:w-[32dvw] min-[3840px]:w-[22dvw] h-auto min-h-100
+              2xl:max-w-[40dvw] min-[2040px]:w-[32dvw] min-[3840px]:w-[22dvw] h-auto
+               min-h-100
                 relative top-5 flex flex-col lg:left-10 bg-[#3F434C] 
-                 rounded-2xl translate-x-5 pb-8  justify-center mx-px "
+                 rounded-2xl pb-8  justify-center mx-px "
             >
               <div className="w-full flex justify-between items-center px-6 py-4">
                 <Button
@@ -477,8 +478,9 @@ function MyProfile() {
             </header>
           ) : (
             <header
-              className="w-175 2xl:w-[32dvw]  relative top-5 p-2 flex  bg-[#3F434C] 
-          rounded-2xl gap-2 translate-x-1/6 xl:translate-0"
+              className="w-full max-w-2xl
+               mx-auto mt-5 p-2 flex flex-col sm:flex-row items-center
+                bg-[#3F434C] rounded-2xl gap-2 translate-x-8 left-2 relative"
             >
               <img
                 className="w-30 h-30 mr-5 ml-2.5 rounded-3xl "

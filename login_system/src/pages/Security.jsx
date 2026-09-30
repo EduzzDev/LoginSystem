@@ -113,8 +113,8 @@ function Security() {
   return (
     <>
       {/* Menu PC */}
-      <div className="relative w-screen h-screen  hidden lg:block bg-[#2D3035] overflow-x-hidden overflow-y-hidden ">
-        <nav className="w-screen hidden  lg:flex justify-end">
+      <div className="relative min-h-dvh hidden lg:flex bg-[#2D3035] overflow-x-hidden overflow-y-auto gap-x-5">
+        <nav className="fixed top-0 left-0 z-20 w-screen hidden lg:flex justify-end">
           <div
             className="bg-[#1A1C20] w-full flex justify-between
              h-18 items-center rounded-t-lg   border-b  border-gray-700 "
@@ -160,9 +160,9 @@ function Security() {
           </div>
         </nav>
         <nav
-          className="absolute left-0 top-18 w-[22%] xl:w-[18%] 2xl:w-[12%] h-[calc(100dvh-4.5rem)] flex flex-col justify-center
-           pl-5 border-r 
-         border-gray-600 text-white bg-[#1A1C20] 
+          className="fixed left-0 top-18 min-w-65 2xl:w-90 h-[calc(100dvh-4.5rem)] flex flex-col justify-center 2xl:justify-start 2xl:pt-100
+           pl-5 border-r
+         border-gray-600 text-white bg-[#1A1C20]
            "
         >
           <div className=" flex flex-col items-center   relative ">
@@ -193,85 +193,86 @@ function Security() {
           </div>
         </nav>
         {/* PC */}
-        <div className=" w-205 max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6 p-6 
-         text-gray-100 mx-auto space-y-4 z-10 relative translate-y-2   rounded-2xl left-10 md:left-18 md:translate-x-10 ">
-          <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4">
-            <div>
-              <h1 className="text-2xl font-bold">Account Security</h1>
-              <p className="text-sm text-gray-400">Manage your account security and active sessions.</p>
-            </div>
-            <p className="text-[14px] font-normal">Your account is protected </p>
-            <div className="space-y-3">
-              <div className="flex  items-center justify-between p-3 bg-[#252630] rounded-lg">
-                <div className=" flex flex-row gap-2">
-                  <p className="font-medium text-sm px-2"><span className="text-green-500">
-                    <DoneIcon />
-                  </span> Password</p>
-                  <p className="font-medium text-sm ">
-                    <span className="text-green-500">
+        <main className=" ml-62 2xl:ml-65 mt-18 flex min-h-[calc(100dvh-4.5rem)] min-w-0 flex-1 justify-center px-6 py-6">
+          <div className="grid w-full max-w-3xl grid-cols-1 gap-6 self-start p-6 text-gray-100 md:grid-cols-2">
+            <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4">
+              <div>
+                <h1 className="text-2xl font-bold">Account Security</h1>
+                <p className="text-sm text-gray-400">Manage your account security and active sessions.</p>
+              </div>
+              <p className="text-[14px] font-normal">Your account is protected </p>
+              <div className="space-y-3">
+                <div className="flex  items-center justify-between p-3 bg-[#252630] rounded-lg">
+                  <div className=" flex flex-row gap-2">
+                    <p className="font-medium text-sm px-2"><span className="text-green-500">
                       <DoneIcon />
-                    </span>
-                    Sessions
-                  </p>
+                    </span> Password</p>
+                    <p className="font-medium text-sm ">
+                      <span className="text-green-500">
+                        <DoneIcon />
+                      </span>
+                      Sessions
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4 ">
-            <h2 className="text-lg font-semibold">Active Sessions</h2>
-            <p className="text-[14px] font-normal">Manage devices currently signed in:</p>
+            <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4 ">
+              <h2 className="text-lg font-semibold">Active Sessions</h2>
+              <p className="text-[14px] font-normal">Manage devices currently signed in:</p>
 
-            <div className="space-y-3">
-              {userInfo?.session?.map((sessao) => (
-                <div key={sessao.jti} className="flex items-center justify-between p-3 bg-[#252630] rounded-lg">
-                  <div>
-                    <p className="font-medium text-sm">
-                      {sessao.device_info} <span className="text-xs text-gray-400">{sessao.ip_address}</span>
-                    </p>
-                    <span className="text-xs text-green-400">● Active Now</span>
-                  </div>
+              <div className="">
+                {userInfo?.session?.map((sessao) => (
+                  <div key={sessao.jti} className="flex items-center justify-between p-3 bg-[#252630] rounded-lg">
+                    <div>
+                      <p className="font-medium text-sm">
+                        {sessao.device_info} <span className="text-xs text-gray-400">{sessao.ip_address}</span>
+                      </p>
+                      <span className="text-xs text-green-400">● Active Now</span>
+                    </div>
 
-                  <button
-                    onClick={() => handleRevoke(sessao.jti)}
-                    className="text-xs text-red-400 hover:text-red-300 border
+                    <button
+                      onClick={() => handleRevoke(sessao.jti)}
+                      className="text-xs text-red-400 hover:text-red-300 border
                      border-red-500/30 px-3 py-1.5 rounded-md transition cursor-pointer"
-                  >
-                    Revoke Access
-                  </button>
-                </div>
-              ))}
+                    >
+                      Revoke Access
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4 col-span-2 max-w-3xl items-center">
+              <h2 className="text-lg font-semibold text-center -translate-1.5">Activity History</h2>
+
+              <div className="overflow-x-auto ">
+                <table className="w-full text-left text-sm">
+                  <thead className="text-gray-400 border-b border-gray-800">
+                    <tr>
+                      <th className="pb-3 font-medium">Action</th>
+                      <th className="pb-3 font-medium">Date and Time</th>
+                      <th className="pb-3 font-medium">Device / IP</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-800 text-gray-300">
+                    {userInfo?.session?.map((item, index) => {
+                      const dataFormatada = new Date(item.created_at).toLocaleString('en-US', {
+                        hour12: false
+                      }); return (
+                        <tr key={item.id || index}>
+                          <td className="py-3">Login successfully</td>
+                          <td className="py-3 text-gray-400">{dataFormatada}</td>
+                          <td className="py-3 text-gray-400">{item.device_info || item.ip_address}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-
-          <div className="bg-[#1e1f26] border border-gray-800 rounded-xl p-6 space-y-4 col-span-2 max-w-3xl items-center">
-            <h2 className="text-lg font-semibold text-center -translate-1.5">Activity History</h2>
-
-            <div className="overflow-x-auto ">
-              <table className="w-full text-left text-sm">
-                <thead className="text-gray-400 border-b border-gray-800">
-                  <tr>
-                    <th className="pb-3 font-medium">Action</th>
-                    <th className="pb-3 font-medium">Date and Time</th>
-                    <th className="pb-3 font-medium">Device / IP</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-800 text-gray-300">
-                  {userInfo?.session?.map((item, index) => {
-                    const dataFormatada = new Date(item.created_at).toLocaleString('en-US', {
-                      hour12: false
-                    }); return (
-                      <tr key={item.id || index}>
-                        <td className="py-3">Login successfully</td>
-                        <td className="py-3 text-gray-400">{dataFormatada}</td>
-                        <td className="py-3 text-gray-400">{item.device_info || item.ip_address}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+        </main>
       </div>
       {/* Menu Mobile*/}
       <div className="w-full  min-h-screen lg:hidden bg-[#2D3035]">
