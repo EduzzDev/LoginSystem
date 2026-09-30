@@ -34,6 +34,8 @@ app.use(
           undefined,
           "http://localhost:5173",
           "http://127.0.0.1:5173",
+          "http://localhost:5174",
+          "http://127.0.0.1:5174",
           "http://localhost:3000",
         ]
         : ["https://login-system-eta-rose.vercel.app"];
@@ -98,7 +100,7 @@ initSocket(httpServer, {
     origin: (origin, callback) => {
       const isDevelopment = process.env.NODE_ENV !== "production";
       const allowedOrigins = isDevelopment
-        ? [undefined, "http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"]
+        ? [undefined, "http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174", "http://127.0.0.1:5174", "http://localhost:3000"]
         : ["https://login-system-eta-rose.vercel.app"];
 
       if (!origin || allowedOrigins.includes(origin) || (!isDevelopment && origin?.startsWith("https://login-system-eta-rose.vercel.app"))) {
