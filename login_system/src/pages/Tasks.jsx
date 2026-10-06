@@ -138,11 +138,11 @@ function Tasks() {
   return (
     <>
       {/* Menu PC */}
-      <div className="relative w-screen h-screen hidden lg:block bg-[#2D3035] overflow-x-hidden overflow-y-hidden ">
-        <nav className="w-screen hidden  lg:flex justify-end">
+      <div className="relative w-full min-h-dvh hidden lg:block bg-[#2D3035] overflow-x-hidden overflow-y-auto ">
+        <nav className="  hidden  lg:flex justify-end">
           <div
-            className="bg-[#1A1C20] w-full flex justify-between
-             h-18 items-center rounded-t-lg   border-b  border-gray-700 "
+            className=" fixed bg-[#1A1C20] w-full lg:flex justify-between
+             h-18 items-center rounded-t-lg   border-b  border-gray-700  z-10"
           >
             <h1 className="flex  relative text-3xl  items-center text-gray-200">
               <Zap className="relative mr-1 ml-1 " />
@@ -181,9 +181,9 @@ function Tasks() {
           </div>
         </nav>
         <nav
-          className="absolute left-0 top-18 w-65 2xl:w-90 h-[calc(100dvh-4.5rem)] flex flex-col justify-center 2xl:justify-start 2xl:pt-100
+          className="fixed left-0 top-18 w-65 2xl:w-90 min-h-[calc(100dvh-3.8rem)] flex flex-col justify-center 2xl:justify-start 2xl:pt-100
            pl-5 border-r 
-         border-gray-600 text-white bg-[#1A1C20] 
+         border-gray-600 text-white bg-[#1A1C20] z-10
            "
         >
           <div className=" flex flex-col items-center   relative ">
@@ -213,7 +213,7 @@ function Tasks() {
             </SideBarItem>
           </div>
         </nav>
-        <main className="relative">
+        <main className="relative mt-15">
           <div className="px-6 lg:ml-65 2xl:ml-90">
             <div className="w-full h-full hidden lg:flex justify-start relative ">
               {!showInput ? (
@@ -263,7 +263,7 @@ function Tasks() {
             </div>
             <article
               className="w-full text-white flex justify-center flex-col 
-            pt-5 mt-8 relative text-2xl overflow-hidden"
+            pt-5 mt-8 relative text-2xl"
             >
               <div
                 className="w-full relative mx-auto pt-2 pb-5 bg-[#494e57] 
@@ -298,7 +298,7 @@ function Tasks() {
                          border-b border-[#1a1c1f] "
                         key={index}
                       >
-                        <div className="flex justify-start w-screen">
+                        <div className="flex justify-start w-full min-w-0">
                           <button
                             onClick={() => toggleCompleted(index)}
                             className="relative right-5 ml-0.5  cursor-pointer "
@@ -392,8 +392,8 @@ function Tasks() {
         </main>
       </div>
       {/* menu MOBILE*/}
-      <div className="w-screen h-dvh lg:hidden overflow-y-hidden bg-[#2D3035]">
-        <nav className="w-screen lg:hidden  flex justify-center">
+      <div className="w-full h-dvh lg:hidden overflow-x-hidden overflow-y-auto bg-[#2D3035]">
+        <nav className="w-full lg:hidden  flex justify-center">
           <div
             className="bg-[#1A1C20] w-full flex justify-between
              h-18 items-center rounded-t-lg -translate-x-0.5  border-b  border-gray-700 text-gray-200 "
@@ -410,7 +410,7 @@ function Tasks() {
             </div>
           </div>
         </nav>
-        <main className="lg:hidden w-screen overflow-x-hidden">
+        <main className="lg:hidden w-full overflow-x-hidden">
           <div className="w-[80%] min-[500px]:w-[40%] h-full flex lg:hidden justify-start relative ">
             {!showInput ? (
               <button
@@ -462,20 +462,20 @@ function Tasks() {
             pt-5 mt-8 relative text-xl overflow-x-auto"
           >
             <div
-              className=" w-[250dvw] min-[600px]:w-[150dvw] relative mx-auto pt-2 pb-5 bg-[#494e57] 
-              rounded-2xl"
+              className="w-full max-w-4xl relative mx-auto pt-2 pb-5 px-4 bg-[#494e57] 
+              rounded-2xl mb-[calc(80px+24px+env(safe-area-inset-bottom))]"
             >
               <div
-                className=" grid grid-cols-4 gap-4 px-6 py-2
-               border-b border-[#1a1c1f] font-semibold text-white "
+                className=" hidden sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6 sm:py-2
+               sm:border-b sm:border-[#1a1c1f] font-semibold text-white  "
               >
-                <div className=" flex justify-start relative left-3 ">
+                <div className=" flex justify-start md:relative md:left-3 ">
                   <span>Title</span>
                 </div>
-                <div className="flex justify-center relative left-8">
+                <div className="flex justify-center md:relative md:left-8">
                   <span>Expiration Date</span>
                 </div>
-                <div className="flex justify-center relative left-8">
+                <div className="flex justify-center md:relative md:left-8">
                   <span>Important</span>
                 </div>
                 <div className="flex justify-center">
@@ -490,70 +490,78 @@ function Tasks() {
                 ) : (
                   tasks.map((task, index) => (
                     <div
-                      className="grid grid-cols-4 gap-4 px-6 items-center
-                         border-b border-[#1a1c1f] "
+                      className=" flex flex-col gap-3 p-4 my-3 bg-[#3a3f47] rounded-xl border border-[#2c3038]
+                      sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6 sm:items-center sm:bg-transparent sm:p-0
+                         sm:border-b sm:border-[#1a1c1f] sm:my-0 sm:rounded-none sm:border-0 "
                       key={index}
                     >
-                      <div className="flex justify-start w-screen">
+                      <div className="flex  items-center sm:justify-start w-full md:w-auto">
                         <button
                           onClick={() => toggleCompleted(index)}
-                          className="relative right-5 ml-0.5  cursor-pointer "
+                          className="relative sm:right-5 sm:ml-0.5  cursor-pointer shrink-0"
                         >
                           {!task.isCompleted ? <Circle /> : <CircleCheckBig />}
                         </button>
                         <input
-                          className={` lg:w-[19.5dvw] min-[1200px]:w-[22dvw]   p-2  m-1 outline-0 rounded-xl
+                          className={` w-full md:w-auto p-1  m-1 outline-0 rounded-xl
                              hover:border-2 relative 
-                            right-5.5
+                            
                              hover:border-gray-200 bg-transparent text-white ${!task.isCompleted ? "" : "line-through"}`}
                           type="text"
                           value={task.text}
                           onChange={(e) => onChangeTask(e.target.value, index)}
                         />
                       </div>
-                      <div className="flex justify-center items-center  relative left-8.5">
+                      <div className=" w-full flex justify-between  sm:justify-center items-center  relative ">
                         <div
                           className="w-full flex items-center 
-                          justify-center
+                          sm:justify-center  justify-between
                            text-center"
                         >
-                          <input
-                            onClick={() => {
-                              const inputOpen = inputRef.current.get(index);
-                              if (inputOpen) {
-                                inputOpen.showPicker();
+                          <span className="text-sm text-gray-400 sm:hidden mr-2 sm:mr-0">Expiration:</span>
+                          <div className="flex items-center cursor-pointer sm:translate-x-4 md:translate-x-10">
+                            <input
+                              onClick={() => {
+                                const inputOpen = inputRef.current.get(index);
+                                if (inputOpen) {
+                                  inputOpen.showPicker();
+                                }
+                              }}
+                              ref={(element) => {
+                                if (element) {
+                                  inputRef.current.set(index, element);
+                                } else {
+                                  inputRef.current.delete(index);
+                                }
+                              }}
+                              value={task.date}
+                              onChange={(e) =>
+                                handleDateChange(e.target.value, index)
                               }
-                            }}
-                            ref={(element) => {
-                              if (element) {
-                                inputRef.current.set(index, element);
-                              } else {
-                                inputRef.current.delete(index);
-                              }
-                            }}
-                            value={task.date}
-                            onChange={(e) =>
-                              handleDateChange(e.target.value, index)
-                            }
-                            className={`min-w-40 w-40 max-w-42
-                                 cursor-pointer bg-transparent 
-                                 outline-none ${!task.date ? "[&::-webkit-datetime-edit]:hidden" : ""} 
-                                 [&::-webkit-calendar-picker-indicator]:hidden`}
-                            type="date"
-                          />
-                          <CalendarDays
-                            onClick={() => {
-                              const inputOpen = inputRef.current.get(index);
-                              if (inputOpen) {
-                                inputOpen.showPicker();
-                              }
-                            }}
-                            size={20}
-                            className="shrink-0 relative text-blue-500 right-2 "
-                          />
+                              className={`min-w-40 w-40 max-w-42
+                                   cursor-pointer bg-transparent
+                                   outline-none ${!task.date ? "[&::-webkit-datetime-edit]:hidden" : ""}
+                                   [&::-webkit-calendar-picker-indicator]:hidden`}
+                              type="date"
+                            />
+                            <CalendarDays
+                              onClick={() => {
+                                const inputOpen = inputRef.current.get(index);
+                                if (inputOpen) {
+                                  inputOpen.showPicker();
+                                }
+                              }}
+                              size={20}
+                              className=" relative text-blue-500 right-0.5 sm:right-5 "
+                            />
+                          </div>
                         </div>
                       </div>
-                      <div className="flex justify-center relative left-8">
+                      <div className="flex justify-between sm:justify-center border-t
+                       border-[#4c525d] sm:border-0 pt-2 sm:pt-0 md:left-6 relative">
+                        <div className="flex items-center gap-4 sm:gap-0">
+                          <span className="text-sm text-gray-400 sm:hidden">Options:</span>
+                        </div>
                         <button
                           onClick={() => toggleImportant(task, index)}
                           className="cursor-pointer"
@@ -561,7 +569,7 @@ function Tasks() {
                           {!task.important ? (
                             <Star />
                           ) : (
-                            <Star className="fill-white" />
+                            <Star className="fill-yellow-400" />
                           )}
                         </button>
                       </div>
@@ -580,7 +588,8 @@ function Tasks() {
             </div>
           </article>
         </main>
-        <footer className="fixed right-0 left-0 bottom-0 p-2 border-t-[#31353a] text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur">
+        <footer className="fixed right-0 left-0 bottom-0 p-2 border-t-[#31353a]
+         text-gray-200 rounded-t-2xl  bg-[#1b1e22] backdrop-blur">
           <ul
             className="
               w-full
