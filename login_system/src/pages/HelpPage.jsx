@@ -128,7 +128,7 @@ function HelpPage() {
          border-gray-600 text-white bg-[#1A1C20] 
            "
         >
-          <div className=" flex flex-col items-center   relative ">
+          <div className=" flex flex-col items-center  relative ">
             <SideBarItem onClick={() => handleDashboard()}>
               <LayoutDashboard className=" mr-3 " />
               General
@@ -442,26 +442,32 @@ function HelpPage() {
             </div>
           </div>
         </nav>
-        <main className=" w-full  min-[600px]:w-150 sm:translate-x-10  mt-2 flex min-h-[calc(100dvh-3.5rem)] items-center ">
+        <main className=" w-full  min-[600px]:w-150 sm:translate-x-10 
+         mt-2 flex min-h-[calc(100dvh-3.8rem)] items-center ">
           <div className="mx-auto grid w-full content-start grid-cols-1 gap-2 relative mb-[calc(80px+24px+env(safe-area-inset-bottom))]">
             <div className="w-full self-start min-h-auto box-border h-auto p-2  text-gray-100 
            z-10 relative   rounded-2xl
             bg-[#141925]">
               <div className="min-w-full bg-[#1F223B] p-1 rounded-xl
-            flex flex-col justify-center h-40 mb-2">
-                <div className="flex flex-row min-w-full items-center justify-between mt-2 ">
+            flex flex-col justify-center h-50 mb-2">
+                <div className="flex flex-row min-w-full items-center justify-between mt-1.5 ">
                   <div className="flex flex-row items-center">
-                    <div className="flex flex-row items-center justify-center rounded-3xl bg-[#5855e2] m-2 p-1.5 ">
+                    <div className="flex flex-row items-center justify-center
+                     rounded-3xl bg-[#5855e2]  m-2 p-1.5 ">
                       <QuestionMarkOutlinedIcon
                         className="text-white"
                       />
                     </div>
-                    <h1 className="min-w-full text-xl min-[500px]:text-2xl ">Frequently asked questions (FAQ)</h1>
+                    <h1 className="min-w-full text-xl min-[500px]:text-2xl m-2 ">
+                      Frequently asked questions (FAQ)
+                    </h1>
                   </div>
-                  <img className="min-[400px]:w-20  w-15 translate-y-4  min-[500px]:w-30  " src={QuestionImg} alt="FAQ Image" />
+                  <img className="  
+                     translate-4 w-30 max-[350px]:w-25 m-2 " src={QuestionImg} alt="FAQ Image" />
                 </div>
-                <h2 className=" w-full mb-4  p-2 relative translate-y-3 sm:-translate-y-2 translate-x-2 text-left">
-                  Find quick answers to the most common questions about <br />
+                <h2 className=" w-full mb-4  p-2 relative 
+                sm:-translate-y-2 translate-x-2 text-left">
+                  Find quick answers to the most common questions about <br className="max-[450px]:hidden" />
                   your account and the system.
                 </h2>
               </div>
@@ -639,7 +645,7 @@ function HelpPage() {
               </details>
             </div >
             <div className="min-w-0 w-full flex flex-col gap-2">
-              <div className="w-full h-65 p-2 text-gray-100
+              <div className="w-full h-70 p-2 text-gray-100
              z-10 relative rounded-2xl
                 bg-linear-to-br from-[#141925] to-[#4C3FD4] [clip-path:polygon(0_0,0,96%_0,96%_0,96%,0_0,96%)] border border-gray-700">
                 <div className="w-full p-2 m-1">
@@ -678,7 +684,7 @@ function HelpPage() {
                     </svg></button>
                 </div>
               </div>
-              <div className="w-full h-60 p-2 pb-8 text-gray-100
+              <div className="w-full h-65 p-2 pb-8 text-gray-100
              z-10 relative  rounded-2xl
               bg-linear-to-br from-[#141925] to-[#4C3FD4] [clip-path:polygon(0_0,0,96%_0,96%_0,96%,0_0,96%)]
                border border-gray-700">
@@ -714,7 +720,7 @@ function HelpPage() {
                w-full 
                flex flex-row items-center justify-between
                 text-lg
-               min-[600px]:text-2xl"
+               min-[600px]:text-2xl max-[350px]:text-[16px] gap-x-0.5"
           >
             <SideBarMobile onClick={() => handleDashboard()}>
               <LayoutDashboard />
