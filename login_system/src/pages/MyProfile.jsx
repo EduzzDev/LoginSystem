@@ -844,7 +844,7 @@ function MyProfile() {
                 className="w-35 h-35 mr-5 rounded-3xl translate-x-2.5 "
                 src={profile.previewImg}
               />
-              <div className=" w-full flex flex-col items-center gap-0.5 ">
+              <div className=" w-full flex flex-col justify-center items-center gap-1  ">
                 <h1 className="text-4xl text-white font-bold">
                   {" "}
                   {profile.name}
@@ -853,9 +853,9 @@ function MyProfile() {
                   Job Title:{" "}
                   <span className="text-gray-400">{profile.cargo}</span>
                 </SectionTitle>
-                <SectionTitle className="text-white">
+                <SectionTitle className="text-white justify-center">
                   Email: <span className="text-gray-400 text-lg pr-1">
-                    {showEmail ? <span className="-tracking-tighter">••••••••••••••••••••••••</span> : profile.email}</span>
+                    {showEmail ? <span className="-tracking-tighter">•••••••••••</span> : profile.email}</span>
                   <span
                     onClick={() => SetShowEmail(!showEmail)}
                     className="text-gray-400 cursor-pointer">
