@@ -539,7 +539,7 @@ function MyProfile() {
             </div>
             <div className=" flex justify-center items-center mr-2 gap-3.5 p-1.5">
               <Search />
-              <img className="w-10 h-11 rounded-4xl" src={profile.previewImg} alt="previewImg" />
+              <img className="w-10 h-10 rounded-4xl" src={profile.previewImg} alt="previewImg" />
             </div>
           </div>
         </nav>
@@ -841,7 +841,7 @@ function MyProfile() {
           rounded-2xl gap-1"
             >
               <img
-                className="w-40 h-35 mr-5 rounded-3xl translate-x-2.5 "
+                className="w-35 h-35 mr-5 rounded-3xl translate-x-2.5 "
                 src={profile.previewImg}
               />
               <div className=" w-full flex flex-col items-center gap-0.5 ">

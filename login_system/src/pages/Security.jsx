@@ -290,7 +290,7 @@ function Security() {
             </div>
             <div className=" flex justify-center items-center mr-2 gap-3.5 p-1.5">
               <Search />
-              <UserCircle />
+              <img className="w-10" src={imgUser || userImg} alt="img profile" />
             </div>
           </div>
         </nav>

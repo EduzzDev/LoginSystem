@@ -438,7 +438,7 @@ function HelpPage() {
             </div>
             <div className=" flex justify-center items-center mr-2 gap-3.5 p-1.5">
               <Search />
-              <UserCircle />
+              <img className="w-10" src={imgUser || userImg} alt="img profile" />
             </div>
           </div>
         </nav>
@@ -684,7 +684,7 @@ function HelpPage() {
                     </svg></button>
                 </div>
               </div>
-              <div className="w-full h-65 p-2 pb-8 text-gray-100
+              <div className="w-full h-65  p-2 pb-8 text-gray-100
              z-10 relative  rounded-2xl
               bg-linear-to-br from-[#141925] to-[#4C3FD4] [clip-path:polygon(0_0,0,96%_0,96%_0,96%,0_0,96%)]
                border border-gray-700">
