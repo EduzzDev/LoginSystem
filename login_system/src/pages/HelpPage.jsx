@@ -438,7 +438,7 @@ function HelpPage() {
             </div>
             <div className=" flex justify-center items-center mr-2 gap-3.5 p-1.5">
               <Search />
-              <img className="w-10" src={imgUser || userImg} alt="img profile" />
+              <img className="w-10 h-10 rounded-4xl" src={imgUser || userImg} alt="img profile" />
             </div>
           </div>
         </nav>
