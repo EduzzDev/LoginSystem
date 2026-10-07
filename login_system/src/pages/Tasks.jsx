@@ -228,7 +228,7 @@ function Tasks() {
                 </button>
               ) : (
                 <>
-                  <div className="w-[30%] ml-1 top-8 relative text-lg ">
+                  <div className="w-80 ml-1 top-8 relative text-lg ">
                     <input
                       className="w-80 ml-4 mb-2  pl-4 pt-2 pb-1 bg-[#6366F1]
                      hover:border-[#4F46E5] hover:border rounded-xl 
@@ -262,7 +262,7 @@ function Tasks() {
               )}
             </div>
             <article
-              className="w-full text-white flex justify-center flex-col 
+              className="w-full max-w-6xl text-white flex justify-center flex-col 
             pt-5 mt-8 relative text-2xl"
             >
               <div
@@ -370,7 +370,7 @@ function Tasks() {
                             {!task.important ? (
                               <Star />
                             ) : (
-                              <Star className="fill-white" />
+                              <Star className="fill-yellow-300" />
                             )}
                           </button>
                         </div>
@@ -411,10 +411,10 @@ function Tasks() {
           </div>
         </nav>
         <main className="lg:hidden w-full overflow-x-hidden">
-          <div className="w-[80%] min-[500px]:w-[40%] h-full flex lg:hidden justify-start relative ">
+          <div className="w-full sm:w-60 h-full flex lg:hidden justify-end md:justify-start sm:pl-5 pr-5 relative ">
             {!showInput ? (
               <button
-                className=" w-50 h-10 pl-2 pr-2 text-xl left-5 border
+                className=" w-45 h-10 pl-2 pr-2 s text-xl border
                   top-8 relative rounded-xl bg-[#6366F1] border-[#4F46E5]
                    text-[#FFFFFF]  cursor-pointer
                    hover:bg-[#1F2937] hover:text-white"
@@ -424,9 +424,9 @@ function Tasks() {
               </button>
             ) : (
               <>
-                <div className="w-full ml-1 top-8 relative text-lg ">
+                <div className="w-90 ml-1 top-8 relative text-lg ">
                   <input
-                    className="w-60 ml-4 mb-2  pl-4 pt-2 pb-1 bg-[#6366F1]
+                    className="w-70 sm:w-70 ml-4 mb-2  pl-4 pt-2 pb-1 bg-[#6366F1]
                        hover:border-[#4F46E5] hover:border rounded-xl
                       placeholder:text-white text-[#ffffff] outline-none
                       hover:bg-[#1F2937] hover:placeholder:text-white
@@ -462,7 +462,7 @@ function Tasks() {
             pt-5 mt-8 relative text-xl overflow-x-auto"
           >
             <div
-              className="w-full max-w-4xl relative mx-auto pt-2 pb-5 px-4 bg-[#494e57] 
+              className="w-full max-w-2xl relative mx-auto pt-2 pb-5 px-4 bg-[#494e57] 
               rounded-2xl mb-[calc(80px+24px+env(safe-area-inset-bottom))]"
             >
               <div
@@ -490,7 +490,7 @@ function Tasks() {
                 ) : (
                   tasks.map((task, index) => (
                     <div
-                      className=" flex flex-col gap-3 p-4 my-3 bg-[#3a3f47] rounded-xl border border-[#2c3038]
+                      className=" flex flex-col h-48 sm:h-14  gap-3 p-4 my-3 bg-[#3a3f47] rounded-xl border border-[#2c3038]
                       sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6 sm:items-center sm:bg-transparent sm:p-0
                          sm:border-b sm:border-[#1a1c1f] sm:my-0 sm:rounded-none sm:border-0 "
                       key={index}
@@ -573,7 +573,7 @@ function Tasks() {
                           )}
                         </button>
                       </div>
-                      <div className="flex justify-center">
+                      <div className="flex justify-center -translate-y-1.5">
                         <button
                           onClick={() => deleteTask(index)}
                           className="cursor-pointer"
