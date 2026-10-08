@@ -26,9 +26,9 @@
 
 ---
 
-## ✨ Visão geral
+## 🧩 Visão geral
 
-O Login System é uma aplicação full-stack dividida entre um frontend React e uma API Node.js. O utilizador pode criar uma conta, iniciar sessão, gerir os seus dados, acompanhar as sessões ativas e utilizar ferramentas internas de organização.
+O Login System é uma aplicação full-stack com frontend React e API Node.js. Permite criar uma conta, iniciar sessão, gerir os dados do perfil, acompanhar e revogar sessões ativas e organizar tarefas.
 
 O projeto está em desenvolvimento e serve também como base para evoluir uma experiência completa de autenticação e gestão de utilizadores.
 
@@ -60,20 +60,20 @@ O projeto está em desenvolvimento e serve também como base para evoluir uma ex
 - `dotenv` para configuração por variáveis de ambiente
 - `ua-parser-js` para identificar o navegador e o sistema operativo das sessões
 
-## 🌈 Funcionalidades principais
+## 🔑 Funcionalidades principais
 
 - Registo de utilizadores com validação de nome, email e password.
 - Login com JWT, cookie HTTP-only e sessão associada ao dispositivo.
 - Rotas protegidas para dashboard e páginas internas.
 - Dashboard com navegação para as áreas principais da aplicação.
-- Gestão de tarefas com criação, edição, data, prioridade e conclusão.
+- Gestão de tarefas com criação, edição, data, prioridade e conclusão, numa interface responsiva com ações de exclusão mais visíveis.
 - Persistência das tarefas no `localStorage` do navegador.
-- Consulta e edição do perfil, incluindo nome, cargo, email, password e imagem.
-- Página de segurança com sessões ativas, informação do dispositivo e histórico de atividade.
+- Consulta e edição do perfil, incluindo nome, cargo, email, password e imagem, com apresentação adaptada a diferentes ecrãs.
+- Página de segurança com estado da conta, sessões ativas, informação do dispositivo e histórico de atividade.
 - Revogação de sessões individuais, com atualização em tempo real através de Socket.IO.
 - Recuperação de password através de link enviado por EmailJS e token com validade de uma hora.
-- Central de ajuda com perguntas frequentes e orientações para problemas de acesso.
-- Interface responsiva com navegação lateral em desktop e drawer mobile.
+- Central de ajuda com perguntas frequentes expansíveis e orientações passo a passo sobre a conta, tarefas e sessões.
+- Interface responsiva com navegação lateral em desktop e barra de navegação mobile.
 - Notificações de sucesso, carregamento e erro através de React Hot Toast.
 
 ## 🗺️ Páginas disponíveis
@@ -152,7 +152,7 @@ cd login_system
 pnpm dev
 ```
 
-Por defeito, o frontend fica disponível em [http://localhost:5173](http://localhost:5173) e a API em [http://localhost:3000](http://localhost:3000).
+Com as portas predefinidas disponíveis, o frontend Vite fica em [http://localhost:5173](http://localhost:5173/) e a API em [http://localhost:3000](http://localhost:3000/). Se a porta `5173` estiver ocupada, o Vite pode iniciar noutra porta; a porta da API pode ser alterada pela variável `PORT` no `backend/.env`.
 
 ### Scripts disponíveis
 
@@ -195,13 +195,28 @@ LoginSystem/
 
 ## 🖼️ Pré-visualização
 
-As capturas de ecrã podem ser adicionadas nesta secção à medida que a interface for finalizada:
+Veja algumas das páginas da aplicação em desktop e mobile:
 
-```markdown
-![Login](docs/screenshots/login.png)
-![Dashboard](docs/screenshots/dashboard.png)
-![Gestão de tarefas](docs/screenshots/tasks.png)
-```
+<p align="center">
+  <img src="docs/screenshots/profile-desktop.png" width="85%" alt="Página de perfil do Login System em desktop" />
+  <br />
+  <em>Perfil do utilizador — desktop</em>
+</p>
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/security-mobile.png" width="220" alt="Página de segurança e sessões ativas em mobile" />
+      <br />
+      <em>Segurança e sessões — mobile</em>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/help-mobile.png" width="220" alt="Central de ajuda e perguntas frequentes em mobile" />
+      <br />
+      <em>Central de ajuda — mobile</em>
+    </td>
+  </tr>
+</table>
 
 ## 🔐 Notas de segurança e configuração
 
