@@ -379,7 +379,7 @@ function Tasks() {
                             onClick={() => deleteTask(index)}
                             className="cursor-pointer"
                           >
-                            <Trash2 />
+                            <Trash2 className="text-[#E60000]" />
                           </button>
                         </div>
                       </div>
@@ -462,7 +462,7 @@ function Tasks() {
             pt-5 mt-8 relative text-xl overflow-x-auto"
           >
             <div
-              className="w-full max-w-2xl relative mx-auto pt-2 pb-5 px-4 bg-[#494e57] 
+              className="w-full  max-[640px]:max-w-xs sm:max-w-3xl relative mx-auto pt-2 pb-5 px-4 bg-[#494e57] 
               rounded-2xl mb-[calc(80px+24px+env(safe-area-inset-bottom))]"
             >
               <div
@@ -502,6 +502,7 @@ function Tasks() {
                         >
                           {!task.isCompleted ? <Circle /> : <CircleCheckBig />}
                         </button>
+
                         <input
                           className={` w-full md:w-auto p-1  m-1 outline-0 rounded-xl
                              hover:border-2 relative 
@@ -511,16 +512,27 @@ function Tasks() {
                           value={task.text}
                           onChange={(e) => onChangeTask(e.target.value, index)}
                         />
+                        <div className="flex justify-center sm:hidden ">
+                          <button
+                            onClick={() => deleteTask(index)}
+                            className="cursor-pointer"
+                          >
+                            <Trash2 className="text-[#E60000]" />
+                          </button>
+                        </div>
                       </div>
-                      <div className=" w-full flex justify-between  sm:justify-center items-center  relative ">
+
+                      <div className=" w-full flex justify-between  sm:justify-center items-center
+                        relative ">
                         <div
                           className="w-full flex items-center 
                           sm:justify-center  justify-between
                            text-center"
                         >
                           <span className="text-sm text-gray-400 sm:hidden mr-2 sm:mr-0">Expiration:</span>
-                          <div className="flex items-center cursor-pointer sm:translate-x-4 md:translate-x-10">
-                            <input
+                          <div className="flex items-center cursor-pointer
+                           sm:translate-x-4 md:translate-x-10 ">
+                            <input c
                               onClick={() => {
                                 const inputOpen = inputRef.current.get(index);
                                 if (inputOpen) {
@@ -538,7 +550,7 @@ function Tasks() {
                               onChange={(e) =>
                                 handleDateChange(e.target.value, index)
                               }
-                              className={`min-w-40 w-40 max-w-42
+                              className={`min-w-40 w-40 max-w-42 
                                    cursor-pointer bg-transparent
                                    outline-none ${!task.date ? "[&::-webkit-datetime-edit]:hidden" : ""}
                                    [&::-webkit-calendar-picker-indicator]:hidden`}
@@ -552,13 +564,13 @@ function Tasks() {
                                 }
                               }}
                               size={20}
-                              className=" relative text-blue-500 right-0.5 sm:right-5 "
+                              className=" relative text-blue-500 -translate-x-8 sm:-translate-x-2 right-1 sm:right-5 "
                             />
                           </div>
                         </div>
                       </div>
                       <div className="flex justify-between sm:justify-center border-t
-                       border-[#4c525d] sm:border-0 pt-2 sm:pt-0 md:left-6 relative">
+                       border-[#4c525d] sm:border-0 pt-5 sm:pt-0 md:left-6 relative">
                         <div className="flex items-center gap-4 sm:gap-0">
                           <span className="text-sm text-gray-400 sm:hidden">Options:</span>
                         </div>
@@ -573,12 +585,12 @@ function Tasks() {
                           )}
                         </button>
                       </div>
-                      <div className="flex justify-center -translate-y-1.5">
+                      <div className="hidden justify-center sm:flex ">
                         <button
                           onClick={() => deleteTask(index)}
                           className="cursor-pointer"
                         >
-                          <Trash2 />
+                          <Trash2 className="text-[#E60000]" />
                         </button>
                       </div>
                     </div>
