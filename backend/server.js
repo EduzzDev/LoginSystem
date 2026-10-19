@@ -10,6 +10,7 @@ import { UAParser } from 'ua-parser-js';
 import crypto from 'crypto';
 import { createServer } from 'http';
 import { initSocket } from './socket.js';
+import { title } from "process";
 
 dotenv.config();
 
@@ -61,8 +62,9 @@ const httpServer = createServer(app);
 const db = new Database(process.env.DATABASE_PATH || "LoginSystem.db");
 db.pragma("journal_mode = WAL");
 db.pragma("busy_timeout = 5000");
+db.pragma('foreign_keys = ON');
 
-// criar tabela
+// table de usuarios
 db.prepare(
   `
   CREATE TABLE IF NOT EXISTS usuarios (
@@ -76,6 +78,7 @@ db.prepare(
 `,
 ).run();
 
+// table de sessão de login
 db.prepare(`
   CREATE TABLE IF NOT EXISTS sessions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -89,6 +92,26 @@ db.prepare(`
     FOREIGN KEY (user_id) REFERENCES usuarios(id) ON DELETE CASCADE
   )
 `).run();
+
+//table de notificação
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS notifications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    message TEXT NOT NULL,
+    type TEXT NOT NULL,
+    is_read INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES usuarios(id)
+  )
+  `)
+
+function createNotification(userId, { title, message, type }) {
+  db.prepare(
+    "INSERT INTO notifications (user_id, title, message, type) VALUES (?, ?, ?, ?)"
+  ).run(userId, title, message, type);
+}
 
 app.use("/uploads", express.static("uploads"));
 
@@ -199,6 +222,11 @@ app.post("/login", async (req, res) => {
 
     const senhaValid = await bcrypt.compare(senha, user.senha);
     if (!senhaValid) {
+      createNotification(user.id, {
+        title: "Suspicious login attempt",
+        message: "We have detected an attempt to log in with an incorrect password.",
+        type: "security",
+      })
       return res.status(401).json({ message: "Incorrect password" });
     }
 
@@ -227,13 +255,13 @@ app.post("/login", async (req, res) => {
       process.env.JWT_SECRET, {
       expiresIn: "5h",
     });
-
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
+
     res.json({
       success: true,
       message: "Login successful",
