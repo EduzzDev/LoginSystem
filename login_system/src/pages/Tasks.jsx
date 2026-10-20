@@ -1,4 +1,4 @@
-import { checkAuth } from "../services/api";
+import { checkAuth, createNotification } from "../services/api";
 import { logout } from "../services/api";
 import SideBarItem from "../components/SideBarItem";
 import { useEffect, useContext, useRef, useState } from "react";
@@ -26,6 +26,34 @@ import {
   CircleHelp
 } from "lucide-react";
 import Drawer from "@mui/material/Drawer";
+import { use } from "react";
+
+function ensureTaskIds(tasks) {
+  return tasks.map((task) => ({
+    ...task,
+    id: task.id || crypto.randomUUID(),
+    notifiedDate: task.notifiedDate || "",
+  }));
+}
+
+function getExpiredTasks(tasks, today) {
+  return tasks.filter(
+    (task) =>
+      task.id &&
+      task.date &&
+      task.date < today &&
+      !task.isCompleted &&
+      task.notifiedDate !== task.date,
+  );
+}
+
+function markTaskNotified(tasks, taskId, date) {
+  return tasks.map((task) =>
+    task.id === taskId && task.date === date
+      ? { ...task, notifiedDate: date }
+      : task,
+  );
+}
 
 function Tasks() {
   const navigate = useNavigate();
@@ -35,7 +63,7 @@ function Tasks() {
   const [moreOpen, setMoreOpen] = useState(false)
   const [tasks, setTasks] = useState(() => {
     const SavedTasks = localStorage.getItem("lista_tarefas");
-    return SavedTasks ? JSON.parse(SavedTasks) : [];
+    return SavedTasks ? ensureTaskIds(JSON.parse(SavedTasks)) : [];
   });
 
   const inputRef = useRef(new Map());
@@ -78,7 +106,14 @@ function Tasks() {
     if (textLimpo.length >= 5) {
       setTasks([
         ...tasks,
-        { text: textLimpo, date: "", important: false, isCompleted: false },
+        {
+          id: crypto.randomUUID(),
+          text: textLimpo,
+          date: "",
+          important: false,
+          isCompleted: false,
+          notifiedDate: "",
+        },
       ]);
       setInputValue("");
       setShowInput(false);
@@ -98,6 +133,38 @@ function Tasks() {
   }
   useEffect(() => {
     localStorage.setItem("lista_tarefas", JSON.stringify(tasks));
+  }, [tasks]);
+
+  useEffect(() => {
+    const now = new Date();
+    const today = [
+      now.getFullYear(),
+      String(now.getMonth() + 1).padStart(2, "0"),
+      String(now.getDate()).padStart(2, "0"),
+    ].join("-");
+    const taskNotify = getExpiredTasks(tasks, today);
+
+    async function notify() {
+      for (const task of taskNotify) {
+        try {
+          await createNotification({
+            title: task.text,
+            message: "Your task has expired as the expiry date has passed",
+            type: "tasks",
+          });
+
+          setTasks((currentTasks) =>
+            markTaskNotified(currentTasks, task.id, task.date),
+          );
+        } catch (error) {
+          console.error("Could not create expired-task notification:", error);
+        }
+      }
+    }
+
+    if (taskNotify.length > 0) {
+      notify();
+    }
   }, [tasks]);
 
   function handleDateChange(newDate, index) {
@@ -532,7 +599,7 @@ function Tasks() {
                           <span className="text-sm text-gray-400 sm:hidden mr-2 sm:mr-0">Expiration:</span>
                           <div className="flex items-center cursor-pointer
                            sm:translate-x-4 md:translate-x-10 ">
-                            <input c
+                            <input
                               onClick={() => {
                                 const inputOpen = inputRef.current.get(index);
                                 if (inputOpen) {

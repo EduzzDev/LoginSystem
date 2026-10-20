@@ -152,3 +152,19 @@ export const revokeUser = async (jti) => {
   return result;
 };
 
+export const createNotification = async ({ title, message, type }) => {
+  const res = await fetch(`${BASE_URL}/user/notifications`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, message, type })
+  })
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw result;
+  }
+  return result;
+}
