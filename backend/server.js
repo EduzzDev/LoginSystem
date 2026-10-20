@@ -102,14 +102,14 @@ db.prepare(`
     message TEXT NOT NULL,
     type TEXT NOT NULL,
     is_read INTEGER DEFAULT 0,
-    created_at DATETIME DEFAULT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES usuarios(id)
   )
-  `)
+  `).run()
 
-function createNotification(userId, { title, message, type }) {
+function createNotification(userId, { title, message, type, }) {
   db.prepare(
-    "INSERT INTO notifications (user_id, title, message, type) VALUES (?, ?, ?, ?)"
+    "INSERT INTO notifications (user_id, title, message, type,  created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)"
   ).run(userId, title, message, type);
 }
 

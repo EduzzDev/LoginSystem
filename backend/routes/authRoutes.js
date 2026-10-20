@@ -11,9 +11,54 @@ import jwt from "jsonwebtoken";
 import verificarResetToken from "./verificarResetToken.js";
 import { createHash } from "node:crypto";
 import { getIO } from '../socket.js';
+import { error } from "node:console";
 
 const db = new Database("LoginSystem.db");
 db.pragma("foreign_keys = ON");
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS tasks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    text TEXT NOT NULL,
+    date TEXT NOT NULL DEFAULT '',
+    important INTEGER NOT NULL DEFAULT 0,
+    is_completed INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES usuarios(id) ON DELETE CASCADE
+  )
+`);
+
+function normalizeTask(body) {
+  if (
+    typeof body?.text !== "string" ||
+    body.text.trim().length < 5 ||
+    typeof body.date !== "string" ||
+    (body.date !== "" &&
+      (!/^\d{4}-\d{2}-\d{2}$/.test(body.date) ||
+        Number.isNaN(Date.parse(`${body.date}T00:00:00Z`)) ||
+        new Date(`${body.date}T00:00:00Z`).toISOString().slice(0, 10) !== body.date)) ||
+    typeof body.important !== "boolean" ||
+    typeof body.isCompleted !== "boolean"
+  ) {
+    return null;
+  }
+
+  return {
+    text: body.text.trim(),
+    date: body.date,
+    important: body.important,
+    isCompleted: body.isCompleted,
+  };
+}
+
+function serializeTask(task) {
+  return {
+    ...task,
+    important: Boolean(task.important),
+    isCompleted: Boolean(task.isCompleted),
+  };
+}
+
 
 fs.mkdirSync("uploads", { recursive: true });
 
@@ -288,7 +333,7 @@ router.put("/user/forgot", verificarResetToken, async (req, res) => {
       .json({ error: "Error updating the profile in the database." });
   }
 })
-
+//rota de deslogar sessão de dispositivos
 router.delete('/sessions/:jti', verificarAutenticacao, async (req, res) => {
   try {
     const { jti } = req.params;
@@ -310,6 +355,66 @@ router.delete('/sessions/:jti', verificarAutenticacao, async (req, res) => {
     return res.status(500).json({ error: "Error whilst deleting the session" });
   }
 })
+
+router.post("/user/notifications", verificarAutenticacao, async (req, res) => {
+  const { title, message, type } = req.body;
+
+  const userId = req.userId;
+
+  if (!title || !message || !type) {
+    return res.status(400).json({
+      error: "title, message and type required"
+    });
+  }
+
+  if (
+    typeof title !== "string" ||
+    typeof message !== "string" ||
+    typeof type !== "string"
+  ) {
+    return res.status(400).json({
+      error: "Fields must be strings"
+    });
+  }
+
+  if (!title.trim() || !message.trim()) {
+    return res.status(400).json({
+      error: "Title and message cannot be empty"
+    });
+  }
+  if (title.trim().length > 100 || message.trim().length > 500) {
+    return res.status(400).json({
+      error: "Title or message too long"
+    });
+  }
+  //validar tipos
+  const validTypes = ['security', 'tasks', 'system'];
+
+  if (!validTypes.includes(type)) {
+    return res.status(400).json({
+      error: "Invalid notification type"
+    });
+  }
+  const cleanTitle = title.trim();
+  const cleanMessage = message.trim();
+
+  try {
+    //dados da table notification
+    const stmt = db.prepare(
+      "INSERT INTO notifications (user_id,title, message, type) VALUES(?,?,?,?)"
+    )
+    const result = stmt.run(userId, cleanTitle, cleanMessage, type);
+    res.status(201).json({
+      id: result.lastInsertRowid,
+      user_id: userId,
+      title: cleanTitle,
+      message: cleanMessage,
+      type
+    })
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // Logout
 router.post("/logout", verificarAutenticacao, (req, res) => {
