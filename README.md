@@ -136,7 +136,7 @@ EMAILJS_TEMPLATE_ID=...
 
 `DATABASE_PATH` e `PORT` são opcionais, mas `JWT_SECRET` é necessário para login e sessões. `FRONTEND_URL` é a origem permitida no CORS e a base dos links de recuperação; `BACKEND_URL` é a URL pública da API. As quatro variáveis `EMAILJS_*` são necessárias para o envio de links de recuperação.
 
-Configure também `login_system/.env.local` com `VITE_BACKEND_URL`, apontando para a mesma URL de `BACKEND_URL` (em desenvolvimento, `http://localhost:3000`). No ambiente de produção do frontend, defina `VITE_BACKEND_URL` com a URL pública do backend.
+Configure também `login_system/.env.local` com `VITE_API_URL`, apontando para a mesma URL de `BACKEND_URL` (em desenvolvimento, `http://localhost:3000`). No ambiente de produção do frontend, defina `VITE_API_URL` com a URL pública do backend. No Render, configure `FRONTEND_URL` com a origem exata do frontend na Vercel; se omitida, o backend permite `https://login-system-eta-rose.vercel.app`.
 
 ### 4. Iniciar a aplicação
 

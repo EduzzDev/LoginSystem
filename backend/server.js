@@ -25,8 +25,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
+const frontendOrigin =
+  process.env.FRONTEND_URL?.trim().replace(/\/+$/, "") ||
+  "https://login-system-eta-rose.vercel.app";
+
 const allowedOrigins = [
-  process.env.FRONTEND_URL,
+  frontendOrigin,
   ...(isProduction
     ? []
     : [
