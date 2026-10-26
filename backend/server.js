@@ -23,38 +23,33 @@ app.set('trust proxy', true);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const allowedOrigins = isDevelopment
-        ? [
-          undefined,
-          "http://localhost:5173",
-          "http://127.0.0.1:5173",
-          "http://localhost:5174",
-          "http://127.0.0.1:5174",
-          "http://localhost:3000",
-        ]
-        : ["https://login-system-eta-rose.vercel.app"];
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  ...(isProduction
+    ? []
+    : [
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+      "http://localhost:5174",
+      "http://127.0.0.1:5174",
+      "http://localhost:3000",
+    ]),
+].filter(Boolean);
 
-      if (
-        !origin ||
-        allowedOrigins.includes(origin) ||
-        (!isDevelopment &&
-          origin?.startsWith("https://login-system-eta-rose.vercel.app"))
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  }),
-);
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 const httpServer = createServer(app);
 
@@ -118,23 +113,7 @@ app.use("/uploads", express.static("uploads"));
 // criar índice no email
 db.prepare("CREATE INDEX IF NOT EXISTS idx_email ON usuarios(email)").run();
 
-initSocket(httpServer, {
-  cors: {
-    origin: (origin, callback) => {
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const allowedOrigins = isDevelopment
-        ? [undefined, "http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174", "http://127.0.0.1:5174", "http://localhost:3000"]
-        : ["https://login-system-eta-rose.vercel.app"];
-
-      if (!origin || allowedOrigins.includes(origin) || (!isDevelopment && origin?.startsWith("https://login-system-eta-rose.vercel.app"))) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  }
-}, db);
+initSocket(httpServer, { cors: corsOptions }, db);
 
 app.post("/register", async (req, res) => {
   try {

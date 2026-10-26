@@ -1,5 +1,5 @@
 const BASE_URL =
-  import.meta.env.VITE_API_URL || "https://loginsystem-d86j.onrender.com";
+  import.meta.env.VITE_BACKEND_URL;
 
 export const registerUser = async (data) => {
   const res = await fetch(`${BASE_URL}/register`, {

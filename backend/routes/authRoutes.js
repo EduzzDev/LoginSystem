@@ -76,6 +76,10 @@ const upload = multer({ storage });
 
 dotenv.config();
 
+function getBackendBaseUrl(req) {
+  return (process.env.BACKEND_URL || `${req.protocol}://${req.get("host")}`).replace(/\/$/, "");
+}
+
 emailjs.init({
   publicKey: process.env.EMAILJS_PUBLIC_KEY,
   privateKey: process.env.EMAILJS_PRIVATE_KEY
@@ -111,7 +115,7 @@ router.get("/user/me", verificarAutenticacao, (req, res) => {
   const stmtSessions = db.prepare("SELECT jti, created_at, device_info, ip_address FROM sessions WHERE user_id = ?")
   const activeSessions = stmtSessions.all(req.userId);
   const urlImg = user.urlImg
-    ? `${req.protocol}://${req.get("host")}${user.urlImg}`
+    ? `${getBackendBaseUrl(req)}${user.urlImg.startsWith("/") ? "" : "/"}${user.urlImg}`
     : "";
 
   res.json({
@@ -213,7 +217,7 @@ router.put("/user/update-profile", verificarAutenticacao, upload.single("foto"),
         : user.urlImg || "";
 
       const urlImg = relativeUrlImg
-        ? `${req.protocol}://${req.get("host")}/${relativeUrlImg.replace(/^\/+/, "")}`
+        ? `${getBackendBaseUrl(req)}/${relativeUrlImg.replace(/^\/+/, "")}`
         : "";
 
       const updateStmt = db.prepare(
@@ -261,14 +265,14 @@ router.post("/user/send-link", async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'Email not found!' });
     }
-    const isDevelopment = process.env.NODE_ENV !== "production";
-    const urlFront = isDevelopment
-      ? "http://localhost:5173"
-      : "https://login-system-eta-rose.vercel.app";
+    const frontendUrl = process.env.FRONTEND_URL?.replace(/\/$/, "");
+    if (!frontendUrl) {
+      throw new Error("FRONTEND_URL is not configured");
+    }
 
     const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '1h' })
 
-    const linkRestore = `${urlFront}/forgot?token=${resetToken}`
+    const linkRestore = `${frontendUrl}/forgot?token=${resetToken}`
 
     // console.log("Link gerado:", linkRestore);
     try {
