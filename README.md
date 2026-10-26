@@ -126,13 +126,17 @@ PORT=3000
 DATABASE_PATH=LoginSystem.db
 JWT_SECRET=uma-chave-secreta-para-sessoes
 JWT_RESET_SECRET=uma-chave-secreta-para-reset
+FRONTEND_URL=http://localhost:5173
+BACKEND_URL=http://localhost:3000
 EMAILJS_PUBLIC_KEY=...
 EMAILJS_PRIVATE_KEY=...
 EMAILJS_SERVICE_ID=...
 EMAILJS_TEMPLATE_ID=...
 ```
 
-`DATABASE_PATH` e `PORT` são opcionais, mas `JWT_SECRET` é necessário para login e sessões. As quatro variáveis `EMAILJS_*` são necessárias para o envio de links de recuperação.
+`DATABASE_PATH` e `PORT` são opcionais, mas `JWT_SECRET` é necessário para login e sessões. `FRONTEND_URL` é a origem permitida no CORS e a base dos links de recuperação; `BACKEND_URL` é a URL pública da API. As quatro variáveis `EMAILJS_*` são necessárias para o envio de links de recuperação.
+
+Configure também `login_system/.env.local` com `VITE_BACKEND_URL`, apontando para a mesma URL de `BACKEND_URL` (em desenvolvimento, `http://localhost:3000`). No ambiente de produção do frontend, defina `VITE_BACKEND_URL` com a URL pública do backend.
 
 ### 4. Iniciar a aplicação
 
