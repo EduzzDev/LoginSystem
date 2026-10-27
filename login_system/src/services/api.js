@@ -167,3 +167,14 @@ export const createNotification = async ({ title, message, type }) => {
   }
   return result;
 }
+export async function getNotifications() {
+  const res = await fetch(`${BASE_URL}/user/notifications/me`, {
+    method: "GET",
+    credentials: "include",
+  })
+  const result = await res.json();
+  if (!res.ok) {
+    throw result;
+  }
+  return result;
+}

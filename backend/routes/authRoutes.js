@@ -420,6 +420,23 @@ router.post("/user/notifications", verificarAutenticacao, async (req, res) => {
   }
 });
 
+router.get("/user/notifications/me", verificarAutenticacao, async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const stmt = db.prepare(
+      "SELECT id, user_id , title, message, type, created_at FROM notifications WHERE user_id = ? ORDER BY created_at DESC"
+    )
+    const notifications = stmt.all(userId)
+
+    return res.status(200).json(notifications);
+  } catch (err) {
+    res.status(500).json({
+      error: "Failed to fetch notifications"
+    });
+  }
+});
+
 // Logout
 router.post("/logout", verificarAutenticacao, (req, res) => {
   try {
