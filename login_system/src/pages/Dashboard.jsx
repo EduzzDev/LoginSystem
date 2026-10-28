@@ -22,6 +22,7 @@ import {
   CircleHelp
 } from "lucide-react";
 import Drawer from "@mui/material/Drawer";
+import NotificationBell from "../components/NotificationBell";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -98,7 +99,9 @@ function Dashboard() {
                    bg-[#2D3035] outline-0 text-gray-100"
                 />
               </div>
-              <Bell className="text-gray-400" />
+
+              <NotificationBell />
+              
               <img
                 src={imgUser || userImg}
                 className=" w-10 h-10 rounded-4xl"

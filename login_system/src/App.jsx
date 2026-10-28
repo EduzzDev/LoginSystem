@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "./App.css";
 import { AuthProvider } from "./context/auth";
+import { NotificationProvider } from "./context/Notification"
 import LoadingScreen from "./components/LoadingScreen";
 import React, { lazy, Suspense } from 'react';
 
@@ -18,21 +19,23 @@ function App() {
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <AuthProvider>
-        <BrowserRouter>
-          <Suspense fallback={<LoadingScreen />}>
-            <Routes>
-              <Route path="/" element={< LoginPage />} />
-              <Route path="/login" element={< LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/forgot" element={<ForgotPasswordPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/tasks" element={<TasksPage />} />
-              <Route path="/myProfile" element={<MyProfilePage />} />
-              <Route path="/security" element={<SecurityPage />} />
-              <Route path="/help" element={<HelpPage />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
+        <NotificationProvider>
+          <BrowserRouter>
+            <Suspense fallback={<LoadingScreen />}>
+              <Routes>
+                <Route path="/" element={< LoginPage />} />
+                <Route path="/login" element={< LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/forgot" element={<ForgotPasswordPage />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/tasks" element={<TasksPage />} />
+                <Route path="/myProfile" element={<MyProfilePage />} />
+                <Route path="/security" element={<SecurityPage />} />
+                <Route path="/help" element={<HelpPage />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+        </NotificationProvider>
       </AuthProvider>
     </>
   );
