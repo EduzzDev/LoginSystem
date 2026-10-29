@@ -100,8 +100,8 @@ function Dashboard() {
                 />
               </div>
 
-              <NotificationBell />
-              
+              <NotificationBell/>
+
               <img
                 src={imgUser || userImg}
                 className=" w-10 h-10 rounded-4xl"
@@ -156,18 +156,23 @@ function Dashboard() {
       <div className="w-screen h-screen lg:hidden bg-[#2D3035]">
         <nav className="w-screen lg:hidden  flex justify-center">
           <div
-            className="bg-[#1A1C20] w-full flex justify-between
-             h-18 items-center rounded-t-lg -translate-x-0.5  border-b  border-gray-700 text-gray-200 "
+            className="bg-[#1A1C20] w-full flex justify-between gap-2
+             h-16 items-center px-3 border-b border-gray-700 text-gray-200 sm:px-4"
           >
-            <div className=" flex ml-1.5">
-              <h1 className="flex relative text-2xl  justify-center items-center">
-                <Zap className="relative mr-1 ml-1 " />
+            <div className="min-w-0">
+              <h1 className="flex items-center whitespace-nowrap text-xl sm:text-2xl">
+                <Zap className="mr-1 h-5 w-5 sm:h-6 sm:w-6" />
                 <span className="font-extrabold">Login</span>System
               </h1>
             </div>
-            <div className=" flex justify-center items-center mr-2 gap-3.5 p-1.5">
-              <Search />
-              <img className="w-10 h-10 rounded-4xl" src={imgUser || userImg} alt="img profile" />
+            <div className="flex shrink-0 items-center gap-0 self-center">
+              <button type="button" aria-label="Buscar" className="flex h-10 w-10 items-center justify-center rounded-xl text-gray-400 transition-colors hover:bg-white/5 hover:text-white">
+                <Search className="h-5 w-5" />
+              </button>
+              <NotificationBell />
+              <div className="flex h-10 w-10 items-center justify-center">
+                <img className="h-8 w-8 -translate-y-0.5 rounded-full object-cover sm:h-9 sm:w-9 lg:translate-y-0" src={imgUser || userImg} alt="Imagem do perfil" />
+              </div>
             </div>
           </div>
         </nav>

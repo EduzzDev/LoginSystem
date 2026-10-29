@@ -52,17 +52,17 @@ function NotificationBell() {
     const isOpen = Boolean(anchorEl);
 
     return (
-        <div className="relative top-1 flex">
+        <div className="relative flex shrink-0 items-center">
             <button
                 type="button"
                 onClick={(e) => setAnchorEl(e.currentTarget)}
                 aria-label={`Notificações: ${notifications.length}`}
                 aria-expanded={isOpen}
-                className=" z-10 w-10 mb-1 ml-2  ">
-                <Bell className="text-gray-400" />
+                className="relative z-10 flex h-10 w-10 items-center justify-center rounded-xl text-gray-400 transition-colors hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+                <Bell className="h-5 w-5" />
                 {notifications.length > 0 && (
-                    <span className="absolute right-1.5 h-5 flex-col flex justify-center
-                    -top-2 rounded-full bg-red-500 px-1 text-xs text-white">
+                    <span className="absolute right-0.5 top-0 flex h-[18px] min-w-[18px] items-center justify-center
+                    rounded-full bg-red-500 px-1 text-[10px] font-semibold leading-none text-white ring-2 ring-[#1A1C20]">
                         {notifications.length > 9
                             ? "9+"
                             : notifications.length}
@@ -114,11 +114,11 @@ function NotificationBell() {
 
                             const NotificationIcon = style.icon;
                             return (
-                                <article key={item.id} className=" group flex  gap-3 
-                                border-b border-white/[0.07] px-4 py-2.5
-                                 transition-colors hover:bg-white/3 last:border-b-0 ">
+                                <article key={item.id} className="group flex w-92  gap-3 
+                                border-b border-white/[0.07] sm:px-4 py-2.5
+                                transition-colors hover:bg-white/3 last:border-b-0 ">
 
-                                    <div className={`w-full ${style.background} p-2 rounded-2xl `}>
+                                    <div className={` w-[82dvw] min-[420px]:w-full ${style.background} p-2 rounded-2xl `}>
                                         <div className="min-w-0 flex  items-center">
                                             <div className={`${style.color}
                                             flex h-10 w-10 shrink-0 items-center
