@@ -62,9 +62,11 @@ function NotificationBell() {
                 className=" z-10 w-10 mb-1 ml-2  ">
                 <Bell className="text-gray-400" />
                 {notifications.length > 0 && (
-                    <span className="absolute right-2.5 h-5 flex-col flex justify-center
-                    -top-2 rounded-full bg-red-500 px-1.5 text-xs text-white">
-                        {notifications.length}
+                    <span className="absolute right-1.5 h-5 flex-col flex justify-center
+                    -top-2 rounded-full bg-red-500 px-1 text-xs text-white">
+                        {notifications.length > 9
+                            ? "9+"
+                            : notifications.length}
                     </span>
                 )}
             </button>
