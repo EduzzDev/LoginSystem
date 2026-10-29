@@ -72,6 +72,8 @@ O projeto está em desenvolvimento e serve também como base para evoluir uma ex
 - Página de segurança com estado da conta, sessões ativas, informação do dispositivo e histórico de atividade.
 - Revogação de sessões individuais, com atualização em tempo real através de Socket.IO.
 - Recuperação de password através de link enviado por EmailJS e token com validade de uma hora.
+- Central de notificações carregada pela API, com contador no sino, painel popover e datas formatadas conforme a localidade do navegador.
+- Criação de notificações quando uma tarefa ultrapassa a data definida.
 - Central de ajuda com perguntas frequentes expansíveis e orientações passo a passo sobre a conta, tarefas e sessões.
 - Interface responsiva com navegação lateral em desktop e barra de navegação mobile.
 - Notificações de sucesso, carregamento e erro através de React Hot Toast.
@@ -182,7 +184,7 @@ pnpm start     # inicia a API
 LoginSystem/
 ├── backend/
 │   ├── database/       # Recursos relacionados com a base de dados
-│   ├── routes/         # Autenticação, perfil, sessões e reset de password
+│   ├── routes/         # Autenticação, perfil, sessões, notificações e reset de password
 │   ├── uploads/        # Imagens de perfil carregadas
 │   ├── server.js       # API Express e servidor HTTP
 │   └── socket.js       # Configuração do Socket.IO
@@ -190,7 +192,7 @@ LoginSystem/
 │   ├── public/         # Recursos públicos
 │   └── src/
 │       ├── components/ # Componentes reutilizáveis
-│       ├── context/    # Estado global de autenticação
+│       ├── context/    # Estados globais de autenticação e notificações
 │       ├── pages/      # Páginas da aplicação
 │       └── services/   # Comunicação com a API e Socket.IO
 ├── package.json
