@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BoxInputLogin from "../components/BoxInputLogin";
 import Wrapper from "../components/Wrapper";
 import SubmitButton from "../components/SubmitButton";

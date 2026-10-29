@@ -26,7 +26,6 @@ import {
   CircleHelp
 } from "lucide-react";
 import Drawer from "@mui/material/Drawer";
-import { use } from "react";
 
 function ensureTaskIds(tasks) {
   return tasks.map((task) => ({
@@ -680,7 +679,7 @@ function Tasks() {
               <LayoutDashboard />
               <h2>General</h2>
             </SideBarMobile>
-            <SideBarMobile onClick={() => handleTasks()}>
+            <SideBarMobile>
               <ClipboardList />
               <h2>Tasks</h2>
             </SideBarMobile>

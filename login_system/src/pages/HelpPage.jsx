@@ -765,7 +765,7 @@ function HelpPage() {
           >
             <div className="flex flex-col items-baseline  ">
               <button className=" w-full flex flex-row p-1.5 mt-4 gap-5 cursor-pointer hover:text-green-400 hover:rounded-2xl"
-                onClick={() => handleHelp()}>
+              >
                 <CircleHelp />
                 <h2>Help</h2>
               </button>
