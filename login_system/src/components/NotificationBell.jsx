@@ -52,16 +52,18 @@ function NotificationBell() {
     const isOpen = Boolean(anchorEl);
 
     return (
-        <div className="relative flex shrink-0 items-center">
+        <div className="relative flex shrink-0 items-center lg:translate-y-0.5">
             <button
                 type="button"
                 onClick={(e) => setAnchorEl(e.currentTarget)}
                 aria-label={`Notificações: ${notifications.length}`}
                 aria-expanded={isOpen}
-                className="relative z-10 flex h-10 w-10 items-center justify-center rounded-xl text-gray-400 transition-colors hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
-                <Bell className="h-5 w-5" />
+                className="relative z-10 flex h-10 w-10 items-center justify-center rounded-xl text-gray-400
+                 transition-colors hover:bg-white/5 hover:text-white focus-visible:outline-none 
+                 e focus-visible:ring-2 focus-visible:ring-indigo-400">
+                <Bell className="h-5 w-5 lg:w-6 lg:h-6 " />
                 {notifications.length > 0 && (
-                    <span className="absolute right-0.5 top-0 flex h-[18px] min-w-[18px] items-center justify-center
+                    <span className="absolute right-0.5 top-0 flex h-4.5 min-w-4.5 items-center justify-center
                     rounded-full bg-red-500 px-1 text-[10px] font-semibold leading-none text-white ring-2 ring-[#1A1C20]">
                         {notifications.length > 9
                             ? "9+"
@@ -80,7 +82,7 @@ function NotificationBell() {
                     paper: {
                         sx: {
                             width: 400,
-                            maxWidth: "calc(100vw - 28px)",
+                            maxWidth: "calc(100dvw - 28px)",
                             maxHeight: 520,
                             overflow: "hidden",
                             bgcolor: "#171923",
@@ -91,7 +93,7 @@ function NotificationBell() {
                     },
                 }}
             >
-                <div className="h-100 xl:max-h-120 w-full wrap-break-word overflow-x-hidden overflow-y-auto
+                <div className=" xl:max-h-120 w-full wrap-break-word overflow-x-hidden overflow-y-auto
                  rounded-2xl bg-[#1F223B] p-4 text-gray-400 shadow scrollbar-notification">
                     <header className="flex justify-between items-center">
                         <h2 className="text-base font-semibold text-white">

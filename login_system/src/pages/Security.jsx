@@ -147,8 +147,8 @@ function Security() {
               <NotificationBell />
               <img
                 src={imgUser || userImg}
-                className=" w-10 h-10 rounded-4xl"
-                alt="imagem de usuario"
+                className="w-10.5 h-10.5 rounded-4xl"
+                alt="profile picture"
               />
               <div className="flex flex-col">
                 <span className="text-white text-[16px]">{user}</span>
@@ -289,9 +289,17 @@ function Security() {
                 <span className="font-extrabold">Login</span>System
               </h1>
             </div>
-            <div className=" flex justify-center items-center mr-2 gap-3.5 p-1.5">
-              <Search />
-              <img className="w-10 h-10 rounded-4xl" src={imgUser || userImg} alt="img profile" />
+            <div className="flex shrink-0 items-center gap-0 self-center">
+              <button type="button" aria-label="Buscar" className="flex h-10 w-10
+                items-center justify-center rounded-xl text-gray-400 
+                transition-colors hover:bg-white/5 hover:text-white">
+                <Search className="h-5 w-5" />
+              </button>
+              <NotificationBell />
+              <div className="flex h-10 w-10 items-center justify-center">
+                <img className="h-8 w-8 -translate-y-0.5 rounded-full object-cover sm:h-9 sm:w-9 
+                           lg:translate-y-0" src={imgUser || userImg} alt="Imagem do perfil" />
+              </div>
             </div>
           </div>
         </nav>
