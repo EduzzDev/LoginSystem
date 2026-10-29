@@ -1,5 +1,5 @@
 import { useNotifications } from "../context/useNotifications";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Bell, ShieldAlert, ClipboardList, Info, CheckCheck, Clock, } from "lucide-react";
 import Popover from '@mui/material/Popover';
 
@@ -48,15 +48,14 @@ function formatDate(date) {
 
 function NotificationBell() {
     const { notifications, loading } = useNotifications();
-    const [isOpen, setIsOpen] = useState(false);
-    const bellRef = useRef(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const isOpen = Boolean(anchorEl);
 
     return (
         <div className="relative top-1 flex">
             <button
-                ref={bellRef}
                 type="button"
-                onClick={() => setIsOpen((open) => !open)}
+                onClick={(e) => setAnchorEl(e.currentTarget)}
                 aria-label={`Notificações: ${notifications.length}`}
                 aria-expanded={isOpen}
                 className=" z-10 w-10 mb-1 ml-2  ">
@@ -73,8 +72,8 @@ function NotificationBell() {
 
             <Popover
                 open={isOpen}
-                anchorEl={bellRef.current}
-                onClose={() => setIsOpen(false)}
+                anchorEl={anchorEl}
+                onClose={() => setAnchorEl(null)}
                 anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                 transformOrigin={{ vertical: "top", horizontal: "right" }}
                 slotProps={{
@@ -92,8 +91,8 @@ function NotificationBell() {
                     },
                 }}
             >
-                <div className="max-h-100 w-105 wrap-break-word overflow-x-hidden overflow-y-auto
-                 rounded-2xl bg-[#1F223B] p-4 text-gray-400 shadow">
+                <div className="h-100 xl:max-h-120 w-full wrap-break-word overflow-x-hidden overflow-y-auto
+                 rounded-2xl bg-[#1F223B] p-4 text-gray-400 shadow scrollbar-notification">
                     <header className="flex justify-between items-center">
                         <h2 className="text-base font-semibold text-white">
                             Notifications
@@ -115,8 +114,9 @@ function NotificationBell() {
 
                             const NotificationIcon = style.icon;
                             return (
-                                <article key={item.id} className=" group flex gap-3 border-b border-white/[0.07] px-4 py-2.5
-                                 transition-colors hover:bg-white/3 last:border-b-0 hover:rounded-3xl">
+                                <article key={item.id} className=" group flex  gap-3 
+                                border-b border-white/[0.07] px-4 py-2.5
+                                 transition-colors hover:bg-white/3 last:border-b-0 ">
 
                                     <div className={`w-full ${style.background} p-2 rounded-2xl `}>
                                         <div className="min-w-0 flex  items-center">

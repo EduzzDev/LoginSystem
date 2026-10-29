@@ -30,3 +30,27 @@
 		transform: rotate(360deg);
 	}
 }
+
+@layer utilities {
+  .scrollbar-notification {
+    scrollbar-width: thin;
+    scrollbar-color: #858585 transparent;
+  }
+
+  .scrollbar-notification::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-notification::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-notification::-webkit-scrollbar-thumb {
+    background-color: #858585;
+    border-radius: 10px;
+  }
+
+  .scrollbar-::-webkit-scrollbar-thumb:hover {
+    background-color: #b0b0b0;
+  }
+}
