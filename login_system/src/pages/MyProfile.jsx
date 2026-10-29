@@ -21,6 +21,7 @@ import {
   MoreHorizontal,
   CircleHelp,
 } from "lucide-react";
+import NotificationBell from "../components/NotificationBell";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 import toast from "react-hot-toast";
@@ -202,7 +203,7 @@ function MyProfile() {
                    bg-[#2D3035] outline-0 text-gray-100"
                 />
               </div>
-              <Bell className="text-gray-400" />
+              <NotificationBell />
               <img
                 src={profile.previewImg}
                 className="w-10 h-10 rounded-4xl"

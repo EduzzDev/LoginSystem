@@ -10,6 +10,7 @@ import SideBarMobile from "../components/SideBarMobile";
 import { Circle } from "lucide-react";
 import { Trash2 } from "lucide-react";
 import { CircleCheckBig } from "lucide-react";
+import NotificationBell from "../components/NotificationBell";
 import {
   Bell,
   UserCircle,
@@ -234,7 +235,7 @@ function Tasks() {
                    bg-[#2D3035] outline-0 text-gray-100"
                 />
               </div>
-              <Bell className="text-gray-400" />
+              <NotificationBell />
               <img src={imgUser || userImg} className=" w-10 h-10 rounded-4xl" alt="" />
               <div className="flex flex-col">
                 <span className="text-white text-[16px]">{user}</span>
