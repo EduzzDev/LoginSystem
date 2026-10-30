@@ -547,7 +547,7 @@ function MyProfile() {
               <NotificationBell />
               <div className="flex h-10 w-10 items-center justify-center">
                 <img className="h-8 w-8 -translate-y-0.5 rounded-full object-cover sm:h-9 sm:w-9 
-                           lg:translate-y-0" src={profile.previewImg || userImg} alt="Imagem do perfil" />
+                           lg:translate-y-0" src={userImg || profile.previewImg} alt="Imagem do perfil" />
               </div>
             </div>
           </div>

@@ -100,10 +100,10 @@ function Dashboard() {
                 />
               </div>
 
-              <NotificationBell/>
+              <NotificationBell />
 
               <img
-                src={imgUser || userImg}
+                src={userImg || imgUser}
                 className=" w-10.5 h-10.5 rounded-4xl relative "
                 alt="profile picture"
               />

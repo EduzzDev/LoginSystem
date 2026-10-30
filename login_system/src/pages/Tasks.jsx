@@ -66,7 +66,8 @@ function Tasks() {
     return SavedTasks ? ensureTaskIds(JSON.parse(SavedTasks)) : [];
   });
 
-  const inputRef = useRef(new Map());
+  const desktopInputRef = useRef(new Map());
+  const mobileInputRef = useRef(new Map());
 
   useEffect(() => {
     async function verifyUser() {
@@ -122,14 +123,14 @@ function Tasks() {
   function onChangeTask(newTask, index) {
     if (!newTask.trim()) {
       return;
-    }
+   }
     const changeTask = tasks.map((currentTask, indexTask) => {
       if (index === indexTask) {
         return { ...currentTask, text: newTask };
       }
       return currentTask;
     });
-    setTasks(changeTask);
+    setTasks(changeTask); 
   }
   useEffect(() => {
     localStorage.setItem("lista_tarefas", JSON.stringify(tasks));
@@ -397,16 +398,16 @@ function Tasks() {
                           >
                             <input
                               onClick={() => {
-                                const inputOpen = inputRef.current.get(index);
+                                const inputOpen = desktopInputRef.current.get(index);
                                 if (inputOpen) {
                                   inputOpen.showPicker();
                                 }
                               }}
                               ref={(element) => {
                                 if (element) {
-                                  inputRef.current.set(index, element);
+                                  desktopInputRef.current.set(index, element);
                                 } else {
-                                  inputRef.current.delete(index);
+                                  desktopInputRef.current.delete(index);
                                 }
                               }}
                               value={task.date}
@@ -421,7 +422,7 @@ function Tasks() {
                             />
                             <CalendarDays
                               onClick={() => {
-                                const inputOpen = inputRef.current.get(index);
+                                const inputOpen = desktopInputRef.current.get(index);
                                 if (inputOpen) {
                                   inputOpen.showPicker();
                                 }
@@ -482,7 +483,7 @@ function Tasks() {
               <NotificationBell />
               <div className="flex h-10 w-10 items-center justify-center">
                 <img className="h-8 w-8 -translate-y-0.5 rounded-full object-cover sm:h-9 sm:w-9 
-                           lg:translate-y-0" src={imgUser || userImg} alt="Imagem do perfil" />
+                           lg:translate-y-0" src={userImg || imgUser} alt="Imagem do perfil" />
               </div>
             </div>
           </div>
@@ -611,16 +612,16 @@ function Tasks() {
                            sm:translate-x-4 md:translate-x-10 ">
                             <input
                               onClick={() => {
-                                const inputOpen = inputRef.current.get(index);
+                                const inputOpen = mobileInputRef.current.get(index);
                                 if (inputOpen) {
                                   inputOpen.showPicker();
                                 }
                               }}
                               ref={(element) => {
                                 if (element) {
-                                  inputRef.current.set(index, element);
+                                  mobileInputRef.current.set(index, element);
                                 } else {
-                                  inputRef.current.delete(index);
+                                  mobileInputRef.current.delete(index);
                                 }
                               }}
                               value={task.date}
@@ -635,7 +636,7 @@ function Tasks() {
                             />
                             <CalendarDays
                               onClick={() => {
-                                const inputOpen = inputRef.current.get(index);
+                                const inputOpen = mobileInputRef.current.get(index);
                                 if (inputOpen) {
                                   inputOpen.showPicker();
                                 }

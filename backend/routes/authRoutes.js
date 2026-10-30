@@ -425,7 +425,7 @@ router.get("/user/notifications/me", verificarAutenticacao, async (req, res) => 
 
   try {
     const stmt = db.prepare(
-      "SELECT id, user_id , title, message, type, created_at FROM notifications WHERE user_id = ? ORDER BY created_at DESC"
+      "SELECT id, user_id , title, message, type, created_at, is_read FROM notifications WHERE user_id = ? ORDER BY created_at DESC"
     )
     const notifications = stmt.all(userId)
 
