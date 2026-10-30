@@ -83,7 +83,7 @@ function NotificationBell() {
                         sx: {
                             width: 400,
                             maxWidth: "calc(100dvw - 28px)",
-                            maxHeight: 520,
+                            maxHeight: "calc(100dvh - 24px)",
                             overflow: "hidden",
                             bgcolor: "#171923",
                             color: "#F3F4F6",
@@ -93,8 +93,10 @@ function NotificationBell() {
                     },
                 }}
             >
-                <div className=" xl:max-h-120 w-full wrap-break-word overflow-x-hidden overflow-y-auto
-                 rounded-2xl bg-[#1F223B] p-4 text-gray-400 shadow scrollbar-notification">
+                <div className="max-h-[calc(100dvh-120px)] w-full 
+                wrap-break-word overflow-x-hidden overflow-y-auto
+                lg:max-h-120 rounded-2xl bg-[#1F223B] p-4
+              text-gray-400 shadow scrollbar-notification">
                     <header className="flex justify-between items-center">
                         <h2 className="text-base font-semibold text-white">
                             Notifications
