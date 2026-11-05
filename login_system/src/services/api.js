@@ -178,3 +178,20 @@ export async function getNotifications() {
   }
   return result;
 }
+
+export async function isRead({ is_read, id }) {
+  const res = await fetch(`${BASE_URL}/user/notifications/${id}`, {
+    method: "PATCH",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ is_read })
+  })
+  const result = await res.json();
+  if (!res.ok) {
+    throw result
+  }
+  return result;
+}
+

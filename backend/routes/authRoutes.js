@@ -416,7 +416,7 @@ router.post("/user/notifications", verificarAutenticacao, async (req, res) => {
       type
     })
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 });
 
@@ -436,6 +436,42 @@ router.get("/user/notifications/me", verificarAutenticacao, async (req, res) => 
     });
   }
 });
+
+router.patch("/user/notifications/:id", verificarAutenticacao, async (req, res) => {
+  const { is_read } = req.body;
+  const { id } = req.params;
+  const userId = req.userId;
+
+  if (typeof is_read !== "number") {
+    return res.status(400).json({
+      error: "invalid value"
+    });
+  }
+  const readValid = [0, 1];
+
+  if (!readValid.includes(is_read)) {
+    return res.status(400).json({
+      error: "invalid value"
+    });
+  }
+  try {
+    const stmt = db.prepare(`UPDATE notifications set is_read = ? WHERE id = ? AND user_id = ?`);
+    const result = stmt.run(is_read, id, userId);
+
+    if (result.changes === 0) {
+      return res.status(404).json({ error: "Notification not found" });
+    }
+
+    return res.json({
+      is_read,
+      id,
+      userId
+    });
+
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+})
 
 // Logout
 router.post("/logout", verificarAutenticacao, (req, res) => {
