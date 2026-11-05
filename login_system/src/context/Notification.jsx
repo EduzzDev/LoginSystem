@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getNotifications } from "../services/api";
+import { getNotifications, isRead } from "../services/api";
 import { NotificationContext } from "./NotificationContext";
 
 export function NotificationProvider({ children }) {
@@ -10,7 +10,7 @@ export function NotificationProvider({ children }) {
       const data = await getNotifications();
       setNotifications(data);
     } catch (err) {
-      console.error("Erro ao buscar notificações:", err);
+      console.error("Error retrieving notifications:", err);
     } finally {
       setLoading(false);
     }
@@ -20,12 +20,33 @@ export function NotificationProvider({ children }) {
     loadNotifications();
   }, []);
 
+  async function markAllNotificationsAsRead() {
+    try {
+      const unreadNotifications = notifications.filter(item => item.is_read === 0)
+
+      await Promise.all(unreadNotifications.map(item => {
+        return isRead({ id: item.id, is_read: 1 })
+      }))
+      const currentNotifications = notifications.map((item) => {
+        if (item.is_read === 0) {
+          return { ...item, is_read: 1 }
+        }
+        return item;
+      })
+
+      setNotifications(currentNotifications);
+    } catch (err) {
+      return console.error("Error when marking notifications as read:", err);
+    }
+  }
+
   return (
     <NotificationContext.Provider
       value={{
         notifications,
         loading,
         loadNotifications,
+        markAllNotificationsAsRead
       }}
     >
       {children}

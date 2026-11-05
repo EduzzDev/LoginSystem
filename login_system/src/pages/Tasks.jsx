@@ -123,14 +123,14 @@ function Tasks() {
   function onChangeTask(newTask, index) {
     if (!newTask.trim()) {
       return;
-   }
+    }
     const changeTask = tasks.map((currentTask, indexTask) => {
       if (index === indexTask) {
         return { ...currentTask, text: newTask };
       }
       return currentTask;
     });
-    setTasks(changeTask); 
+    setTasks(changeTask);
   }
   useEffect(() => {
     localStorage.setItem("lista_tarefas", JSON.stringify(tasks));

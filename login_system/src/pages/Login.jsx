@@ -61,7 +61,7 @@ function Login() {
       toast.error(error.message);
     }
   };
-  const sendLink = async (e) => {
+  const sendLink = async () => {
     if (!CurrentEmail.trim()) {
       setError("Please enter your Email address");
       return;
