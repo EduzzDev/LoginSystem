@@ -42,8 +42,6 @@ function formatDate(date) {
     });
 }
 
-
-
 function NotificationBell() {
     const { notifications, loading, markAllNotificationsAsRead } = useNotifications();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -51,15 +49,13 @@ function NotificationBell() {
 
     const unreadCount = notifications.filter(item => item.is_read === 0);
 
-    function handleBellClick(e) {
-        setAnchorEl(e.currentTarget);
-        markAllNotificationsAsRead()
-    }
+    const unreadFirstNotifications = [...notifications].sort((first, second) => first.is_read - second.is_read);
+
     return (
         <div className="relative flex shrink-0 items-center lg:translate-y-0.5">
             <button
                 type="button"
-                onClick={(e) => handleBellClick(e)}
+                onClick={(e) => setAnchorEl(e.currentTarget)}
                 aria-label={`Notificações: ${unreadCount.length}`}
                 aria-expanded={isOpen}
                 className="relative z-10 flex h-10 w-10 items-center justify-center rounded-xl text-gray-400
@@ -105,9 +101,13 @@ function NotificationBell() {
                         <h2 className="text-base font-semibold text-white">
                             Notifications
                         </h2>
-                        <div className="flex h-10 w-10 items-center relative -translate-x-2.5 mr-2
-                            justify-center rounded-xl bg-indigo-500/10">
-                            <Bell size={20} className="text-indigo-400" />
+                        <div className="flex h-10 w-35 items-center relative
+                            justify-center rounded-xl">
+                            <button className=" text-[14px] font-medium text-[#A99AFF] hover:text-[#C0B5FF]"
+                                onClick={markAllNotificationsAsRead}
+                            >
+                                Mark all as read
+                            </button>
                         </div>
                     </header>
                     {loading ? (
@@ -115,52 +115,54 @@ function NotificationBell() {
                     ) : notifications.length === 0 ? (
                         <p>You don't have notifications</p>
                     ) : (
-                        notifications.map((item) => {
+                        unreadFirstNotifications.map((item, index) => {
                             const style =
                                 notificationModel[item.type] ??
                                 notificationModel.system;
-
+                            const isUnRead = item.is_read === 0;
                             const NotificationIcon = style.icon;
+                            const showReadDivider = index > 0 && item.is_read === 1 && unreadFirstNotifications[index - 1].is_read === 0;
                             return (
-                                <article key={item.id} className={`group flex w-92  gap-3 
-                                border-b border-white/[0.07] sm:px-4 py-2.5
-                                transition-colors hover:bg-white/3 last:border-b-0`}>
-
-                                    <div className={` w-[82dvw] min-[420px]:w-full ${style.background} p-2 rounded-2xl `}>
-                                        <div className="min-w-0 flex  items-center">
-                                            <div className={`${style.color}
-                                            flex h-10 w-10 shrink-0 items-center
-                                            justify-center rounded-2xl`}>
-                                                <NotificationIcon size={24} />
+                                <div key={item.id}>
+                                    {showReadDivider && <h1 className="text-[#A99AFF] font-semibold"> Read </h1>}
+                                    <article className={`group flex w-92  gap-3
+                                    border-b border-white/[0.07] sm:px-4 py-2.5
+                                    transition-colors ${isUnRead ? "hover:bg-gray-700" : "hover:bg-white/2"} last:border-b-0`}>
+                                        <div className={` w-[82dvw] min-[420px]:w-full
+                                         ${isUnRead ? "bg-[#292541] " : style.background} p-2 rounded-2xl `}>
+                                            <div className="min-w-0 flex  items-center">
+                                                <div className={`${style.color}
+                                                flex h-10 w-10 shrink-0 items-center
+                                                justify-center rounded-2xl`}>
+                                                    <NotificationIcon size={24} />
+                                                </div>
+                                                <div className="mb-1 flex
+                                                    flex-wrap items-center gap-2">
+                                                    <h3 className="text-sm
+                                                        font-semibold leading-5
+                                                        text-gray-100" >{item.title}</h3>
+                                                    <span
+                                                        className={`rounded-md
+                                                        px-2 py-0.5 text-[10px] translate-x-2
+                                                        font-medium ${style.background}
+                                                        ${style.color}`}
+                                                    >
+                                                        {style.label}
+                                                    </span>
+                                                </div>
                                             </div>
-
-                                            <div className="mb-1 flex
-                                                flex-wrap items-center gap-2">
-                                                <h3 className="text-sm
-                                                    font-semibold leading-5
-                                                    text-gray-100" >{item.title}</h3>
-                                                <span
-                                                    className={`rounded-md
-                                                    px-2 py-0.5 text-[10px] translate-x-2
-                                                    font-medium ${style.background}
-                                                    ${style.color}`}
-                                                >
-                                                    {style.label}
-                                                </span>
-                                            </div>
-
+                                            <p className="wrap-break-words text-sm
+                                                leading-5 text-gray-400 translate-x-2.5" >
+                                                {item.message}
+                                            </p>
+                                            <time className="mt-2 flex items-center font-medium
+                                                 gap-1.5 text-xs text-gray-500 translate-x-2.5" dateTime={item.created_at}>
+                                                <Clock size={12} />
+                                                {formatDate(item.created_at)}
+                                            </time>
                                         </div>
-                                        <p className="wrap-break-words text-sm
-                                            leading-5 text-gray-400 translate-x-2.5" >
-                                            {item.message}
-                                        </p>
-                                        <time className="mt-2 flex items-center font-medium
-                                             gap-1.5 text-xs text-gray-500 translate-x-2.5" dateTime={item.created_at}>
-                                            <Clock size={12} />
-                                            {formatDate(item.created_at)}
-                                        </time>
-                                    </div>
-                                </article>
+                                    </article>
+                                </div>
                             )
                         })
                     )}
