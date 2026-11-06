@@ -72,7 +72,7 @@ O projeto está em desenvolvimento e serve também como base para evoluir uma ex
 - Página de segurança com estado da conta, sessões ativas, informação do dispositivo e histórico de atividade.
 - Revogação de sessões individuais, com atualização em tempo real através de Socket.IO.
 - Recuperação de password através de link enviado por EmailJS e token com validade de uma hora.
-- Central de notificações carregada pela API, com contador no sino, painel popover e datas formatadas conforme a localidade do navegador.
+- Central de notificações carregada pela API, com contador de não lidas, ação para marcar todas como lidas, grupo expansível para as lidas e datas formatadas conforme a localidade do navegador.
 - Criação de notificações quando uma tarefa ultrapassa a data definida.
 - Central de ajuda com perguntas frequentes expansíveis e orientações passo a passo sobre a conta, tarefas e sessões.
 - Interface responsiva com navegação lateral em desktop e barra de navegação mobile.
@@ -138,7 +138,7 @@ EMAILJS_TEMPLATE_ID=...
 
 `DATABASE_PATH` e `PORT` são opcionais, mas `JWT_SECRET` é necessário para login e sessões. `FRONTEND_URL` é a origem permitida no CORS e a base dos links de recuperação; `BACKEND_URL` é a URL pública da API. As quatro variáveis `EMAILJS_*` são necessárias para o envio de links de recuperação.
 
-Configure também `login_system/.env.local` com `VITE_API_URL`, apontando para a mesma URL de `BACKEND_URL` (em desenvolvimento, `http://localhost:3000`). No ambiente de produção do frontend, defina `VITE_API_URL` com a URL pública do backend. No Render, configure `FRONTEND_URL` com a origem exata do frontend na Vercel; se omitida, o backend permite `https://login-system-eta-rose.vercel.app`.
+Configure também `login_system/.env.local` com `VITE_BACKEND_URL`, apontando para a mesma URL de `BACKEND_URL` (em desenvolvimento, `http://localhost:3000`). No ambiente de produção do frontend, defina `VITE_BACKEND_URL` com a URL pública do backend. No Render, configure `FRONTEND_URL` com a origem exata do frontend na Vercel; se omitida, o backend permite `https://login-system-eta-rose.vercel.app`.
 
 ### 4. Iniciar a aplicação
 
@@ -178,23 +178,47 @@ pnpm dev       # inicia a API com Node.js
 pnpm start     # inicia a API
 ```
 
+### Executar com Docker Compose
+
+O `compose.yaml` inicia o frontend e o backend em modo de desenvolvimento e monta os ficheiros locais nos respetivos containers. O Vite atualiza o frontend durante o desenvolvimento; o backend inicia com `node server.js`. Antes de iniciar, crie `backend/.env` com as variáveis de configuração indicadas acima; o Compose carrega esse ficheiro para o backend. A variável `VITE_BACKEND_URL` do frontend já é definida pelo Compose.
+
+Com Docker Desktop ou Docker Engine e o plugin Docker Compose instalados, execute na raiz do repositório:
+
+```bash
+docker compose up --build
+```
+
+Depois, aceda ao frontend em [http://localhost:5173](http://localhost:5173/) e à API em [http://localhost:3000](http://localhost:3000/). Para parar os serviços, use `Ctrl+C` e execute:
+
+```bash
+docker compose down
+```
+
+O Compose usa volumes nomeados para manter a base de dados SQLite e os uploads entre reinícios, além de volumes para as dependências instaladas nos containers. Esta configuração destina-se ao desenvolvimento local, não a uma implantação de produção.
+
 ## 📂 Estrutura do projeto
 
 ```text
 LoginSystem/
+├── .dockerignore
+├── compose.yaml          # Serviços locais de frontend e backend
 ├── backend/
-│   ├── database/       # Recursos relacionados com a base de dados
-│   ├── routes/         # Autenticação, perfil, sessões, notificações e reset de password
-│   ├── uploads/        # Imagens de perfil carregadas
-│   ├── server.js       # API Express e servidor HTTP
-│   └── socket.js       # Configuração do Socket.IO
+│   ├── .dockerignore
+│   ├── Dockerfile        # Imagem de desenvolvimento da API
+│   ├── database/        # Recursos relacionados com a base de dados
+│   ├── routes/          # Autenticação, perfil, sessões, notificações e reset de password
+│   ├── uploads/         # Imagens de perfil carregadas
+│   ├── server.js        # API Express e servidor HTTP
+│   └── socket.js        # Configuração do Socket.IO
 ├── login_system/
-│   ├── public/         # Recursos públicos
+│   ├── .dockerignore
+│   ├── Dockerfile        # Imagem de desenvolvimento do frontend
+│   ├── public/           # Recursos públicos
 │   └── src/
-│       ├── components/ # Componentes reutilizáveis
-│       ├── context/    # Estados globais de autenticação e notificações
-│       ├── pages/      # Páginas da aplicação
-│       └── services/   # Comunicação com a API e Socket.IO
+│       ├── components/   # Componentes reutilizáveis
+│       ├── context/      # Estados globais de autenticação e notificações
+│       ├── pages/        # Páginas da aplicação
+│       └── services/     # Comunicação com a API e Socket.IO
 ├── package.json
 └── README.md
 ```
@@ -233,7 +257,7 @@ Veja algumas das páginas da aplicação em desktop e mobile:
 
 ## 🚧 Estado atual
 
-As funcionalidades principais de autenticação, perfil, tarefas, segurança e ajuda já estão representadas no frontend. O projeto continua em desenvolvimento, sobretudo no refinamento visual, na robustez da configuração de produção e na evolução das funcionalidades internas.
+As funcionalidades principais de autenticação, perfil, tarefas, segurança, notificações e ajuda estão representadas no frontend. O projeto inclui também uma configuração Docker Compose para desenvolvimento local. Continua em desenvolvimento, sobretudo no refinamento visual, na robustez da configuração de produção e na evolução das funcionalidades internas.
 
 ## 📄 Licença
 
