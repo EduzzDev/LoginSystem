@@ -1,7 +1,9 @@
 import { useNotifications } from "../context/useNotifications";
 import { useState } from "react";
-import { Bell, ShieldAlert, ClipboardList, Info, CheckCheck, Clock, } from "lucide-react";
+import { Bell, ShieldAlert, ClipboardList, Info, Clock, ChevronDown } from "lucide-react";
 import Popover from '@mui/material/Popover';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+
 
 const notificationModel = {
     security: {
@@ -42,6 +44,37 @@ function formatDate(date) {
     });
 }
 
+function NotificationItem({ item }) {
+    const style = notificationModel[item.type] ?? notificationModel.system;
+    const NotificationIcon = style.icon;
+
+    return (
+        <article className="group flex w-92 gap-3 border-b border-white/[0.07] sm:px-4 py-2.5 last:border-b-0">
+            <div className={`w-[82dvw] min-[420px]:w-full ${style.background} p-2 rounded-2xl hover:bg-white/5  
+            `}>
+                <div className="min-w-0 flex items-center  ">
+                    <div className={`${style.color} flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl`}>
+                        <NotificationIcon size={24} />
+                    </div>
+                    <div className="mb-1 flex flex-wrap items-center gap-2">
+                        <h3 className="text-sm font-semibold leading-5 text-gray-100">{item.title}</h3>
+                        <span className={`rounded-md px-2 py-0.5 text-[10px] translate-x-2 font-medium ${style.background} ${style.color}`}>
+                            {style.label}
+                        </span>
+                    </div>
+                </div>
+                <p className="wrap-break-words text-sm leading-5 text-gray-400 translate-x-2.5">
+                    {item.message}
+                </p>
+                <time className="mt-2 flex items-center gap-1.5 text-xs font-medium text-gray-500 translate-x-2.5" dateTime={item.created_at}>
+                    <Clock size={12} />
+                    {formatDate(item.created_at)}
+                </time>
+            </div>
+        </article>
+    );
+}
+
 function NotificationBell() {
     const { notifications, loading, markAllNotificationsAsRead } = useNotifications();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -50,7 +83,8 @@ function NotificationBell() {
     const unreadCount = notifications.filter(item => item.is_read === 0);
 
     const unreadFirstNotifications = [...notifications].sort((first, second) => first.is_read - second.is_read);
-
+    const currentRead = unreadFirstNotifications.filter((item) => item.is_read === 1)
+    const unRead = unreadFirstNotifications.filter((item) => item.is_read === 0)
     return (
         <div className="relative flex shrink-0 items-center lg:translate-y-0.5">
             <button
@@ -115,56 +149,42 @@ function NotificationBell() {
                     ) : notifications.length === 0 ? (
                         <p>You don't have notifications</p>
                     ) : (
-                        unreadFirstNotifications.map((item, index) => {
-                            const style =
-                                notificationModel[item.type] ??
-                                notificationModel.system;
-                            const isUnRead = item.is_read === 0;
-                            const NotificationIcon = style.icon;
-                            const showReadDivider = index > 0 && item.is_read === 1 && unreadFirstNotifications[index - 1].is_read === 0;
-                            return (
-                                <div key={item.id}>
-                                    {showReadDivider && <h1 className="text-[#A99AFF] font-semibold"> Read </h1>}
-                                    <article className={`group flex w-92  gap-3
-                                    border-b border-white/[0.07] sm:px-4 py-2.5
-                                    transition-colors ${isUnRead ? "hover:bg-gray-700" : "hover:bg-white/2"} last:border-b-0`}>
-                                        <div className={` w-[82dvw] min-[420px]:w-full
-                                         ${isUnRead ? "bg-[#292541] " : style.background} p-2 rounded-2xl `}>
-                                            <div className="min-w-0 flex  items-center">
-                                                <div className={`${style.color}
-                                                flex h-10 w-10 shrink-0 items-center
-                                                justify-center rounded-2xl`}>
-                                                    <NotificationIcon size={24} />
-                                                </div>
-                                                <div className="mb-1 flex
-                                                    flex-wrap items-center gap-2">
-                                                    <h3 className="text-sm
-                                                        font-semibold leading-5
-                                                        text-gray-100" >{item.title}</h3>
-                                                    <span
-                                                        className={`rounded-md
-                                                        px-2 py-0.5 text-[10px] translate-x-2
-                                                        font-medium ${style.background}
-                                                        ${style.color}`}
-                                                    >
-                                                        {style.label}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <p className="wrap-break-words text-sm
-                                                leading-5 text-gray-400 translate-x-2.5" >
-                                                {item.message}
-                                            </p>
-                                            <time className="mt-2 flex items-center font-medium
-                                                 gap-1.5 text-xs text-gray-500 translate-x-2.5" dateTime={item.created_at}>
-                                                <Clock size={12} />
-                                                {formatDate(item.created_at)}
-                                            </time>
-                                        </div>
-                                    </article>
-                                </div>
-                            )
-                        })
+                        <>
+                            {unRead.map((item) => (
+                                <NotificationItem key={item.id} item={item} />
+                            ))}
+
+                            {currentRead.length > 0 && (
+                                <Accordion
+                                    disableGutters
+                                    elevation={0}
+                                    sx={{
+                                        mt: 1,
+                                        bgcolor: "transparent",
+                                        color: "inherit",
+                                        "&:before": { display: "none" },
+                                    }}
+                                >
+                                    <AccordionSummary
+                                        expandIcon={<ChevronDown size={18} className="text-gray-400" />}
+                                        sx={{
+                                            px: 1,
+                                            minHeight: 44,
+                                            "& .MuiAccordionSummary-content": { my: 1 },
+                                        }}
+                                    >
+                                        <span className="text-md font-semibold text-[#A99AFF]">
+                                            Read <span className="border-2 text-[14px] p-1 rounded-2xl border-[#8c7fd4] bg-[#8c7fd4] text-white">{currentRead.length}</span>
+                                        </span>
+                                    </AccordionSummary>
+                                    <AccordionDetails sx={{ p: 0 }}>
+                                        {currentRead.map((item) => (
+                                            <NotificationItem key={item.id} item={item} />
+                                        ))}
+                                    </AccordionDetails>
+                                </Accordion>
+                            )}
+                        </>
                     )}
                 </div>
             </Popover>
