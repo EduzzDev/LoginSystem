@@ -2,7 +2,9 @@ import pkg from "jsonwebtoken";
 import Database from "better-sqlite3";
 const { verify } = pkg;
 
-const db = new Database("LoginSystem.db");
+const db = new Database(
+  process.env.DATABASE_PATH || "LoginSystem.db"
+);
 
 function verificarAutenticacao(req, res, next) {
   const token = req.cookies.token;

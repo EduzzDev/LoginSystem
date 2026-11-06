@@ -13,7 +13,9 @@ import { createHash } from "node:crypto";
 import { getIO } from '../socket.js';
 import { error } from "node:console";
 
-const db = new Database("LoginSystem.db");
+const db = new Database(
+  process.env.DATABASE_PATH || "LoginSystem.db"
+);
 db.pragma("foreign_keys = ON");
 
 db.exec(`
