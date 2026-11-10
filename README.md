@@ -196,11 +196,31 @@ docker compose down
 
 O Compose usa volumes nomeados para manter a base de dados SQLite e os uploads entre reinícios, além de volumes para as dependências instaladas nos containers. Esta configuração destina-se ao desenvolvimento local, não a uma implantação de produção.
 
+### Comandos do Makefile
+
+Na raiz do projeto, o `Makefile` oferece atalhos para os comandos mais usados do Docker Compose. Com `make` instalado, também é possível consultar a lista completa com `make help`.
+
+| Comando | Descrição |
+| --- | --- |
+| `make build` | Cria as imagens dos serviços. |
+| `make up` | Inicia os serviços em primeiro plano. |
+| `make up-d` | Inicia os serviços em segundo plano. |
+| `make rebuild` | Reconstrói as imagens e inicia os serviços. |
+| `make stop` / `make restart` | Para ou reinicia os serviços. |
+| `make down` | Para e remove os containers. |
+| `make logs` | Acompanha os logs de todos os serviços. |
+| `make logs-backend` / `make logs-frontend` | Acompanha os logs do serviço indicado. |
+| `make ps` | Mostra o estado dos containers. |
+| `make config` | Valida e apresenta a configuração resolvida do Compose. |
+
+Os comandos `make` substituem as chamadas equivalentes a `docker compose`; os pré-requisitos e a configuração de `backend/.env` continuam os mesmos.
+
 ## 📂 Estrutura do projeto
 
 ```text
 LoginSystem/
 ├── .dockerignore
+├── Makefile              # Atalhos para gerir os serviços Docker
 ├── compose.yaml          # Serviços locais de frontend e backend
 ├── backend/
 │   ├── .dockerignore
@@ -257,7 +277,7 @@ Veja algumas das páginas da aplicação em desktop e mobile:
 
 ## 🚧 Estado atual
 
-As funcionalidades principais de autenticação, perfil, tarefas, segurança, notificações e ajuda estão representadas no frontend. O projeto inclui também uma configuração Docker Compose para desenvolvimento local. Continua em desenvolvimento, sobretudo no refinamento visual, na robustez da configuração de produção e na evolução das funcionalidades internas.
+As funcionalidades principais de autenticação, perfil, tarefas, segurança, notificações e ajuda estão representadas no frontend. O projeto inclui configuração Docker Compose e comandos Makefile para desenvolvimento local. Continua em desenvolvimento, sobretudo no refinamento visual, na robustez da configuração de produção e na evolução das funcionalidades internas.
 
 ## 📄 Licença
 
