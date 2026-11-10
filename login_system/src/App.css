@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+.text-fluid-sm {
+  font-size: var(--text-sm);
+}
+.text-fluid-base {
+	 font-size: var(--text-base);
+}
+
+.text-fluid-nav {
+	 font-size: var(--text-nav);
+}
+
+.text-fluid-title {
+	 font-size: var(--text-nav);
+}
+
 .loading-screen {
 	min-height: 100vh;
 	display: grid;
@@ -53,4 +68,10 @@
   .scrollbar-::-webkit-scrollbar-thumb:hover {
     background-color: #b0b0b0;
   }
+}
+:root {
+  --text-sm: clamp(0.875rem, 0.8rem + 0.10dvw, 1.25rem);
+  --text-base: clamp(1rem, 0.8rem + 0.25dvw, 1.25rem);
+  --text-nav: clamp(1rem, 1rem + 0.3dvw, 1.5rem);
+  --text-title: clamp(1.5rem, 1rem + 0.8dvw, 2.5rem);
 }

@@ -11,12 +11,11 @@ function SideBarItem({ children, onClick }) {
         }
       }}
       className={`flex w-[95%] p-2.5 rounded-2xl z-10 hover:bg-gray-600
-         hover:text-white text-2xl
+         hover:text-white text-2xl dashboard-4k-sidebar-item
          items-center mb-2 cursor-pointer
-        ${
-          isActive
-            ? " w-[95%] p-2.5 rounded-2xl bg-gray-600 text-white border-gray-200"
-            : ""
+        ${isActive
+          ? " w-[95%] p-2.5 rounded-2xl bg-gray-600 text-white border-gray-200"
+          : ""
         }`}
     >
       {children}

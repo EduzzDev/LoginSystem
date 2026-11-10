@@ -172,82 +172,82 @@ function MyProfile() {
   return (
     <>
       {/* Menu PC */}
-      <div className="relative w-screen h-screen  hidden lg:block bg-[#2D3035] 
+      <div className="relative w-screen h-dvh hidden lg:block bg-[#2D3035]
       overflow-x-hidden overflow-y-hidden ">
         <nav className="w-screen hidden  lg:flex justify-end">
           <div
             className="bg-[#1A1C20] w-full flex justify-between
-             h-18 items-center rounded-t-lg   border-b  border-gray-700 "
+             h-18 2xl:h-25 items-center rounded-t-lg border-b border-gray-700"
           >
-            <h1 className="flex  relative text-3xl  items-center text-gray-200 2xl:translate-x-4">
-              <Zap className="relative mr-1 ml-1 " />
-              <span className="font-extrabold ">Login</span>System
+            <h1 className="flex relative items-center text-gray-200 text-fluid-nav">
+              <Zap className="2xl:w-10 2xl:h-10 relative mr-1 ml-5" />
+              <span className="font-extrabold text-fluid-nav">Login</span>System
             </h1>
-            <div className=" flex  absolute left-1/5 2xl:left-1/8 ml-2 right-0">
-              <span className="text-gray-500 flex-col text-[18px] ">
+            <div className="absolute left-1/4 xl:left-[22%] 2xl:left-100">
+              <span className="text-gray-500 text-fluid-nav">
                 Dashboard {">"}{" "}
-                <span className="text-white text-[18px]">My Profile</span>
+                <span className="text-white">My Profile</span>
               </span>
             </div>
-            <div className="flex items-center gap-4 2xl:gap-8  min-[3840px]:gap-12">
+            <div className="flex items-center lg:gap-1.5 2xl:gap-8 min-[3840px]:gap-12">
               <div className="flex items-center relative">
                 <Search
-                  className="text-[#9CA3AF] w-5 left-8
-                              relative z-1  bg-none"
+                  className="text-[#9CA3AF] w-5 2xl:w-6.5 2xl:h-6.5 2xl:left-8.5 left-8
+                              relative z-1 bg-none"
                 />
                 <input
                   type="text"
                   placeholder="Buscar"
-                  className=" w-60 2xl:w-120  h-10  pl-10 relative
+                  className="w-60 2xl:w-140 2xl:h-14 h-10 pl-10 relative
                    border-[#3d4044] border rounded-lg
-                   bg-[#2D3035] outline-0 text-gray-100"
+                   bg-[#2D3035] outline-0 text-gray-100 text-fluid-nav"
                 />
               </div>
               <NotificationBell />
               <img
                 src={profile.previewImg}
-                className="w-10.5 h-10.5 rounded-4xl"
+                className="w-10.5 h-10.5 2xl:w-14.5 2xl:h-14.5 rounded-4xl"
                 alt="profile picture"
               />
               <div className="flex flex-col">
-                <span className="text-white text-[16px] 2xl:text-2xl">{user}</span>
-                <span className="text-gray-400 text-[14px] 2xl:text-md">
+                <span className="text-white text-fluid-nav">{user}</span>
+                <span className="text-gray-400 text-fluid-base">
                   Logado há {timeLogged}{" "}
                 </span>
               </div>
-              <ChevronDown className="text-white mr-4" />
+              <ChevronDown className="text-white mr-4 2xl:w-10 2xl:h-10" />
             </div>
           </div>
         </nav>
         <nav
-          className="absolute left-0 top-18 min-w-65 2xl:w-90 h-[calc(100dvh-4.5rem)] flex flex-col justify-center
+          className="absolute left-0 top-18 2xl:top-25 w-65 2xl:min-w-100 h-[calc(100dvh-4.5rem)] flex flex-col justify-center
            pl-5 border-r 
          border-gray-600 text-white bg-[#1A1C20] z-10
            "
         >
           <div className=" flex flex-col items-center   relative ">
             <SideBarItem onClick={() => handleDashboard()}>
-              <LayoutDashboard className=" mr-3 " />
+              <LayoutDashboard className="mr-3 2xl:h-8 2xl:w-8" />
               General
             </SideBarItem>
             <SideBarItem>
-              <User className=" mr-4 " />
+              <User className="mr-4 2xl:h-8 2xl:w-8" />
               My Profile
             </SideBarItem>
             <SideBarItem onClick={() => handleTasks()}>
-              <ClipboardList className=" mr-4 " />
+              <ClipboardList className="mr-4 2xl:h-8 2xl:w-8" />
               Tasks
             </SideBarItem>
             <SideBarItem onClick={() => handleSecurity()}>
-              <Shield className=" mr-4" />
+              <Shield className="mr-4 2xl:h-8 2xl:w-8" />
               Security
             </SideBarItem>
             <SideBarItem onClick={() => handleHelp()}>
-              <ShieldQuestionMark className=" mr-4 " />
+              <ShieldQuestionMark className="mr-4 2xl:h-8 2xl:w-8" />
               Help
             </SideBarItem>
             <SideBarItem onClick={() => handleLogoutClick()}>
-              <LogOut className=" mr-4 " />
+              <LogOut className="mr-4 2xl:h-8 2xl:w-8" />
               Logout
             </SideBarItem>
           </div>
