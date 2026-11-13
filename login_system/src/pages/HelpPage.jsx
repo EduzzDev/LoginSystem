@@ -100,7 +100,7 @@ function HelpPage() {
                 />
                 <input
                   type="text"
-                  placeholder="Buscar"
+                  placeholder="Search"
                   className="w-60 2xl:w-140 2xl:h-14 h-10 pl-10 relative
                    border-[#3d4044] border rounded-lg
                    bg-[#2D3035] outline-0 text-gray-100 text-fluid-nav"
@@ -452,7 +452,8 @@ function HelpPage() {
         </nav>
         <main className=" w-full  min-[600px]:w-150 sm:translate-x-10 
          mt-2 flex min-h-[calc(100dvh-3.8rem)] items-center ">
-          <div className="mx-auto grid w-full content-start grid-cols-1 gap-2 relative mb-[calc(80px+24px+env(safe-area-inset-bottom))]">
+          <div className="mx-auto grid w-full content-start grid-cols-1 gap-2 
+          relative mb-[calc(80px+24px+env(safe-area-inset-bottom))]">
             <div className="w-full self-start min-h-auto box-border h-auto p-2  text-gray-100 
            z-10 relative   rounded-2xl
             bg-[#141925]">
@@ -772,7 +773,8 @@ function HelpPage() {
             }}
           >
             <div className="flex flex-col items-baseline  ">
-              <button className=" w-full flex flex-row p-1.5 mt-4 gap-5 cursor-pointer hover:text-green-400 hover:rounded-2xl"
+              <button className=" w-full flex flex-row p-1.5 
+              mt-4 gap-5 cursor-pointer hover:text-green-400 hover:rounded-2xl"
               >
                 <CircleHelp />
                 <h2>Help</h2>

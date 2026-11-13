@@ -12,7 +12,7 @@
 }
 
 .text-fluid-title {
-	 font-size: var(--text-nav);
+	 font-size: var(--text-title);
 }
 
 .loading-screen {
@@ -73,5 +73,5 @@
   --text-sm: clamp(0.875rem, 0.8rem + 0.10dvw, 1.25rem);
   --text-base: clamp(1rem, 0.8rem + 0.25dvw, 1.25rem);
   --text-nav: clamp(1rem, 1rem + 0.3dvw, 1.5rem);
-  --text-title: clamp(1.5rem, 1rem + 0.8dvw, 2.5rem);
+  --text-title: clamp(1.5rem, 1rem + 2vw, 1.8rem);
 }

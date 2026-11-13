@@ -197,7 +197,7 @@ function MyProfile() {
                 />
                 <input
                   type="text"
-                  placeholder="Buscar"
+                  placeholder="Search"
                   className="w-60 2xl:w-140 2xl:h-14 h-10 pl-10 relative
                    border-[#3d4044] border rounded-lg
                    bg-[#2D3035] outline-0 text-gray-100 text-fluid-nav"
@@ -220,7 +220,8 @@ function MyProfile() {
           </div>
         </nav>
         <nav
-          className="absolute left-0 top-18 2xl:top-25 w-65 2xl:min-w-100 h-[calc(100dvh-4.5rem)] flex flex-col justify-center
+          className="absolute left-0 top-18 2xl:top-25 w-65
+           2xl:min-w-100 h-[calc(100dvh-4.5rem)] flex flex-col justify-center
            pl-5 border-r 
          border-gray-600 text-white bg-[#1A1C20] z-10
            "

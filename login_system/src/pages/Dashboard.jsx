@@ -9,6 +9,7 @@ import SideBarMobile from "../components/SideBarMobile";
 import {
   Bell,
   UserCircle,
+  Monitor,
   Zap,
   LogOut,
   ShieldQuestionMark,
@@ -23,6 +24,8 @@ import {
 } from "lucide-react";
 import Drawer from "@mui/material/Drawer";
 import NotificationBell from "../components/NotificationBell";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import MonitorIcon from '@mui/icons-material/Monitor';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -77,9 +80,9 @@ function Dashboard() {
               border-b  border-gray-700 "
           >
             <h1 className="flex relative items-center
-             text-gray-200 text-fluid-nav">
+             text-gray-200  text-fluid-title">
               <Zap className="2xl:w-10 2xl:h-10 relative mr-1 ml-5 " />
-              <span className="font-extrabold text-fluid-nav">Login</span>System
+              <span className="font-extrabold">Login</span>System
             </h1>
             <div className="absolute left-1/4 xl:left-[22%] 2xl:left-100">
               <span className="text-gray-500 text-fluid-nav">
@@ -97,7 +100,7 @@ function Dashboard() {
                 />
                 <input
                   type="text"
-                  placeholder="Buscar"
+                  placeholder="Search"
                   className=" w-60  2xl:w-140 2xl:h-14 h-10  pl-10 relative
                    border-[#3d4044] border rounded-lg
                    bg-[#2D3035] outline-0 text-gray-100 text-fluid-nav"
@@ -122,10 +125,10 @@ function Dashboard() {
           </div>
         </nav>
         <nav
-          className="absolute left-0 top-18 w-65 2xl:top-25 2xl:min-w-100 h-[calc(100dvh-4.5rem)] 
-          flex flex-col justify-center
+          className="absolute left-0 top-18 2xl:top-25 w-65
+           2xl:min-w-100 h-[calc(100dvh-4.5rem)] flex flex-col justify-center
            pl-5 border-r 
-         border-gray-600 text-white bg-[#1A1C20] 
+         border-gray-600 text-white bg-[#1A1C20] z-10
            "
         >
           <div className=" flex flex-col items-center   relative ">
@@ -155,6 +158,78 @@ function Dashboard() {
             </SideBarItem>
           </div>
         </nav>
+        <main className=" w-full  min-h-[calc(100dvh-4.5rem)] min-w-0
+        flex py-6 mx-6 justify-center">
+          <article className=" flex flex-row shrink w-150 
+          2xl:max-w-155 2xl:h-70 h-65 bg-[#1B1D20] p-2.5 rounded-2xl gap-2">
+            <img
+              src={userImg || imgUser}
+              className=" w-24.5 h-24.5  rounded-4xl relative "
+              alt="profile picture"
+            />
+            <div className="flex flex-col ">
+              <h1 className="text-fluid-title text-[#F1F0F8] 
+              font-medium translate-y-4 tracking-wide pb-2">
+                Welcome-back, {user}!
+              </h1>
+              <h3 className="text-fluid-nav
+               text-[#A78BFA] tracking-widest font-semibold">
+                Overview
+              </h3>
+              <p className="text-fluid-sm
+               text-[#A5A8B5] font-mono tracking-wider relative
+               translate-y-2.5 w-120  -translate-x-1/5 left-2 mb-2">
+                Get an overview of your system, recent activity,
+                and <br />
+                key security details
+              </p>
+              <div className="max-h-25 flex flex-row justify-between gap-4 text-center -translate-x-2 shrink ">
+                <div className=" w-43 2xl:w-45 p-1.5 rounded-2xl -translate-x-1/2 mt-4
+                flex flex-row items-center  gap-2.5 bg-[#292B30] py-3 ">
+                  <User className="w-10 h-10 p-1.5 bg-[#343844] rounded-3xl text-white" />
+                  <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
+                    Account status <span className="text-[#6EE7B7] items-center font-semibold ">
+                      <span className="mr-0.5">⬤</span> Online </span>
+                  </p>
+                </div>
+                <div className=" w-43 2xl:w-45 p-1.5 rounded-2xl -translate-x-1/2 mt-4
+                flex flex-row items-center gap-2.5 bg-[#292B30] py-3">
+                  <CalendarMonthIcon
+                    sx={{
+                      width: "40px",
+                      height: "40px",
+                      padding: "6px",
+                      color: "white",
+                      backgroundColor: "#343844",
+                      borderRadius: "24px",
+                    }}
+                  />
+                  <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
+                    Member since <span className="text-[#A78BFA] items-center font-semibold ">
+                      12/11/2025 </span>
+                  </p>
+                </div>
+                <div className=" w-43 2xl:w-45 p-1.5 rounded-2xl -translate-x-1/2 mt-4
+                flex flex-row items-center gap-2.5 bg-[#292B30] py-3">
+                  <MonitorIcon
+                    sx={{
+                      width: "40px",
+                      height: "40px",
+                      padding: "8px",
+                      color: "white",
+                      backgroundColor: "#343844",
+                      borderRadius: "24px",
+                    }} />
+                  <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
+                    Current access <span className="text-[#6EE7B7] items-center font-semibold ">
+                      <span className="mr-0.5">⬤</span> Online </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </article>
+        </main>
       </div>
       {/* menu MOBILE*/}
       <div className="w-screen h-screen lg:hidden bg-[#2D3035]">

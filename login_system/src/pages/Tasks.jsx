@@ -230,7 +230,7 @@ function Tasks() {
                 />
                 <input
                   type="text"
-                  placeholder="Buscar"
+                  placeholder="Search"
                   className="w-60 2xl:w-140 2xl:h-14 h-10 pl-10 relative
                    border-[#3d4044] border rounded-lg
                    bg-[#2D3035] outline-0 text-gray-100 text-fluid-nav"
