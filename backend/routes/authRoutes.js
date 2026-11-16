@@ -107,7 +107,7 @@ router.get("/dashboard", verificarAutenticacao, (req, res) => {
 
 router.get("/user/me", verificarAutenticacao, (req, res) => {
   const stmt = db.prepare(
-    "SELECT email, nome, cargo, senha, urlImg FROM usuarios WHERE id = ?",
+    "SELECT email, nome, cargo, senha, urlImg, created_at FROM usuarios WHERE id = ?",
   );
   const user = stmt.get(req.userId);
 
@@ -129,6 +129,7 @@ router.get("/user/me", verificarAutenticacao, (req, res) => {
     urlImg,
     currentJti: req.jti,
     session: activeSessions,
+    created_at: user.created_at
   });
 });
 

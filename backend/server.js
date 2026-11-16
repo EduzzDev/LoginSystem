@@ -72,7 +72,8 @@ db.prepare(
     email TEXT NOT NULL UNIQUE,
     senha TEXT NOT NULL,
     cargo TEXT,
-    urlImg TEXT 
+    urlImg TEXT, 
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )
 `,
 ).run();
@@ -180,7 +181,7 @@ app.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(senha, 10);
 
     const stmt = db.prepare(
-      "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)",
+      "INSERT INTO usuarios (nome, email, senha,created_at ) VALUES (?, ?, ?,  CURRENT_TIMESTAMP)",
     );
     const result = stmt.run(nome, email, hashedPassword);
 
