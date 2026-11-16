@@ -6,6 +6,7 @@ import { socket } from "../services/socket";
 
 export const AuthProvider = ({ children }) => {
   const [timeLogged, setTimeLogged] = useState("");
+  const [created_at, setCreated_at] = useState("")
   const [user, setUser] = useState(() => {
     return localStorage.getItem("userNome") || null;
   });
@@ -98,6 +99,8 @@ export const AuthProvider = ({ children }) => {
   const UserProfile = async () => {
     try {
       const response = await getUserProfile();
+      const createdAtResponse = response?.created_at;
+      setCreated_at(createdAtResponse)
       const imgResponse = response?.urlImg || null;
       setImgUser(imgResponse);
 
@@ -127,7 +130,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ timeLogged, user, SignIn, Login, imgUser, UserProfile }}
+      value={{ timeLogged, user, SignIn, Login, imgUser, UserProfile, created_at }}
     >
       {children}
     </AuthContext.Provider>

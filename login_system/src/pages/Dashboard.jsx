@@ -29,20 +29,22 @@ import MonitorIcon from '@mui/icons-material/Monitor';
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { user, timeLogged, imgUser } = useContext(AuthContext);
+  const { user, timeLogged, imgUser, created_at, UserProfile } = useContext(AuthContext);
   const [moreOpen, setMoreOpen] = useState(false)
+
 
   useEffect(() => {
     async function verifyUser() {
       try {
         await checkAuth();
+        await UserProfile();
       } catch {
         navigate("/");
       }
     }
 
     verifyUser();
-  }, [navigate]);
+  }, [navigate, UserProfile]);
 
   async function handleLogoutClick() {
     try {
@@ -69,6 +71,11 @@ function Dashboard() {
   function handleHelp() {
     navigate("/help");
   }
+
+  const data = created_at ? new Date(`${created_at.replace(" ", "T")}Z`) : null;
+  const dataFormatada = new Intl.DateTimeFormat(undefined, {
+    dateStyle: "short",
+  }).format(data);
   return (
     <>
       {/* Menu PC */}
@@ -206,7 +213,7 @@ function Dashboard() {
                   />
                   <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
                     Member since <span className="text-[#A78BFA] items-center font-semibold ">
-                      12/11/2025 </span>
+                      {dataFormatada}</span>
                   </p>
                 </div>
                 <div className=" w-43 2xl:w-45 p-1.5 rounded-2xl -translate-x-1/2 mt-4

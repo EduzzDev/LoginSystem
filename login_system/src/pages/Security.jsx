@@ -259,7 +259,7 @@ function Security() {
                   </thead>
                   <tbody className="divide-y divide-gray-800 text-gray-300">
                     {userInfo?.session?.map((item, index) => {
-                      const dataFormatada = new Date(item.created_at).toLocaleString('en-US', {
+                      const dataFormatada = new Date(item.created_at).toLocaleString(undefined, {
                         hour12: false
                       }); return (
                         <tr key={item.id || index}>
