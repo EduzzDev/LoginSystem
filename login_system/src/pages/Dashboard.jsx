@@ -29,7 +29,7 @@ import MonitorIcon from '@mui/icons-material/Monitor';
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { user, timeLogged, imgUser, created_at, UserProfile } = useContext(AuthContext);
+  const { user, timeLogged, imgUser, created_at, UserProfile, userInfo } = useContext(AuthContext);
   const [moreOpen, setMoreOpen] = useState(false)
 
 
@@ -76,6 +76,7 @@ function Dashboard() {
   const dataFormatada = new Intl.DateTimeFormat(undefined, {
     dateStyle: "short",
   }).format(data);
+
   return (
     <>
       {/* Menu PC */}
@@ -190,12 +191,12 @@ function Dashboard() {
                 and <br />
                 key security details
               </p>
-              <div className="max-h-25 flex flex-row justify-between gap-4 text-center -translate-x-2 shrink ">
+              <div className="max-h-25 flex flex-row justify-between gap-6 text-center -translate-x-2 shrink ">
                 <div className=" w-43 2xl:w-45 p-1.5 rounded-2xl -translate-x-1/2 mt-4
                 flex flex-row items-center  gap-2.5 bg-[#292B30] py-3 ">
                   <User className="w-10 h-10 p-1.5 bg-[#343844] rounded-3xl text-white" />
-                  <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
-                    Account status <span className="text-[#6EE7B7] items-center font-semibold ">
+                  <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium ">
+                    Account status <span className="text-[#6EE7B7] items-center font-semibold pt-0.5 ">
                       <span className="mr-0.5">⬤</span> Online </span>
                   </p>
                 </div>
@@ -212,12 +213,12 @@ function Dashboard() {
                     }}
                   />
                   <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
-                    Member since <span className="text-[#A78BFA] items-center font-semibold ">
+                    Member since <span className="text-[#A78BFA] items-center font-semibold  pt-0.5">
                       {dataFormatada}</span>
                   </p>
                 </div>
-                <div className=" w-43 2xl:w-45 p-1.5 rounded-2xl -translate-x-1/2 mt-4
-                flex flex-row items-center gap-2.5 bg-[#292B30] py-3">
+                <div className=" w-46 2xl:w-45 p-1.5 rounded-2xl -translate-x-1/2 relative mt-4
+                flex flex-row items-center gap-2.5 bg-[#292B30] py-4">
                   <MonitorIcon
                     sx={{
                       width: "40px",
@@ -227,9 +228,13 @@ function Dashboard() {
                       backgroundColor: "#343844",
                       borderRadius: "24px",
                     }} />
-                  <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
-                    Current access <span className="text-[#6EE7B7] items-center font-semibold ">
-                      <span className="mr-0.5">⬤</span> Online </span>
+                  <p className=" text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
+                    Current access
+
+                    <span className="text-[#A5A8B5] text-[14px] items-center font-semibold pt-0.5 ">
+                      {userInfo.replace("-", "")}
+                    </span>
+
                   </p>
                 </div>
               </div>

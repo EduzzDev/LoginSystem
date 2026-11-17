@@ -7,6 +7,7 @@ import { socket } from "../services/socket";
 export const AuthProvider = ({ children }) => {
   const [timeLogged, setTimeLogged] = useState("");
   const [created_at, setCreated_at] = useState("")
+  const [userInfo, setUserInfo] = useState("")
   const [user, setUser] = useState(() => {
     return localStorage.getItem("userNome") || null;
   });
@@ -100,7 +101,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await getUserProfile();
       const createdAtResponse = response?.created_at;
+      const userInfo = response.session.find(sessao => sessao.jti === response.currentJti).device_info
+
       setCreated_at(createdAtResponse)
+      setUserInfo(userInfo)
       const imgResponse = response?.urlImg || null;
       setImgUser(imgResponse);
 
@@ -130,7 +134,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ timeLogged, user, SignIn, Login, imgUser, UserProfile, created_at }}
+      value={{ timeLogged, user, SignIn, Login, imgUser, UserProfile, created_at, userInfo }}
     >
       {children}
     </AuthContext.Provider>
