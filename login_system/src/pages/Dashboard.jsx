@@ -76,7 +76,7 @@ function Dashboard() {
   const dataFormatada = new Intl.DateTimeFormat(undefined, {
     dateStyle: "short",
   }).format(data);
-  const formatUserInfo = userInfo.slice("6", "30");
+  const formatUserInfo = userInfo?.replace(/^Mobile\s+/i, "") ?? "";
   return (
     <>
       {/* Menu PC */}
