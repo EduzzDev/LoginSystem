@@ -155,7 +155,7 @@ function HelpPage() {
             </SideBarItem>
           </div>
         </nav>
-        <main className="ml-62 2xl:ml-65 mt-18 flex min-h-[calc(100dvh-4.5rem)] min-w-0 flex-1 justify-center px-6 py-6">
+        <main className="ml-62  mt-18 2xl:mt-28 flex min-h-[calc(100dvh-4.5rem)] min-w-0 flex-1 justify-center px-6 py-6">
           <div className="mx-auto grid w-full max-w-300 content-start grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.7fr)_minmax(18rem,0.8fr)]">
             <div className="w-full self-start min-h-auto box-border h-auto p-2 pb-8 text-gray-100 
            z-10 relative   rounded-2xl

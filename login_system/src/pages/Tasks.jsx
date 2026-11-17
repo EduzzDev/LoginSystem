@@ -283,8 +283,8 @@ function Tasks() {
             </SideBarItem>
           </div>
         </nav>
-        <main className="relative mt-15">
-          <div className="px-6 lg:ml-65 2xl:ml-90">
+        <main className="relative mt-15 2xl:mt-25">
+          <div className="px-6 lg:ml-65 2xl:ml-100 ">
             <div className="w-full h-full hidden lg:flex justify-start relative ">
               {!showInput ? (
                 <button
