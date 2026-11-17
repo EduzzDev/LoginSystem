@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import userImg from "../assets/userImg.png";
 import { AuthContext } from "../context/authContext";
 import SideBarMobile from "../components/SideBarMobile";
+import InfoCard from "../components/InfoCard";
 import {
   Bell,
   UserCircle,
@@ -195,52 +196,50 @@ function Dashboard() {
               <div className="max-h-25 flex 
               flex-row justify-between gap-4
                text-center -translate-x-24 shrink ">
-                <div className=" w-46 2xl:w-45 p-1.5 rounded-2xl mt-4
-                flex flex-row items-center  gap-2.5 bg-[#292B30] py-3 ">
-                  <User className="w-10 h-10 p-1.5 bg-[#343844] rounded-3xl text-white" />
-                  <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium ">
-                    Account status <span className="text-[#6EE7B7] items-center font-semibold ">
-                      <span className="mr-0.5">⬤</span> Online </span>
-                  </p>
-                </div>
-                <div className=" w-46 2xl:w-45 p-1.5 rounded-2xl mt-4
-                flex flex-row items-center gap-2.5 bg-[#292B30] py-3">
-                  <CalendarMonthIcon
-                    sx={{
-                      width: "40px",
-                      height: "40px",
-                      padding: "6px",
-                      color: "white",
-                      backgroundColor: "#343844",
-                      borderRadius: "24px",
-                    }}
-                  />
-                  <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
-                    Member since <span className="text-[#A78BFA] items-center font-semibold ">
-                      {dataFormatada}</span>
-                  </p>
-                </div>
-                <div className=" w-46 h-20 2xl:w-45 p-1.5 rounded-2xl  relative mt-4 
-                flex flex-row items-center gap-2.5 bg-[#292B30] py-3">
-                  <MonitorIcon
-                    sx={{
-                      width: "40px",
-                      height: "40px",
-                      padding: "8px",
-                      color: "white",
-                      backgroundColor: "#343844",
-                      borderRadius: "24px",
-                    }} />
-                  <p className=" text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
-                    Current access
-
-                    <span className="text-[#A5A8B5] text-[14px] items-center font-semibold ">
-
-                      {formatUserInfo.replace("-", "")}
-                    </span>
-
-                  </p>
-                </div>
+                <InfoCard
+                  className=" w-46 2xl:w-45 p-1.5 rounded-2xl mt-4 flex flex-row items-center gap-2.5 bg-[#292B30] py-3 "
+                  textClassName="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium "
+                  icon={<User className="w-10 h-10 p-1.5 bg-[#343844] rounded-3xl text-white" />}
+                  title="Account status"
+                >
+                  <span className="text-[#6EE7B7] items-center font-semibold ">
+                    <span className="mr-0.5">⬤</span> Online
+                  </span>
+                </InfoCard>
+                <InfoCard
+                  className=" w-46 2xl:w-45 p-1.5 rounded-2xl mt-4 flex flex-row items-center gap-2.5 bg-[#292B30] py-3"
+                  textClassName="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium"
+                  icon={<CalendarMonthIcon sx={{
+                    width: "40px",
+                    height: "40px",
+                    padding: "6px",
+                    color: "white",
+                    backgroundColor: "#343844",
+                    borderRadius: "24px",
+                  }} />}
+                  title="Member since"
+                >
+                  <span className="text-[#A78BFA] items-center font-semibold ">
+                    {dataFormatada}
+                  </span>
+                </InfoCard>
+                <InfoCard
+                  className=" w-46 h-20 2xl:w-45 p-1.5 rounded-2xl relative mt-4 flex flex-row items-center gap-2.5 bg-[#292B30] py-3"
+                  textClassName="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium"
+                  icon={<MonitorIcon sx={{
+                    width: "40px",
+                    height: "40px",
+                    padding: "8px",
+                    color: "white",
+                    backgroundColor: "#343844",
+                    borderRadius: "24px",
+                  }} />}
+                  title="Current access"
+                >
+                  <span className="text-[#A5A8B5] text-[14px] items-center font-semibold ">
+                    {formatUserInfo.replace("-", "")}
+                  </span>
+                </InfoCard>
               </div>
             </div>
 
@@ -310,59 +309,54 @@ function Dashboard() {
               <div className="max-h-20  justify-start  grid grid-cols-2 
                 flex-row min-[380px]:justify-between  
                  text-center shrink text-[12px] min-[380px]:text-[14px] ">
-                <div className=" w-36 min-[380px]:w-44 @max-xs:h-10 min-[380px]:h-18 p-1.5 rounded-2xl mt-4
-                  flex flex-row items-center  gap-1.5 bg-[#292B30] py-3  ">
-                  <User className="w-7.5 h-7.5 p-2 min-[380px]:w-10 min-[380px]:h-10
-                   bg-[#343844] rounded-3xl text-white" />
-                  <p className=" text-[#A5A8B5] flex flex-col font-medium ">
-                    Account status <span className="text-[#6EE7B7] items-center font-semibold ">
-                      <span className="mr-0.5">⬤</span> Online </span>
-                  </p>
-                </div>
-                <div className=" w-36 min-[380px]:w-44 @max-xs:h-10 min-[380px]:h-18  p-1.5 rounded-2xl mt-4
-                  flex flex-row items-center gap-1.5 bg-[#292B30] py-3  ">
-                  <CalendarMonthIcon
-                    sx={{
-                      width: "30px",
-                      height: "30px", "@media (min-width:380px)": {
-                        width: 40,
-                        height: 40,
-                        padding: "8px",
-                      },
-                      padding: "6px",
-                      color: "white",
-                      backgroundColor: "#343844",
-                      borderRadius: "24px",
-                    }}
-                  />
-                  <p className=" text-[#A5A8B5] flex flex-col font-medium">
-                    Member since <span className="text-[#A78BFA] items-center font-semibold ">
-                      {dataFormatada}</span>
-                  </p>
-                </div>
-                <div className=" w-75 min-[380px]:w-91.5 @max-xs:h-10 min-[380px]:h-18  p-1.5 rounded-2xl  relative mt-4
-                  flex flex-row items-center gap-1.5 bg-[#292B30] py-3">
-                  <MonitorIcon
-                    sx={{
-                      width: "30px",
-                      height: "30px",
-                      "@media (min-width:380px)": {
-                        width: 40,
-                        height: 40,
-                        padding: "8px",
-                      },
-                      padding: "6px",
-                      color: "white",
-                      backgroundColor: "#343844",
-                      borderRadius: "24px",
-                    }} />
-                  <p className="  text-[#A5A8B5] flex flex-col font-medium">
-                    Current access
-                    <span className="text-[#A5A8B5]  items-center font-semibold ">
-                      {formatUserInfo.replace("-", "")}
-                    </span>
-                  </p>
-                </div>
+                <InfoCard
+                  icon={<User className="w-7.5 h-7.5 p-2 min-[380px]:w-10 min-[380px]:h-10 bg-[#343844] rounded-3xl text-white" />}
+                  title="Account status"
+                >
+                  <span className="text-[#6EE7B7] items-center font-semibold ">
+                    <span className="mr-0.5">⬤</span> Online
+                  </span>
+                </InfoCard>
+                <InfoCard
+                  icon={<CalendarMonthIcon sx={{
+                    width: "30px",
+                    height: "30px",
+                    "@media (min-width:380px)": {
+                      width: 40,
+                      height: 40,
+                      padding: "8px",
+                    },
+                    padding: "6px",
+                    color: "white",
+                    backgroundColor: "#343844",
+                    borderRadius: "24px",
+                  }} />}
+                  title="Member since"
+                >
+                  <span className="text-[#A78BFA] items-center font-semibold ">
+                    {dataFormatada}
+                  </span>
+                </InfoCard>
+                <InfoCard
+                  icon={<MonitorIcon sx={{
+                    width: "30px",
+                    height: "30px",
+                    "@media (min-width:380px)": {
+                      width: 40,
+                      height: 40,
+                      padding: "8px",
+                    },
+                    padding: "6px",
+                    color: "white",
+                    backgroundColor: "#343844",
+                    borderRadius: "24px",
+                  }} />}
+                  title="Current access"
+                >
+                  <span className="text-[#A5A8B5] items-center font-semibold ">
+                    {formatUserInfo.replace("-", "")}
+                  </span>
+                </InfoCard>
               </div>
             </div>
           </article>
