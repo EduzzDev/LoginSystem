@@ -383,7 +383,8 @@ function Security() {
           </div>
 
         </div>
-        <footer className="fixed right-0 left-0 bottom-0 p-2 border-t-[#31353a] text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur">
+        <footer className="fixed right-0 left-0 bottom-0 p-2
+         border-t-[#31353a] text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur">
           <ul
             className="
                w-full 
@@ -433,13 +434,15 @@ function Security() {
             }}
           >
             <div className="flex flex-col items-baseline  ">
-              <button className=" w-full flex flex-row p-1.5 mt-4 gap-5 cursor-pointer hover:text-green-400 hover:rounded-2xl"
+              <button className=" w-full flex flex-row p-1.5 mt-4
+               gap-5 cursor-pointer hover:text-green-400 hover:rounded-2xl"
                 onClick={() => handleHelp()}>
                 <CircleHelp />
                 <h2>Help</h2>
               </button>
               <div className="h-px w-full bg-gray-700 my-4" />
-              <button className="w-full p-1.5 flex flex-row gap-5 text-amber-50  cursor-pointer hover:text-red-700 hover:rounded-2xl"
+              <button className="w-full p-1.5 flex flex-row gap-5
+               text-amber-50  cursor-pointer hover:text-red-700 hover:rounded-2xl"
                 onClick={() => handleLogoutClick()}>
                 <LogOut className="translate-x-0.5" />
                 <h2>Exit</h2>

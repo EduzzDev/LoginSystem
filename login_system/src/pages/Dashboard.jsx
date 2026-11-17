@@ -167,8 +167,8 @@ function Dashboard() {
           </div>
         </nav>
         <main className="ml-65 2xl:ml-100 w-[calc(100%-16.25rem)] 2xl:w-[calc(100%-25rem)]
-           min-w-0 min-h-[calc(100dvh-4.5rem)] flex justify-start py-6 pl-10 pr-4 ">
-          <article className=" w-full max-w-155.5 flex flex-row shrink  
+           min-w-0 min-h-[calc(100dvh-4.5rem)] flex justify-start py-6 pl-10 pr-4  ">
+          <article className=" w-full max-w-155.5 flex flex-row shrink  shadow-lg shadow-black
            2xl:h-70 h-65 bg-[#1B1D20] 
           p-2.5 rounded-2xl gap-2">
             <img
@@ -248,8 +248,8 @@ function Dashboard() {
         </main>
       </div>
       {/* menu MOBILE*/}
-      <div className="w-screen h-screen lg:hidden bg-[#2D3035]">
-        <nav className="w-screen lg:hidden  flex justify-center">
+      <div className="min-w-full  min-h-screen lg:hidden bg-[#2D3035] overflow-x-hidden overflow-y-auto">
+        <nav className="w-screen lg:hidden  flex justify-center ">
           <div
             className="bg-[#1A1C20] w-full flex justify-between gap-2
              h-16 items-center px-3 border-b border-gray-700 text-gray-200 sm:px-4"
@@ -274,17 +274,110 @@ function Dashboard() {
             </div>
           </div>
         </nav>
-        <footer className="fixed right-0 left-0 bottom-0 p-2 border-t-[#31353a] text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur">
+        <main className="w-82 h-full min-[380px]:w-100 
+            flex  py-6 min-[450px]:mx-6   ">
+          <article className="w-full h-86 mb-22
+          min-[380px]:flex-row shrink  shadow-lg shadow-black
+            bg-[#1B1D20] relative 
+          p-2.5 rounded-2xl ">
+            <div className="w-full flex flex-row 
+          justify-start text-left items-left  ">
+              <img
+                src={userImg || imgUser}
+                className=" w-20.5 h-20.5  rounded-4xl relative "
+                alt="profile picture"
+              />
+              <div className=" flex flex-col gap-y-4 text-left">
+                <h1 className=" text-fluid-title max-[380px]:text-[12px] text-[#F1F0F8]
+                  font-medium translate-y-4 ">
+                  Welcome-back, {user}!
+                </h1>
+                <h3 className="text-fluid-nav 
+                   text-[#A78BFA] tracking-widest font-semibold">
+                  Overview
+                </h3>
+              </div>
+            </div>
+
+            <div className="flex flex-col ">
+              <p className="text-fluid-sm
+                 text-[#A5A8B5] font-mono min-[380px]:tracking-wider relative
+                 translate-y-2.5 w-full  mb-2  text-left ">
+                Get an overview of your system, recent activity,
+                and
+                key security details
+              </p>
+              <div className="max-h-20  justify-start  grid grid-cols-2 
+                flex-row min-[380px]:justify-between  
+                 text-center shrink text-[12px] min-[380px]:text-[14px] ">
+                <div className=" w-36 min-[380px]:w-44 @max-xs:h-10 min-[380px]:h-18 p-1.5 rounded-2xl mt-4
+                  flex flex-row items-center  gap-1.5 bg-[#292B30] py-3  ">
+                  <User className="w-7.5 h-7.5 p-2 min-[380px]:w-10 min-[380px]:h-10
+                   bg-[#343844] rounded-3xl text-white" />
+                  <p className=" text-[#A5A8B5] flex flex-col font-medium ">
+                    Account status <span className="text-[#6EE7B7] items-center font-semibold ">
+                      <span className="mr-0.5">⬤</span> Online </span>
+                  </p>
+                </div>
+                <div className=" w-36 min-[380px]:w-44 @max-xs:h-10 min-[380px]:h-18  p-1.5 rounded-2xl mt-4
+                  flex flex-row items-center gap-1.5 bg-[#292B30] py-3  ">
+                  <CalendarMonthIcon
+                    sx={{
+                      width: "30px",
+                      height: "30px", "@media (min-width:380px)": {
+                        width: 40,
+                        height: 40,
+                        padding: "8px",
+                      },
+                      padding: "6px",
+                      color: "white",
+                      backgroundColor: "#343844",
+                      borderRadius: "24px",
+                    }}
+                  />
+                  <p className=" text-[#A5A8B5] flex flex-col font-medium">
+                    Member since <span className="text-[#A78BFA] items-center font-semibold ">
+                      {dataFormatada}</span>
+                  </p>
+                </div>
+                <div className=" w-75 min-[380px]:w-91.5 @max-xs:h-10 min-[380px]:h-18  p-1.5 rounded-2xl  relative mt-4
+                  flex flex-row items-center gap-1.5 bg-[#292B30] py-3">
+                  <MonitorIcon
+                    sx={{
+                      width: "30px",
+                      height: "30px",
+                      "@media (min-width:380px)": {
+                        width: 40,
+                        height: 40,
+                        padding: "8px",
+                      },
+                      padding: "6px",
+                      color: "white",
+                      backgroundColor: "#343844",
+                      borderRadius: "24px",
+                    }} />
+                  <p className="  text-[#A5A8B5] flex flex-col font-medium">
+                    Current access
+                    <span className="text-[#A5A8B5]  items-center font-semibold ">
+                      {formatUserInfo.replace("-", "")}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </main>
+        <footer className="fixed right-0 left-0 bottom-0 
+        p-2 border-t-[#31353a] text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur gap-x-0.5 ">
           <ul
             className="
               w-full
                flex flex-row items-center justify-between
-               text-lg
-               min-[600px]:text-2xl"
+                "
           >
             <SideBarMobile onClick={() => handleDashboard()}>
               <LayoutDashboard />
-              <h2>General</h2>
+              <h2 >General</h2>
             </SideBarMobile>
             <SideBarMobile onClick={() => handleTasks()}>
               <ClipboardList />
