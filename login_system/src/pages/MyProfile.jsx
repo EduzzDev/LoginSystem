@@ -179,12 +179,12 @@ function MyProfile() {
             className="bg-[#1A1C20] w-full flex justify-between
              h-18 2xl:h-25 items-center rounded-t-lg border-b border-gray-700"
           >
-            <h1 className="flex relative items-center text-gray-200 text-fluid-nav">
-              <Zap className="2xl:w-10 2xl:h-10 relative mr-1 ml-5" />
-              <span className="font-extrabold text-fluid-nav">Login</span>System
+            <h1 className="flex relative items-center text-gray-200 text-fluid-title">
+              <Zap className="2xl:w-10 2xl:h-10 relative mr-1 ml-5 " />
+              <span className="font-extrabold  ">Login</span>System
             </h1>
-            <div className="absolute left-1/4 xl:left-[22%] 2xl:left-100">
-              <span className="text-gray-500 text-fluid-nav">
+            <div className="absolute left-1/4 xl:left-[22%] 2xl:left-100 text-fluid-nav">
+              <span className="text-gray-500 ">
                 Dashboard {">"}{" "}
                 <span className="text-white">My Profile</span>
               </span>

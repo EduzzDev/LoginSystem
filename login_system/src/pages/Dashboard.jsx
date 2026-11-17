@@ -76,7 +76,7 @@ function Dashboard() {
   const dataFormatada = new Intl.DateTimeFormat(undefined, {
     dateStyle: "short",
   }).format(data);
-
+  const formatUserInfo = userInfo.slice("6", "30");
   return (
     <>
       {/* Menu PC */}
@@ -166,10 +166,11 @@ function Dashboard() {
             </SideBarItem>
           </div>
         </nav>
-        <main className=" w-full  min-h-[calc(100dvh-4.5rem)] min-w-0
-        flex py-6 mx-6 justify-center">
-          <article className=" flex flex-row shrink w-150 
-          2xl:max-w-155 2xl:h-70 h-65 bg-[#1B1D20] p-2.5 rounded-2xl gap-2">
+        <main className="ml-65 2xl:ml-100 w-[calc(100%-16.25rem)] 2xl:w-[calc(100%-25rem)]
+           min-w-0 min-h-[calc(100dvh-4.5rem)] flex justify-start py-6 pl-10 pr-4 ">
+          <article className=" w-full max-w-155.5 flex flex-row shrink  
+           2xl:h-70 h-65 bg-[#1B1D20] 
+          p-2.5 rounded-2xl gap-2">
             <img
               src={userImg || imgUser}
               className=" w-24.5 h-24.5  rounded-4xl relative "
@@ -191,16 +192,18 @@ function Dashboard() {
                 and <br />
                 key security details
               </p>
-              <div className="max-h-25 flex flex-row justify-between gap-6 text-center -translate-x-2 shrink ">
-                <div className=" w-43 2xl:w-45 p-1.5 rounded-2xl -translate-x-1/2 mt-4
+              <div className="max-h-25 flex 
+              flex-row justify-between gap-4
+               text-center -translate-x-24 shrink ">
+                <div className=" w-46 2xl:w-45 p-1.5 rounded-2xl mt-4
                 flex flex-row items-center  gap-2.5 bg-[#292B30] py-3 ">
                   <User className="w-10 h-10 p-1.5 bg-[#343844] rounded-3xl text-white" />
                   <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium ">
-                    Account status <span className="text-[#6EE7B7] items-center font-semibold pt-0.5 ">
+                    Account status <span className="text-[#6EE7B7] items-center font-semibold ">
                       <span className="mr-0.5">⬤</span> Online </span>
                   </p>
                 </div>
-                <div className=" w-43 2xl:w-45 p-1.5 rounded-2xl -translate-x-1/2 mt-4
+                <div className=" w-46 2xl:w-45 p-1.5 rounded-2xl mt-4
                 flex flex-row items-center gap-2.5 bg-[#292B30] py-3">
                   <CalendarMonthIcon
                     sx={{
@@ -213,12 +216,12 @@ function Dashboard() {
                     }}
                   />
                   <p className="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
-                    Member since <span className="text-[#A78BFA] items-center font-semibold  pt-0.5">
+                    Member since <span className="text-[#A78BFA] items-center font-semibold ">
                       {dataFormatada}</span>
                   </p>
                 </div>
-                <div className=" w-46 2xl:w-45 p-1.5 rounded-2xl -translate-x-1/2 relative mt-4
-                flex flex-row items-center gap-2.5 bg-[#292B30] py-4">
+                <div className=" w-46 h-20 2xl:w-45 p-1.5 rounded-2xl  relative mt-4 
+                flex flex-row items-center gap-2.5 bg-[#292B30] py-3">
                   <MonitorIcon
                     sx={{
                       width: "40px",
@@ -231,8 +234,9 @@ function Dashboard() {
                   <p className=" text-fluid-sm text-[#A5A8B5] flex flex-col font-medium">
                     Current access
 
-                    <span className="text-[#A5A8B5] text-[14px] items-center font-semibold pt-0.5 ">
-                      {userInfo.replace("-", "")}
+                    <span className="text-[#A5A8B5] text-[14px] items-center font-semibold ">
+
+                      {formatUserInfo.replace("-", "")}
                     </span>
 
                   </p>

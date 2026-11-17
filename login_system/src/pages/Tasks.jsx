@@ -212,9 +212,9 @@ function Tasks() {
             className=" fixed bg-[#1A1C20] w-full lg:flex justify-between
              h-18 2xl:h-25 items-center rounded-t-lg border-b border-gray-700 z-10"
           >
-            <h1 className="flex relative items-center text-gray-200 text-fluid-nav">
+            <h1 className="flex relative items-center text-gray-200 text-fluid-title">
               <Zap className="2xl:w-10 2xl:h-10 relative mr-1 ml-5" />
-              <span className="font-extrabold text-fluid-nav">Login</span>System
+              <span className="font-extrabold ">Login</span>System
             </h1>
             <div className="absolute left-1/4 xl:left-[22%] 2xl:left-100">
               <span className="text-gray-500 text-fluid-nav">
