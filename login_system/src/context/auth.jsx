@@ -5,9 +5,11 @@ import { useEffect } from "react";
 import { socket } from "../services/socket";
 
 export const AuthProvider = ({ children }) => {
-  const [timeLogged, setTimeLogged] = useState("");
-  const [created_at, setCreated_at] = useState("")
-  const [userInfo, setUserInfo] = useState("")
+  const [timeLogged, setTimeLogged] = useState("0 min");
+  const [userInfo, setUserInfo] = useState("");
+  const [sessionsCreatedAt, setSessionCreatedAt] = useState(null);
+  const [currentJti, setCurrentJti] = useState(null);
+  const [created_at, setCreated_at] = useState(null);
   const [user, setUser] = useState(() => {
     return localStorage.getItem("userNome") || null;
   });
@@ -16,57 +18,40 @@ export const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = setInterval(async () => {
       try {
-        const token = localStorage.getItem("token");
 
-        if (!token) return;
+        if (!sessionsCreatedAt) return
 
-        const parts = token.split(".");
-        if (parts.length !== 3) return;
+        const loginTime = new Date(sessionsCreatedAt).getTime()
+        if (Number.isNaN(loginTime)) return
 
-        // Converte de base64url para base64 e adicionando um preenchimento caso precise
-        const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
-        const padded = base64.padEnd(
-          base64.length + ((4 - (base64.length % 4)) % 4),
-          "=",
-        );
+        const updateTimeLogged = () => {
+          const totalMinutes = Math.floor((Date.now() - loginTime) / 60000);
 
-        const payload = JSON.parse(atob(padded));
+          const hours = Math.floor(totalMinutes / 60);
 
-        const loginTime = payload.iat * 1000;
-
-        const diffMs = Date.now() - loginTime;
-
-        const totalSeconds = Math.floor(diffMs / 1000);
-
-        const hours = Math.floor(totalSeconds / 3600);
-
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-
-        // Atualizar state quando hours for maior que 0
-        if (hours >= 1) {
-          return setTimeLogged(`${hours} h ${minutes} min`);
+          const minutes = totalMinutes % 60;
+          return setTimeLogged(
+            hours >= 1 ? `${hours} h ${minutes} min`
+              : `${minutes} min`)
         }
 
-        setTimeLogged(`${minutes} min`);
+        updateTimeLogged();
+
       } catch (err) {
         console.log(err);
       }
-    }, 1000);
+    }, 60_000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [sessionsCreatedAt]);
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) return undefined;
-
+    if (!currentJti) return;
     const handleSessionRevoked = ({ jti }) => {
-      const token = localStorage.getItem("token");
-      const currentJti = token ? JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))).jti : null;
 
-      if (jti === currentJti) {
-        localStorage.removeItem("token");
+      if (currentJti === jti) {
         localStorage.removeItem("userNome");
         localStorage.removeItem("urlImg");
         socket.disconnect();
@@ -92,7 +77,7 @@ export const AuthProvider = ({ children }) => {
       socket.off("connect_error", handleSocketError);
       socket.disconnect();
     };
-  }, [user]);
+  }, [currentJti]);
   const SignIn = async (nome) => {
     const response = await registerUser({ nome });
     setUser(response.data);
@@ -100,11 +85,14 @@ export const AuthProvider = ({ children }) => {
   const UserProfile = async () => {
     try {
       const response = await getUserProfile();
-      const createdAtResponse = response?.created_at;
-      const userInfo = response.session.find(sessao => sessao.jti === response.currentJti).device_info
+      const currentSession =
+        response.session.find(sessao =>
+          sessao.jti === response.currentJti);
 
-      setCreated_at(createdAtResponse)
-      setUserInfo(userInfo)
+      setSessionCreatedAt(currentSession?.created_at ?? null);
+      setCurrentJti(response.currentJti)
+      setCreated_at(response?.created_at ?? null);
+      setUserInfo(currentSession?.device_info ?? "");
       const imgResponse = response?.urlImg || null;
       setImgUser(imgResponse);
 
@@ -121,20 +109,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const Login = (nome, token) => {
+  const Login = (nome) => {
     setUser(nome);
     localStorage.setItem("userNome", nome);
-    if (token) {
-      localStorage.setItem("token", token);
-    } else {
-      localStorage.removeItem("token");
-      console.warn("Login attempted without the token key; token not saved!");
-    }
   };
 
   return (
     <AuthContext.Provider
-      value={{ timeLogged, user, SignIn, Login, imgUser, UserProfile, created_at, userInfo }}
+      value={{
+        timeLogged, user, SignIn, Login, imgUser,
+        created_at, UserProfile, userInfo, currentJti
+      }}
     >
       {children}
     </AuthContext.Provider>

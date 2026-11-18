@@ -125,7 +125,6 @@ router.get("/user/me", verificarAutenticacao, (req, res) => {
     email: user.email,
     nome: user.nome,
     cargo: user.cargo,
-    senha: user.senha,
     urlImg,
     currentJti: req.jti,
     session: activeSessions,
