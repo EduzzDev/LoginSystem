@@ -8,7 +8,7 @@ export function initSocket(httpServer, corsOptions, db) {
 
     io.use((socket, next) => {
         try {
-            const token = socket.handshake.auth?.token || getCookieToken(socket.handshake.headers.cookie);
+            const token = getCookieToken(socket.handshake.headers.cookie);
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const session = db
                 .prepare(

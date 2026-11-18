@@ -251,7 +251,6 @@ app.post("/login", async (req, res) => {
       message: "Login successful",
       nome: user.nome,
       userId: user.id,
-      token: token,
     });
   } catch (err) {
     console.error("Login error:", err);

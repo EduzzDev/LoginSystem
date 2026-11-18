@@ -50,7 +50,7 @@ function Login() {
     }
     try {
       const response = await loginUser({ email, senha });
-      await Login(response.nome, response.token);
+      await Login(response.nome);
       setError("");
       navigate("/dashboard");
       toast.dismiss(loadingToast);
