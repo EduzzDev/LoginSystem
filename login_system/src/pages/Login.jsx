@@ -28,7 +28,6 @@ function Login() {
   const [email, setEmail] = useState("");
   const [CurrentEmail, setCurrentEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const navigate = useNavigate();
@@ -41,29 +40,27 @@ function Login() {
     });
     // Validação básica
     if (!email.trim()) {
-      setError("Please enter your Email address");
+      toast.error("Please enter your Email address");
       return;
     }
     if (!senha.trim()) {
-      setError("Please enter your Password");
+      toast.error("Please enter your Password");
       return;
     }
     try {
       const response = await loginUser({ email, senha });
       await Login(response.nome);
-      setError("");
       navigate("/dashboard");
       toast.dismiss(loadingToast);
       toast.success("Login successful!");
     } catch (error) {
-      const errorMessage = error?.message || "Login error";
-      setError(errorMessage);
-      toast.error(error.message);
+      const errorMessage = error?.error || error?.message || "Login error";
+      toast.error(errorMessage);
     }
   };
   const sendLink = async () => {
     if (!CurrentEmail.trim()) {
-      setError("Please enter your Email address");
+      toast.error("Please enter your Email address");
       return;
     }
     try {
@@ -265,11 +262,6 @@ function Login() {
               New here?{" "}
               <AuthSwitchLink variant="A">Create an account</AuthSwitchLink>
             </span>
-            {error && (
-              <p className="w-full flex justify-center text-red-600 font-bold text-lg md:text-lg">
-                {error}
-              </p>
-            )}
           </form>
         </div>
       </div>

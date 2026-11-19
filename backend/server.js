@@ -12,7 +12,6 @@ import { createServer } from 'http';
 import { initSocket } from './socket.js';
 import { rateLimit } from 'express-rate-limit'
 
-
 dotenv.config();
 
 /* global process */
@@ -119,6 +118,16 @@ export const loginLimiter = rateLimit({
   },
 });
 
+export const registerLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  limit: 10,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  skipSuccessfulRequests: true,
+  message: {
+    error: "Too many attempts, Please try again later."
+  }
+})
 
 
 function createNotification(userId, { title, message, type, }) {
@@ -134,7 +143,7 @@ db.prepare("CREATE INDEX IF NOT EXISTS idx_email ON usuarios(email)").run();
 
 initSocket(httpServer, { cors: corsOptions }, db);
 
-app.post("/register", async (req, res) => {
+app.post("/register", registerLimiter, async (req, res) => {
   try {
     const { nome, email, senha } = req.body;
 
@@ -266,9 +275,9 @@ app.post("/login", loginLimiter, async (req, res) => {
       nome: user.nome,
       userId: user.id,
     });
-  } catch (err) {
+  } catch (error) {
     console.error("Login error:", err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: error.message });
   }
 });
 

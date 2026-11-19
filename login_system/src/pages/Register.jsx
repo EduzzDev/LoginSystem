@@ -18,28 +18,22 @@ function Register() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const loadingToast = toast.loading("registering the account");
-    setError("");
+    const loadingToast = toast.loading("Registering the account");
+
     try {
       await registerUser({ nome, email, senha });
       toast.dismiss(loadingToast);
       navigate("/");
-      toast.success("successfully registered");
+      toast.success("Successfully registered");
     } catch (err) {
       const message = err?.message || err?.error || "Unexpected error!";
 
       toast.dismiss(loadingToast);
-      if (err?.error === "EMAIL_ALREADY_REGISTERED") {
-        setError("Email address is already in use");
-      } else {
-        setError(message);
-      }
       toast.error(message);
     }
   };
@@ -74,7 +68,6 @@ function Register() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => {
-                  setError("");
                   setEmail(e.target.value);
                 }}
                 required
@@ -109,11 +102,6 @@ function Register() {
               Have an account?{" "}
               <AuthSwitchLink variant="B">Log in</AuthSwitchLink>
             </span>
-            {error && (
-              <p className="w-full flex justify-center text-red-600 font-bold text-px md:text-lg">
-                {error}
-              </p>
-            )}
           </form>
         </div>
       </div>
