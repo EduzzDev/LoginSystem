@@ -224,7 +224,7 @@ app.post("/login", loginLimiter, async (req, res) => {
       .get(emailNormalizado);
 
     if (!user) {
-      return res.status(401).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     const senhaValid = await bcrypt.compare(senha, user.senha);
@@ -234,7 +234,7 @@ app.post("/login", loginLimiter, async (req, res) => {
         message: "We have detected an attempt to log in with an incorrect password.",
         type: "security",
       })
-      return res.status(401).json({ message: "Incorrect password" });
+      return res.status(404).json({ message: "Incorrect password" });
     }
 
     const ipAddress =

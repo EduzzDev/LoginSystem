@@ -271,16 +271,18 @@ router.post("/user/send-link", async (req, res) => {
   try {
     const { email } = req.body;
 
+    //verificando se há algo
     if (!email) {
-      return res.status(400).json({ error: 'Email is required' });
+      return res.status(400).json({ error: textoGenerico }, { message: textoGenerico });
     }
+    //retira os espaços e deixa tudo minusculo e procura o email
     const emailNormalizado = email.toLowerCase().trim();
     const stmt = db.prepare('SELECT * FROM usuarios WHERE email = ?');
 
     const user = stmt.get(emailNormalizado);
-
+    const textoGenerico = "If this email address is on file, we will send you a link!";
     if (!user) {
-      return res.status(404).json({ error: 'Email not found!' });
+      return res.status(200).json({ error: textoGenerico }, { message: textoGenerico });
     }
     const frontendUrl = process.env.FRONTEND_URL?.replace(/\/$/, "");
     if (!frontendUrl) {
@@ -291,7 +293,6 @@ router.post("/user/send-link", async (req, res) => {
 
     const linkRestore = `${frontendUrl}/forgot?token=${resetToken}`
 
-    // console.log("Link gerado:", linkRestore);
     try {
       const res = await emailjs.send(
         process.env.EMAILJS_SERVICE_ID,
@@ -307,7 +308,7 @@ router.post("/user/send-link", async (req, res) => {
       console.log("Erro ao enviar pela API:", error);
     }
     return res.status(200).json({
-      message: "Recovery link sent successfully."
+      message: error
     });
   } catch (err) {
     return res.status(500).json({ err: 'server error' })

@@ -65,7 +65,7 @@ function Login() {
     }
     try {
       const result = await sendLinkEmail({ email: CurrentEmail });
-      toast.success(result.message || "Link enviado com sucesso!");
+      toast.success(result.message || "If this email address is on file, we will send you a link!");
     } catch (err) {
       toast.error(err.error || err.message || "Error sending email");
     }
