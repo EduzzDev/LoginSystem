@@ -9,9 +9,7 @@ import Database from "better-sqlite3";
 import emailjs from "@emailjs/nodejs";
 import jwt from "jsonwebtoken";
 import verificarResetToken from "./verificarResetToken.js";
-import { createHash } from "node:crypto";
 import { getIO } from '../socket.js';
-import { error } from "node:console";
 
 const db = new Database(
   process.env.DATABASE_PATH || "LoginSystem.db"
@@ -94,7 +92,8 @@ db.exec(`
     senha TEXT NOT NULL,
     nome TEXT,
     cargo TEXT,
-    urlImg TEXT 
+    urlImg TEXT ,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   )
 `);
 
