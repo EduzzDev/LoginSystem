@@ -181,7 +181,7 @@ app.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(senha, 10);
 
     const stmt = db.prepare(
-      "INSERT INTO usuarios (nome, email, senha, created_at ) VALUES (?, ?, ?,  CURRENT_TIMESTAMP)",
+      "INSERT INTO usuarios (nome, email, senha,created_at ) VALUES (?, ?, ?,  CURRENT_TIMESTAMP)",
     );
     const result = stmt.run(nome, email, hashedPassword);
 

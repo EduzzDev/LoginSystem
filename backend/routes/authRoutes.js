@@ -10,6 +10,7 @@ import emailjs from "@emailjs/nodejs";
 import jwt from "jsonwebtoken";
 import verificarResetToken from "./verificarResetToken.js";
 import { getIO } from '../socket.js';
+import { error } from "node:console";
 
 const db = new Database(
   process.env.DATABASE_PATH || "LoginSystem.db"
@@ -27,6 +28,7 @@ db.exec(`
     FOREIGN KEY (user_id) REFERENCES usuarios(id) ON DELETE CASCADE
   )
 `);
+
 
 function normalizeTask(body) {
   if (
@@ -92,10 +94,24 @@ db.exec(`
     senha TEXT NOT NULL,
     nome TEXT,
     cargo TEXT,
-    urlImg TEXT ,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    urlImg TEXT, 
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )
 `);
+
+db.prepare(
+  `
+  CREATE TABLE IF NOT EXISTS usuarios (
+    id INTEGER PRIMARY KEY,
+    nome TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    senha TEXT NOT NULL,
+    cargo TEXT,
+    urlImg TEXT, 
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`,
+).run();
 
 router.get("/dashboard", verificarAutenticacao, (req, res) => {
   res.json({
