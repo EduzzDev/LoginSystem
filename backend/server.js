@@ -10,7 +10,8 @@ import { UAParser } from 'ua-parser-js';
 import crypto from 'crypto';
 import { createServer } from 'http';
 import { initSocket } from './socket.js';
-import { title } from "process";
+import { rateLimit } from 'express-rate-limit'
+
 
 dotenv.config();
 
@@ -18,7 +19,7 @@ dotenv.config();
 
 const isProduction = process.env.NODE_ENV === "production";
 const app = express();
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -107,6 +108,19 @@ db.prepare(`
   )
   `).run()
 
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  skipSuccessfulRequests: true,
+  message: {
+    error: "Too many attempts, Please try again later.",
+  },
+});
+
+
+
 function createNotification(userId, { title, message, type, }) {
   db.prepare(
     "INSERT INTO notifications (user_id, title, message, type,  created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)"
@@ -191,7 +205,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/login", async (req, res) => {
+app.post("/login", loginLimiter, async (req, res) => {
   try {
     const { email, senha } = req.body;
 
@@ -269,6 +283,7 @@ const HOST = process.env.HOST || "localhost";
 ;
 
 app.use("/", authRoutes);
+
 
 httpServer.listen(PORT, HOST, () => {
   console.log(`Servidor rodando em http://${HOST}:${PORT}`);
