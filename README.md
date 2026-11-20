@@ -49,6 +49,7 @@ O projeto está em desenvolvimento e serve também como base para evoluir uma ex
 
 - Node.js com módulos ES
 - Express 5
+- `express-rate-limit` para limitar tentativas malsucedidas de login e cadastro
 - `better-sqlite3` para persistência local
 - `bcrypt` para hash de passwords
 - `jsonwebtoken` para autenticação e recuperação de password
@@ -271,6 +272,7 @@ Veja algumas das páginas da aplicação em desktop e mobile:
 ## 🔐 Notas de segurança e configuração
 
 - Nunca publique `backend/.env`, tokens ou chaves privadas no repositório.
+- Limite por IP: 10 tentativas mal sucedidas de login por janela de 15 minutos e 10 de cadastro por janela de uma hora.
 - Em desenvolvimento, o backend aceita o frontend em `http://localhost:5173`.
 - Em produção, reveja as origens CORS e os domínios definidos em `backend/server.js`.
 - A base de dados SQLite e a pasta `uploads/` são criadas/utilizadas pelo backend localmente.
