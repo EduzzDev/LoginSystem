@@ -273,20 +273,20 @@ function Dashboard() {
             </div>
           </div>
         </nav>
-        <main className="w-82 h-full min-[380px]:w-100 
+        <main className="w-82 h-full min-[380px]:w-96 
             flex  py-6 min-[450px]:mx-6   ">
-          <article className="w-full h-86 mb-22
+          <article className="w-full h-88 mb-22
           min-[380px]:flex-row shrink  shadow-lg shadow-black
-            bg-[#1B1D20] relative 
+            bg-[#1B1D20] relative min-[350px]:left-5  
           p-2.5 rounded-2xl ">
             <div className="w-full flex flex-row 
           justify-start text-left items-left  ">
               <img
                 src={userImg || imgUser}
-                className=" w-20.5 h-20.5  rounded-4xl relative "
+                className=" w-20.5 h-20.5  rounded-4xl relative min-[320px]:mr-1 "
                 alt="profile picture"
               />
-              <div className=" flex flex-col gap-y-4 text-left">
+              <div className=" flex flex-col relative gap-y-4 text-left">
                 <h1 className=" text-fluid-title max-[380px]:text-[12px] text-[#F1F0F8]
                   font-medium translate-y-4 ">
                   Welcome-back, {user}!
