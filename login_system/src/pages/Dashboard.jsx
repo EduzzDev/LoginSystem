@@ -179,7 +179,7 @@ function Dashboard() {
             />
             <div className="flex flex-col ">
               <h1 className="text-fluid-title text-[#F1F0F8] 
-              font-medium translate-y-4 tracking-wide pb-2">
+              font-medium translate-y-4  tracking-wide pb-2">
                 Welcome-back, {user}!
               </h1>
               <h3 className="text-fluid-nav
@@ -188,7 +188,7 @@ function Dashboard() {
               </h3>
               <p className="text-fluid-sm
                text-[#A5A8B5] font-mono tracking-wider relative
-               translate-y-2.5 w-120  -translate-x-1/5 left-2 mb-2">
+               translate-y-3.5  w-120  -translate-x-1/5 left-2 mb-2">
                 Get an overview of your system, recent activity,
                 and <br />
                 key security details
@@ -197,7 +197,7 @@ function Dashboard() {
               flex-row justify-between gap-4
                text-center -translate-x-24 shrink ">
                 <InfoCard
-                  className=" w-46 2xl:w-45 p-1.5 rounded-2xl mt-4 flex flex-row items-center gap-2.5 bg-[#292B30] py-3 "
+                  className="  2xl:w-45 p-1.5 rounded-2xl mt-4 flex flex-row items-center gap-2.5 bg-[#292B30] py-3 "
                   textClassName="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium "
                   icon={<User className="w-10 h-10 p-1.5 bg-[#343844] rounded-3xl text-white" />}
                   title="Account status"
@@ -207,7 +207,7 @@ function Dashboard() {
                   </span>
                 </InfoCard>
                 <InfoCard
-                  className=" w-46 2xl:w-45 p-1.5 rounded-2xl mt-4 flex flex-row items-center gap-2.5 bg-[#292B30] py-3"
+                  className=" 2xl:min-w-45 p-1.5 rounded-2xl mt-4 flex flex-row items-center gap-2.5 bg-[#292B30] py-3"
                   textClassName="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium"
                   icon={<CalendarMonthIcon sx={{
                     width: "40px",
@@ -224,7 +224,8 @@ function Dashboard() {
                   </span>
                 </InfoCard>
                 <InfoCard
-                  className=" w-46 h-20 2xl:w-45 p-1.5 rounded-2xl relative mt-4 flex flex-row items-center gap-2.5 bg-[#292B30] py-3"
+                  className=" min-w-48 h-20 2xl:w-45 p-1.5 rounded-2xl relative
+                   mt-4 flex flex-row items-center gap-2.5 bg-[#292B30] py-3"
                   textClassName="text-fluid-sm text-[#A5A8B5] flex flex-col font-medium"
                   icon={<MonitorIcon sx={{
                     width: "40px",
@@ -277,7 +278,7 @@ function Dashboard() {
             flex  py-6 min-[450px]:mx-6   ">
           <article className="w-full h-88 mb-22
           min-[380px]:flex-row shrink  shadow-lg shadow-black
-            bg-[#1B1D20] relative min-[350px]:left-5  
+            bg-[#1B1D20] relative min-[360px]:left-3 max-[355px]:left-1  min-[420px]:left-4
           p-2.5 rounded-2xl ">
             <div className="w-full flex flex-row 
           justify-start text-left items-left  ">
@@ -301,16 +302,17 @@ function Dashboard() {
             <div className="flex flex-col ">
               <p className="text-fluid-sm
                  text-[#A5A8B5] font-mono min-[380px]:tracking-wider relative
-                 translate-y-2.5 w-full  mb-2  text-left ">
+                 translate-y-2.5  w-full  mb-2  text-left min-[380px]:text-justify min-[380px]:p-2 ">
                 Get an overview of your system, recent activity,
                 and
                 key security details
               </p>
               <div className="max-h-20  justify-start  grid grid-cols-2 
-                flex-row min-[380px]:justify-between  
-                 text-center shrink text-[12px] min-[380px]:text-[14px] ">
+                flex-row min-[380px]:justify-between
+                 text-center shrink text-[12px] min-[380px]:text-[14px] gap-y-1 gap-x-1 ">
                 <InfoCard
-                  icon={<User className="w-7.5 h-7.5 p-2 min-[380px]:w-10 min-[380px]:h-10 bg-[#343844] rounded-3xl text-white" />}
+                  icon={<User className="w-7.5 h-7.5 p-2 min-[380px]:w-10 
+                    min-[380px]:h-10 bg-[#343844] rounded-3xl text-white" />}
                   title="Account status"
                 >
                   <span className="text-[#6EE7B7] items-center font-semibold ">
@@ -337,7 +339,7 @@ function Dashboard() {
                     {dataFormatada}
                   </span>
                 </InfoCard>
-                <InfoCard
+                <InfoCard className="min-[380px]:min-w-46 max-[325px]:min-w-38.5"
                   icon={<MonitorIcon sx={{
                     width: "30px",
                     height: "30px",
@@ -365,7 +367,7 @@ function Dashboard() {
         p-2 border-t-[#31353a] text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur gap-x-0.5 ">
           <ul
             className="
-              w-full
+              w-full max-w-240
                flex flex-row items-center justify-between
                 "
           >
