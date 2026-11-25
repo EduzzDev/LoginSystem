@@ -171,10 +171,10 @@ function Dashboard() {
            min-w-0 min-h-[calc(100dvh-4.5rem)] flex justify-start py-6 pl-10 pr-4  ">
           <article className=" w-full max-w-155.5 flex flex-row shrink  shadow-lg shadow-black
            2xl:h-70 h-65 bg-[#1B1D20] 
-          p-2.5 rounded-2xl gap-2">
+          p-2.5 rounded-2xl gap-x-4">
             <img
-              src={userImg || imgUser}
-              className=" w-24.5 h-24.5  rounded-4xl relative "
+              src={imgUser || userImg}
+              className=" w-21.5 h-21.5  rounded-4xl relative "
               alt="profile picture"
             />
             <div className="flex flex-col ">
@@ -281,10 +281,10 @@ function Dashboard() {
             bg-[#1B1D20] relative min-[360px]:left-3 max-[355px]:left-1  min-[420px]:left-4
           p-2.5 rounded-2xl ">
             <div className="w-full flex flex-row 
-          justify-start text-left items-left  ">
+          justify-start text-left items-left gap-x-2  ">
               <img
-                src={userImg || imgUser}
-                className=" w-20.5 h-20.5  rounded-4xl relative min-[320px]:mr-1 "
+                src={imgUser || userImg}
+                className=" w-18.5 h-20.5  rounded-4xl relative min-[320px]:mr-1 "
                 alt="profile picture"
               />
               <div className=" flex flex-col relative gap-y-4 text-left">
