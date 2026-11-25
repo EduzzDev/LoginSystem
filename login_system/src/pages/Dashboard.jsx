@@ -8,9 +8,6 @@ import { AuthContext } from "../context/authContext";
 import SideBarMobile from "../components/SideBarMobile";
 import InfoCard from "../components/InfoCard";
 import {
-  Bell,
-  UserCircle,
-  Monitor,
   Zap,
   LogOut,
   ShieldQuestionMark,
@@ -21,7 +18,9 @@ import {
   ChevronDown,
   Search,
   MoreHorizontal,
-  CircleHelp
+  CircleHelp,
+  RotateCcwClock,
+  ChevronRight
 } from "lucide-react";
 import Drawer from "@mui/material/Drawer";
 import NotificationBell from "../components/NotificationBell";
@@ -119,7 +118,7 @@ function Dashboard() {
               <NotificationBell />
 
               <img
-                src={userImg || imgUser}
+                src={imgUser || userImg}
                 className=" w-10.5 h-10.5 2xl:w-14.5 2xl:h-14.5 rounded-4xl relative "
                 alt="profile picture"
               />
@@ -168,8 +167,9 @@ function Dashboard() {
           </div>
         </nav>
         <main className="ml-65 2xl:ml-100 w-[calc(100%-16.25rem)] 2xl:w-[calc(100%-25rem)]
-           min-w-0 min-h-[calc(100dvh-4.5rem)] flex justify-start py-6 pl-10 pr-4  ">
-          <article className=" w-full max-w-155.5 flex flex-row shrink  shadow-lg shadow-black
+           min-w-0 min-h-[calc(100dvh-4.5rem)] flex flex-col gap-y-6 justify-start py-6 pl-10 pr-4  ">
+          <article className=" w-full max-w-155.5 flex flex-row
+           shrink  shadow-lg shadow-black
            2xl:h-70 h-65 bg-[#1B1D20] 
           p-2.5 rounded-2xl gap-x-4">
             <img
@@ -177,7 +177,7 @@ function Dashboard() {
               className=" w-21.5 h-21.5  rounded-4xl relative "
               alt="profile picture"
             />
-            <div className="flex flex-col ">
+            <div className="flex flex-col gap-y-1.5 ">
               <h1 className="text-fluid-title text-[#F1F0F8] 
               font-medium translate-y-4  tracking-wide pb-2">
                 Welcome-back, {user}!
@@ -245,10 +245,33 @@ function Dashboard() {
             </div>
 
           </article>
+          <section className="w-full  max-w-155.5 h-65
+           bg-[#1B1D20]  relative z-10 shrink  2xl:h-70  
+           shadow-lg shadow-black rounded-2xl ">
+            <div className="w-full  flex flex-row justify-between
+             items-center p-4 mx-4 pt-3 pb-2">
+              <div className="flex gap-x-6 items-center text-white ">
+                <RotateCcwClock className="h-12.5 w-12.5 bg-[#343844] p-2.5 rounded-4xl " />
+                <h1 className="text-fluid-title font-medium tracking-wide">
+                  Recent account activity
+                </h1>
+              </div>
+              <button type="button" className="flex w-24
+              justify-end text-fluid-sm items-center cursor-pointer
+              p-1.5 mr-2 right-2 relative text-[#A78BFA] 
+              gap-x-1 tracking-wide font-medium hover:text-[#C0B5FF]">
+                View All
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div> 
+             <hr className=" text-[#2D3035]" /> 
+          </section>
         </main>
       </div>
       {/* menu MOBILE*/}
-      <div className="min-w-full  min-h-screen lg:hidden bg-[#2D3035] overflow-x-hidden overflow-y-auto">
+      <div className="min-w-full  
+      min-h-screen lg:hidden bg-[#2D3035] 
+      overflow-x-hidden overflow-y-auto">
         <nav className="w-screen lg:hidden  flex justify-center ">
           <div
             className="bg-[#1A1C20] w-full flex justify-between gap-2
