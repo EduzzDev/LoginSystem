@@ -26,6 +26,7 @@ import Drawer from "@mui/material/Drawer";
 import NotificationBell from "../components/NotificationBell";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MonitorIcon from '@mui/icons-material/Monitor';
+import RecentNotifications from "../components/RecentNotifications";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -263,8 +264,10 @@ function Dashboard() {
                 View All
                 <ChevronRight className="w-6 h-6" />
               </button>
-            </div> 
-             <hr className=" text-[#2D3035]" /> 
+            </div>
+            <hr className=" text-[#2D3035]" />
+            <RecentNotifications />
+            
           </section>
         </main>
       </div>

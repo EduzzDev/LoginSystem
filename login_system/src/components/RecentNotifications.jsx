@@ -1,0 +1,83 @@
+import { useNotifications } from "../context/useNotifications";
+import {
+    ShieldAlert, ClipboardList,
+    Info, Clock, ChevronDown
+} from "lucide-react";
+
+const notificationModel = {
+    security: {
+        label: "Security",
+        icon: ShieldAlert,
+        color: "text-red-400",
+        background: "bg-red-500/10",
+    },
+    task: {
+        label: "Expired task",
+        icon: ClipboardList,
+        color: "text-blue-400",
+        background: "bg-blue-500/10",
+    },
+    system: {
+        label: "System",
+        icon: Info,
+        color: "text-amber-400",
+        background: "bg-amber-500/10",
+    }
+}
+
+//formata a hora e verifica a disponibilidade
+function formatDate(date) {
+    if (!date) return "Date not available";
+
+    const parsedDate = new Date(date);
+
+    if (Number.isNaN(parsedDate.getTime())) {
+        return "Date not available";
+    }
+    return parsedDate.toLocaleString(navigator.language, {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+}
+
+function RecentNotifications() {
+    const { notifications, loading } = useNotifications();
+    const recentNotifications = notifications.slice(0, 3);
+
+    if (loading) return <p>Loading...</p>;
+
+    if (recentNotifications.length === 0) {
+        return <p>You don't have notifications</p>;
+    }
+
+    return recentNotifications.map((item) => {
+        const style = notificationModel[item.type] ?? notificationModel.system;
+        const NotificationIcon = style.icon;
+
+        return (
+            <article className="w-155 flex flex-col
+            text-fluid-base " key={item.id}>
+                <div className=" flex flex-row gap-x-4 p-2.5
+                 pl-3 ml-4 items-center justify-evenly  text-fluid-base">
+                    <NotificationIcon className={`${style.color}`} size={34} />
+                    <h3 className="text-white">{item.title}</h3>
+                    <time className="text-[#A5A8B5] text-fluid-sm" dateTime={item.created_at}>
+                        {formatDate(item.created_at)}
+                    </time>
+                    <h3 className={`rounded-xl h-7 
+                     px-2 py-0.5 text-[14px] 
+                     font-medium ${style.color} ${style.background}`}>
+                        {style.label}
+                    </h3>
+                </div>
+                <hr className="border-0 border-t border-[#2D3035]" />
+            </article>
+
+        );
+    });
+}
+
+export default RecentNotifications
