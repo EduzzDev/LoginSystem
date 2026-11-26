@@ -246,7 +246,7 @@ function Dashboard() {
             </div>
 
           </article>
-          <section className="w-full  max-w-155.5 h-65
+          <section className="w-full  max-w-155.5 h-68
            bg-[#1B1D20]  relative z-10 shrink  2xl:h-70  
            shadow-lg shadow-black rounded-2xl ">
             <div className="w-full  flex flex-row justify-between
