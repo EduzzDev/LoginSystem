@@ -207,7 +207,7 @@ function Tasks() {
     <>
       {/* Menu PC */}
       <div className="relative w-full min-h-dvh hidden lg:block bg-[#2D3035] overflow-x-hidden overflow-y-auto ">
-        <nav className="  hidden  lg:flex justify-end">
+        <nav className="fixed top-0 left-0 z-10 w-screen  lg:flex justify-end">
           <div
             className=" fixed bg-[#1A1C20] w-full lg:flex justify-between
              h-18 2xl:h-25 items-center rounded-t-lg border-b border-gray-700 z-10"
@@ -251,9 +251,10 @@ function Tasks() {
           </div>
         </nav>
         <nav
-          className="fixed left-0 top-18 2xl:top-25 w-65 2xl:min-w-100 min-h-[calc(100dvh-3.8rem)] flex flex-col justify-center
-           pl-5 border-r 
-         border-gray-600 text-white bg-[#1A1C20] z-10
+          className="fixed left-0 top-18 2xl:top-25 w-65 2xl:min-w-100 min-h-[calc(100dvh-4.5rem)] flex flex-col justify-center
+           pl-5 border-r
+         border-gray-600 text-white bg-[#1A1C20] 
+          z-10
            "
         >
           <div className=" flex flex-col items-center   relative ">
