@@ -72,9 +72,9 @@ function RecentNotifications() {
         const NotificationIcon = style.icon;
 
         return (
-            <article className="w-155 flex flex-col
-            text-fluid-base " key={item.id}>
-                <div className=" flex flex-row gap-x-4 p-2.5
+            <article className="sm:w-155 flex flex-col
+            text-fluid-base w-full " key={item.id}>
+                <div className=" flex flex-row gap-2.5 sm:gap-x-4 p-2.5
                  pl-3 ml-4 items-center justify-evenly  text-fluid-base">
                     <NotificationIcon className={`${style.color}`} size={34} />
                     <h3 className="text-white text-fluid-base font-medium tracking-wide">{item.title}</h3>
