@@ -300,17 +300,17 @@ function Dashboard() {
             </div>
           </div>
         </nav>
-        <main className="w-82 h-full min-[380px]:w-96 
-            flex  py-6 min-[450px]:mx-6   ">
-          <article className="w-full h-88 mb-22
+        <main className="w-82 h-full min-[380px]:w-98 sm:w-136
+            flex flex-col  py-6 min-[450px]:mx-6 gap-y-4   ">
+          <article className="w-full h-88 min-[380px]:h-91
           min-[380px]:flex-row shrink  shadow-lg shadow-black
             bg-[#1B1D20] relative min-[360px]:left-3 max-[355px]:left-1  min-[420px]:left-4
           p-2.5 rounded-2xl ">
             <div className="w-full flex flex-row 
-          justify-start text-left items-left gap-x-2  ">
+          justify-start text-left items-left gap-x-2   ">
               <img
                 src={imgUser || userImg}
-                className=" w-18.5 h-20.5  rounded-4xl relative min-[320px]:mr-1 "
+                className=" w-19.5 h-20.5  rounded-4xl relative min-[320px]:mr-1 "
                 alt="profile picture"
               />
               <div className=" flex flex-col relative gap-y-4 text-left">
@@ -334,8 +334,8 @@ function Dashboard() {
                 key security details
               </p>
               <div className="max-h-20  justify-start  grid grid-cols-2 
-                flex-row min-[380px]:justify-between
-                 text-center shrink text-[12px] min-[380px]:text-[14px] gap-y-1 gap-x-1 ">
+                flex-row min-[380px]:justify-between 
+                 text-center shrink text-[12px] min-[380px]:text-[14px] gap-y-1 gap-x-1  sm:gap-x-0">
                 <InfoCard
                   icon={<User className="w-7.5 h-7.5 p-2 min-[380px]:w-10 
                     min-[380px]:h-10 bg-[#343844] rounded-3xl text-white" />}
@@ -388,6 +388,29 @@ function Dashboard() {
               </div>
             </div>
           </article>
+          <section className="w-full h-86 min-[380px]:h-91 mb-22
+          min-[380px]:flex-row shrink  shadow-lg shadow-black
+            bg-[#1B1D20] relative min-[360px]:left-3 max-[355px]:left-1  min-[420px]:left-4
+          p-2.5 rounded-2xl">
+            <div className="w-full  flex flex-row justify-between
+             items-center p-2 sm:mx-4 pt-3 pb-2">
+              <div className="flex sm:gap-x-6 gap-x-1.5 items-center text-white ">
+                <RotateCcwClock className="w-10 h-10  sm:h-12.5 sm:w-16.5 bg-[#343844] p-2 rounded-4xl " />
+                <h1 className=" text-justify text-[16px] sm:text-fluid-title  font-medium min-[380px]:tracking-wide">
+                  Recent account activity
+                </h1>
+              </div>
+              <button type="button" className="flex w-14 min-[380px]:w-24
+              justify-end text-fluid-sm items-center cursor-pointer
+               sm:mr-2 sm:right-2 relative text-[#A78BFA] 
+              sm:gap-x-1 tracking-wide font-medium hover:text-[#C0B5FF]">
+                <span className="hidden min-[380px]:flex">View All</span>
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+            <hr className=" text-[#2D3035]" />
+            <RecentNotifications />
+          </section>
         </main>
         <footer className="fixed right-0 left-0 bottom-0 
         p-2 border-t-[#31353a] text-gray-200 rounded-t-2xl bg-[#1b1e22] backdrop-blur gap-x-0.5 ">
