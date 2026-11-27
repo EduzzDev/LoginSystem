@@ -55,7 +55,7 @@ function RecentNotifications() {
         return (
             <>
                 <div className="w-full flex flex-col items-center justify-center p-2.5">
-                    <img className="w-45" src={ActivityImg} alt="" />
+                    <img className="w-45" src={ActivityImg} alt="image recent activity" />
                     <h1 className=" font-bold text-fluid-title text-white tracking-wider">
                         No recent activity yet
                     </h1>
@@ -72,17 +72,17 @@ function RecentNotifications() {
         const NotificationIcon = style.icon;
 
         return (
-            <article className="sm:w-155 flex flex-col
+            <article className="  lg:w-155 flex flex-col
             text-fluid-base w-full " key={item.id}>
-                <div className=" flex flex-row gap-2.5 sm:gap-x-4 p-2.5
-                 pl-3 ml-4 items-center justify-evenly  text-fluid-base">
-                    <NotificationIcon className={`${style.color}`} size={34} />
-                    <h3 className="text-white text-fluid-base font-medium tracking-wide">{item.title}</h3>
-                    <time className="text-[#A5A8B5] text-fluid-sm font-medium tracking-wide" dateTime={item.created_at}>
+                <div className=" flex flex-row gap-2.5 min-[380px]:p-4 sm:gap-x-4 p-2 sm:p-4.5
+                 lg:pl-3 lg:ml-4 items-center justify-evenly  text-fluid-base">
+                    <NotificationIcon className={`${style.color} w-15 `} size={28} />
+                    <h3 className="text-white text-fluid-base font-medium sm:tracking-wide">{item.title}</h3>
+                    <time className="text-[#A5A8B5] text-fluid-sm font-medium sm:tracking-wide" dateTime={item.created_at}>
                         {formatDate(item.created_at)}
                     </time>
-                    <h3 className={`rounded-xl h-7 
-                     px-2 py-0.5 text-[14px] tracking-widest
+                    <h3 className={`  rounded-xl h-7 
+                     sm:px-2 py-0.5 px-1 text-[14px] tracking-widest
                      font-medium ${style.color} ${style.background}`}>
                         {style.label}
                     </h3>

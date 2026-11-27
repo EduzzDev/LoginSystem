@@ -300,7 +300,7 @@ function Dashboard() {
             </div>
           </div>
         </nav>
-        <main className="w-82 h-full min-[380px]:w-98 sm:w-136
+        <main className="w-82 min-[370px]:w-90 h-full min-[380px]:w-98 sm:w-136
             flex flex-col  py-6 min-[450px]:mx-6 gap-y-4   ">
           <article className="w-full h-88 min-[380px]:h-91
           min-[380px]:flex-row shrink  shadow-lg shadow-black
